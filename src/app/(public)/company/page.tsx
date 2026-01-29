@@ -190,8 +190,8 @@ export default async function CompanyPage() {
 
       {/* Contact Section */}
       <section className="py-24 px-6 border-t border-[var(--color-border)]">
-        <div className="mx-auto max-w-4xl">
-          <div className="text-center mb-16">
+        <div className="mx-auto max-w-5xl">
+          <div className="text-center mb-12">
             <h2 className="text-3xl font-semibold tracking-tight text-[var(--color-foreground)] md:text-4xl">
               Contact Us
             </h2>
@@ -200,81 +200,75 @@ export default async function CompanyPage() {
             </p>
           </div>
 
-          <div className="grid gap-8 lg:grid-cols-[2fr_3fr]">
-            {/* Contact Info */}
-            <div className="space-y-8">
-              {/* Address */}
-              <div className="flex items-start gap-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[var(--color-card)] border border-[var(--color-border)] text-[var(--color-accent)]">
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+          {/* Map */}
+          <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-2 overflow-hidden mb-8">
+            <KakaoMap
+              latitude={CONTACT_INFO.coordinates.latitude}
+              longitude={CONTACT_INFO.coordinates.longitude}
+              className="h-[320px] md:h-[400px]"
+            />
+          </div>
+
+          {/* Contact Cards */}
+          <div className="grid gap-4 sm:grid-cols-3 mb-8">
+            {/* Address */}
+            <div className="group rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-5 transition-colors hover:border-[var(--color-accent)]/30">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[var(--color-brand-blue)]/10 to-[var(--color-brand-cyan)]/10 text-[var(--color-accent)]">
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
                   </svg>
                 </div>
-                <div>
-                  <h3 className="font-medium text-[var(--color-foreground)]">주소</h3>
-                  <p className="mt-1 text-[var(--color-muted)]">{CONTACT_INFO.address}</p>
-                </div>
+                <h3 className="text-sm font-medium text-[var(--color-foreground)]">주소</h3>
               </div>
+              <p className="text-[var(--color-muted)] text-sm leading-relaxed">{CONTACT_INFO.address}</p>
+            </div>
 
-              {/* Email */}
-              <div className="flex items-start gap-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[var(--color-card)] border border-[var(--color-border)] text-[var(--color-accent)]">
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            {/* Email */}
+            <a
+              href={`mailto:${CONTACT_INFO.email}`}
+              className="group rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-5 transition-colors hover:border-[var(--color-accent)]/30"
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[var(--color-brand-blue)]/10 to-[var(--color-brand-cyan)]/10 text-[var(--color-accent)]">
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
                   </svg>
                 </div>
-                <div>
-                  <h3 className="font-medium text-[var(--color-foreground)]">이메일</h3>
-                  <a
-                    href={`mailto:${CONTACT_INFO.email}`}
-                    className="mt-1 text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors"
-                  >
-                    {CONTACT_INFO.email}
-                  </a>
-                </div>
+                <h3 className="text-sm font-medium text-[var(--color-foreground)]">이메일</h3>
               </div>
+              <p className="text-[var(--color-muted)] text-sm group-hover:text-[var(--color-accent)] transition-colors">{CONTACT_INFO.email}</p>
+            </a>
 
-              {/* Phone */}
-              <div className="flex items-start gap-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[var(--color-card)] border border-[var(--color-border)] text-[var(--color-accent)]">
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            {/* Phone */}
+            <a
+              href={`tel:${CONTACT_INFO.phone}`}
+              className="group rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-5 transition-colors hover:border-[var(--color-accent)]/30"
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[var(--color-brand-blue)]/10 to-[var(--color-brand-cyan)]/10 text-[var(--color-accent)]">
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
                   </svg>
                 </div>
-                <div>
-                  <h3 className="font-medium text-[var(--color-foreground)]">전화</h3>
-                  <a
-                    href={`tel:${CONTACT_INFO.phone}`}
-                    className="mt-1 text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors"
-                  >
-                    {CONTACT_INFO.phone}
-                  </a>
-                </div>
+                <h3 className="text-sm font-medium text-[var(--color-foreground)]">전화</h3>
               </div>
+              <p className="text-[var(--color-muted)] text-sm group-hover:text-[var(--color-accent)] transition-colors">{CONTACT_INFO.phone}</p>
+            </a>
+          </div>
 
-              {/* CTA */}
-              <div className="pt-4">
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[var(--color-brand-blue)] to-[var(--color-brand-cyan)] px-6 py-3 text-sm font-semibold text-[var(--color-background)] transition-opacity hover:opacity-90"
-                >
-                  문의하기
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                  </svg>
-                </Link>
-              </div>
-            </div>
-
-            {/* Map */}
-            <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-2 overflow-hidden">
-              <KakaoMap
-                latitude={CONTACT_INFO.coordinates.latitude}
-                longitude={CONTACT_INFO.coordinates.longitude}
-                className="h-[360px]"
-              />
-            </div>
+          {/* CTA */}
+          <div className="text-center">
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[var(--color-brand-blue)] to-[var(--color-brand-cyan)] px-8 py-3.5 text-sm font-semibold text-[var(--color-background)] transition-opacity hover:opacity-90"
+            >
+              문의하기
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </Link>
           </div>
         </div>
       </section>
