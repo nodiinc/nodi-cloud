@@ -190,7 +190,7 @@ export default async function CompanyPage() {
 
       {/* Contact Section */}
       <section className="py-24 px-6 border-t border-[var(--color-border)]">
-        <div className="mx-auto max-w-6xl">
+        <div className="mx-auto max-w-4xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-semibold tracking-tight text-[var(--color-foreground)] md:text-4xl">
               Contact Us
