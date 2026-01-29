@@ -87,7 +87,7 @@ export default function KakaoMap({ latitude, longitude, className = "" }: KakaoM
         />
         <button
           onClick={resetMap}
-          className="absolute bottom-3 right-3 flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--color-background)]/90 backdrop-blur border border-[var(--color-border)] text-[var(--color-muted)] hover:text-[var(--color-foreground)] hover:border-[var(--color-accent)]/50 transition-colors"
+          className="absolute bottom-3 right-3 z-10 flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--color-background)]/90 backdrop-blur border border-[var(--color-border)] text-[var(--color-muted)] hover:text-[var(--color-foreground)] hover:border-[var(--color-accent)]/50 transition-colors"
           title="위치 초기화"
         >
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

@@ -205,17 +205,6 @@ export default async function LandingPage() {
           </Link>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="border-t border-[var(--color-border)] py-12 px-6">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 md:flex-row">
-          <div className="flex items-center gap-3">
-            <Image src="/nodi-logo-symbol.png" alt="nodi" width={24} height={24} className="rounded" />
-            <span className="text-sm text-[var(--color-muted)]">Bring your nodes into the box</span>
-          </div>
-          <p className="text-sm text-[var(--color-muted)]">&copy; 2026 nodi. All rights reserved.</p>
-        </div>
-      </footer>
     </>
   );
 }
