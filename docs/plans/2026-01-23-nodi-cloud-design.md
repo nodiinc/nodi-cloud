@@ -33,6 +33,7 @@ Publicly accessible pages introducing nodi and its products.
 
 **Pages:**
 - Landing page (hero + product overview + supported protocols)
+- Company page (회사 소개 + 연락처 + Kakao Map)
 - Products detail page
 - Contact/inquiry form
 
