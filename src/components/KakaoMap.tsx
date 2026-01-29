@@ -25,6 +25,7 @@ interface KakaoMapProps {
 export default function KakaoMap({ latitude, longitude, className = "" }: KakaoMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<unknown>(null);
+  const apiKey = process.env.NEXT_PUBLIC_KAKAO_MAP_API_KEY;
 
   function initializeMap() {
     if (!mapRef.current || !window.kakao?.maps) return;
@@ -49,17 +50,25 @@ export default function KakaoMap({ latitude, longitude, className = "" }: KakaoM
     }
   }, [latitude, longitude]);
 
+  if (!apiKey) {
+    return (
+      <div className={`w-full rounded-xl overflow-hidden bg-[var(--color-card)] flex items-center justify-center ${className}`} style={{ minHeight: "320px" }}>
+        <p className="text-[var(--color-muted)]">Kakao Map API 키가 설정되지 않았습니다</p>
+      </div>
+    );
+  }
+
   return (
     <>
       <Script
-        src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_API_KEY}&autoload=false`}
+        src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${apiKey}&autoload=false`}
         strategy="afterInteractive"
         onLoad={initializeMap}
       />
       <div
         ref={mapRef}
         className={`w-full rounded-xl overflow-hidden ${className}`}
-        style={{ minHeight: "320px" }}
+        style={{ minHeight: "320px", backgroundColor: "#1a1a1a" }}
       />
     </>
   );

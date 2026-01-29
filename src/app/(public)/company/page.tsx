@@ -200,7 +200,7 @@ export default async function CompanyPage() {
             </p>
           </div>
 
-          <div className="grid gap-8 lg:grid-cols-2">
+          <div className="grid gap-8 lg:grid-cols-[2fr_3fr]">
             {/* Contact Info */}
             <div className="space-y-8">
               {/* Address */}
