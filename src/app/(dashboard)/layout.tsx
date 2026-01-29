@@ -1,59 +1,86 @@
+import { auth, signOut } from "@/lib/auth";
+import { redirect } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
-const NAV_ITEMS = [
-  { href: "/gateways", label: "Gateways", icon: "⬡" },
-  { href: "/integrations", label: "Integrations", icon: "◈" },
-  { href: "/settings", label: "Settings", icon: "⚙" },
-];
+export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const session = await auth();
 
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+  if (!session) {
+    redirect("/login");
+  }
+
+  const navItems = [
+    { href: "/nodi-edge", label: "nodi-edge", icon: "⬡" },
+    { href: "/integrations", label: "Integrations", icon: "◈" },
+    { href: "/settings", label: "Settings", icon: "⚙" },
+  ];
+
+  // 관리자면 admin 메뉴 추가
+  if (session.user.role === "ADMIN") {
+    navItems.push({ href: "/admin/customers", label: "Admin", icon: "👤" });
+  }
+
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-[var(--background)]">
       {/* Sidebar */}
-      <aside className="fixed left-0 top-0 bottom-0 z-40 flex w-60 flex-col border-r border-border bg-background">
-        <div className="flex h-16 items-center gap-3 px-6">
-          <Image src="/nodi-logo-symbol.png" alt="nodi" width={28} height={28} className="rounded-md" />
-          <Link href="/" className="text-xl font-bold tracking-tight">
-            nodi
+      <aside className="fixed left-0 top-0 h-full w-60 border-r border-[var(--border)] bg-[var(--card)] flex flex-col">
+        {/* Logo */}
+        <div className="p-6 border-b border-[var(--border)]">
+          <Link href="/nodi-edge" className="flex items-center gap-3">
+            <Image src="/nodi-logo-symbol.png" alt="nodi" width={32} height={32} />
+            <span className="font-semibold text-lg">nodi cloud</span>
           </Link>
         </div>
-        <nav className="flex-1 px-3 py-4">
-          {NAV_ITEMS.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-muted transition-colors hover:bg-card-hover hover:text-foreground"
-            >
-              <span className="text-base">{item.icon}</span>
-              {item.label}
-            </Link>
-          ))}
+
+        {/* Navigation */}
+        <nav className="flex-1 p-4">
+          <ul className="space-y-1">
+            {navItems.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className="flex items-center gap-3 px-4 py-3 rounded-lg text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--card-hover)] transition-colors"
+                >
+                  <span>{item.icon}</span>
+                  <span>{item.label}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </nav>
-        <div className="border-t border-border p-4">
-          <div className="flex items-center gap-3">
-            <div className="h-8 w-8 rounded-full bg-card-hover" />
+
+        {/* User */}
+        <div className="p-4 border-t border-[var(--border)]">
+          <div className="flex items-center gap-3 px-4 py-3">
+            <div className="w-8 h-8 rounded-full bg-[var(--accent)] flex items-center justify-center text-black font-medium">
+              {session.user.name?.[0] || session.user.email[0].toUpperCase()}
+            </div>
             <div className="flex-1 min-w-0">
-              <p className="truncate text-sm font-medium">Guest User</p>
-              <p className="truncate text-xs text-muted">guest@example.com</p>
+              <p className="text-sm font-medium truncate">{session.user.name || "User"}</p>
+              <p className="text-xs text-[var(--muted)] truncate">{session.user.email}</p>
             </div>
           </div>
+          <form
+            action={async () => {
+              "use server";
+              await signOut({ redirectTo: "/login" });
+            }}
+          >
+            <button
+              type="submit"
+              className="w-full mt-2 px-4 py-2 text-sm text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--card-hover)] rounded-lg transition-colors text-left"
+            >
+              로그아웃
+            </button>
+          </form>
         </div>
       </aside>
 
       {/* Main Content */}
-      <div className="flex-1 pl-60">
-        <header className="sticky top-0 z-30 flex h-16 items-center border-b border-border bg-background/80 px-8 backdrop-blur-lg">
-          <div className="flex-1" />
-        </header>
-        <main className="p-8">
-          {children}
-        </main>
-      </div>
+      <main className="flex-1 ml-60">
+        <div className="p-8">{children}</div>
+      </main>
     </div>
   );
 }
