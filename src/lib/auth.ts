@@ -8,6 +8,7 @@ import { authConfig } from "./auth.config";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   ...authConfig,
+  session: { strategy: "jwt" },
   adapter: PrismaAdapter(prisma),
   providers: [
     ...authConfig.providers,
@@ -63,18 +64,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return true;
     },
-    async session({ session, user }) {
-      if (session.user) {
-        const dbUser = await prisma.user.findUnique({
-          where: { id: user.id },
-          select: { role: true, customerId: true, emailEncrypted: true },
-        });
-        if (dbUser) {
-          session.user.id = user.id;
-          session.user.role = dbUser.role;
-          session.user.customerId = dbUser.customerId;
-          session.user.email = decryptEmail(dbUser.emailEncrypted);
-        }
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.role = user.role;
+        token.customerId = user.customerId;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (session.user && token) {
+        session.user.id = token.id as string;
+        session.user.role = token.role as string;
+        session.user.customerId = token.customerId as string | null;
       }
       return session;
     },

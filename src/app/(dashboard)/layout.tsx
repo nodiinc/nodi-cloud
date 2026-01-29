@@ -6,70 +6,70 @@ import Link from "next/link";
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const session = await auth();
 
-  if (!session) {
+  if (!session?.user) {
     redirect("/login");
   }
 
   const navItems = [
     { href: "/nodi-edge", label: "nodi-edge", icon: "⬡" },
-    { href: "/integrations", label: "Integrations", icon: "◈" },
     { href: "/settings", label: "Settings", icon: "⚙" },
   ];
 
   // 관리자면 admin 메뉴 추가
   if (session.user.role === "ADMIN") {
-    navItems.push({ href: "/admin/customers", label: "Admin", icon: "👤" });
+    navItems.push({ href: "/admin/customers", label: "Admin", icon: "◆" });
   }
 
   return (
-    <div className="flex min-h-screen bg-[var(--background)]">
+    <div className="flex min-h-screen bg-[var(--color-background)]">
       {/* Sidebar */}
-      <aside className="fixed left-0 top-0 h-full w-60 border-r border-[var(--border)] bg-[var(--card)] flex flex-col">
+      <aside className="fixed left-0 top-0 h-full w-64 border-r border-[var(--color-border)] bg-[var(--color-card)] flex flex-col z-50">
         {/* Logo */}
-        <div className="p-6 border-b border-[var(--border)]">
-          <Link href="/nodi-edge" className="flex items-center gap-3">
-            <Image src="/nodi-logo-symbol.png" alt="nodi" width={32} height={32} />
-            <span className="font-semibold text-lg">nodi cloud</span>
+        <div className="h-16 flex items-center px-6 border-b border-[var(--color-border)]">
+          <Link href="/" className="flex items-center gap-3">
+            <Image src="/nodi-logo-symbol.png" alt="nodi" width={28} height={28} />
+            <span className="font-semibold text-lg text-[var(--color-foreground)]">Nodi Cloud</span>
           </Link>
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 p-4">
-          <ul className="space-y-1">
+        <nav className="flex-1 py-6 px-3 overflow-y-auto">
+          <div className="space-y-1">
             {navItems.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className="flex items-center gap-3 px-4 py-3 rounded-lg text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--card-hover)] transition-colors"
-                >
-                  <span>{item.icon}</span>
-                  <span>{item.label}</span>
-                </Link>
-              </li>
+              <Link
+                key={item.href}
+                href={item.href}
+                className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm text-[var(--color-muted)] hover:text-[var(--color-foreground)] hover:bg-[var(--color-card-hover)] transition-all duration-150"
+              >
+                <span className="text-base opacity-70">{item.icon}</span>
+                <span className="font-medium">{item.label}</span>
+              </Link>
             ))}
-          </ul>
+          </div>
         </nav>
 
         {/* User */}
-        <div className="p-4 border-t border-[var(--border)]">
-          <div className="flex items-center gap-3 px-4 py-3">
-            <div className="w-8 h-8 rounded-full bg-[var(--accent)] flex items-center justify-center text-black font-medium">
-              {session.user.name?.[0] || session.user.email[0].toUpperCase()}
+        <div className="border-t border-[var(--color-border)] p-3">
+          <div className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-[var(--color-background)]/50">
+            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-brand-blue)] flex items-center justify-center text-black font-semibold text-sm">
+              {session.user.name?.[0]?.toUpperCase() || session.user.email[0].toUpperCase()}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium truncate">{session.user.name || "User"}</p>
-              <p className="text-xs text-[var(--muted)] truncate">{session.user.email}</p>
+              <p className="text-sm font-medium text-[var(--color-foreground)] truncate">
+                {session.user.name || "User"}
+              </p>
+              <p className="text-xs text-[var(--color-muted)] truncate">{session.user.email}</p>
             </div>
           </div>
           <form
             action={async () => {
               "use server";
-              await signOut({ redirectTo: "/login" });
+              await signOut({ redirectTo: "/" });
             }}
           >
             <button
               type="submit"
-              className="w-full mt-2 px-4 py-2 text-sm text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--card-hover)] rounded-lg transition-colors text-left"
+              className="w-full mt-3 px-4 py-2.5 text-sm text-[var(--color-muted)] border border-[var(--color-border)] hover:text-[var(--color-foreground)] hover:border-[var(--color-muted)]/50 hover:bg-[var(--color-background)]/50 rounded-lg transition-all"
             >
               로그아웃
             </button>
@@ -78,8 +78,8 @@ export default async function DashboardLayout({ children }: { children: React.Re
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 ml-60">
-        <div className="p-8">{children}</div>
+      <main className="flex-1 ml-64 min-h-screen">
+        <div className="p-6 lg:p-8">{children}</div>
       </main>
     </div>
   );

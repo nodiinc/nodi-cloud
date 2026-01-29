@@ -9,9 +9,5 @@ export const config = {
     "/nodi-edge/:path*",
     "/admin/:path*",
     "/settings/:path*",
-    "/login",
-    "/signup/:path*",
-    "/forgot-password",
-    "/reset-password/:path*",
   ],
 };

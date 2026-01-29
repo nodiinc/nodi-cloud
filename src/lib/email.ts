@@ -16,7 +16,7 @@ export async function sendPasswordResetEmail(email: string, token: string) {
     Source: fromEmail,
     Destination: { ToAddresses: [email] },
     Message: {
-      Subject: { Data: "[nodi cloud] 비밀번호 재설정" },
+      Subject: { Data: "[Nodi Cloud] 비밀번호 재설정" },
       Body: {
         Html: {
           Data: `
