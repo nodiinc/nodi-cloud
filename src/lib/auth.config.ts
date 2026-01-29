@@ -12,7 +12,7 @@ export const authConfig = {
       const isAdmin = auth?.user?.role === "ADMIN";
       const pathname = nextUrl.pathname;
 
-      const protectedRoutes = ["/nodi-edge", "/settings"];
+      const protectedRoutes = ["/dashboard", "/settings"];
       const adminRoutes = ["/admin"];
 
       // Admin routes require admin role

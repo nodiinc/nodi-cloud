@@ -6,7 +6,7 @@ export default auth;
 
 export const config = {
   matcher: [
-    "/nodi-edge/:path*",
+    "/dashboard/:path*",
     "/admin/:path*",
     "/settings/:path*",
   ],

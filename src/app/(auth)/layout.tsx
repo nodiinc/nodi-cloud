@@ -4,10 +4,10 @@ import Link from "next/link";
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-[var(--color-background)]">
-      {/* Logo */}
-      <div className="fixed top-0 left-0 p-6">
+      {/* Logo - same position as main page nav */}
+      <div className="fixed top-0 left-0 right-0 z-50 flex h-16 items-center px-6 md:px-12">
         <Link href="/" className="flex items-center gap-3">
-          <Image src="/nodi-logo-symbol.png" alt="Nodi" width={32} height={32} className="rounded-md" />
+          <Image src="/nodi-logo-symbol.png" alt="Nodi" width={32} height={32} />
           <span className="text-lg font-bold tracking-tight text-[var(--color-foreground)]">Nodi</span>
         </Link>
       </div>

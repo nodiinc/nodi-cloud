@@ -63,7 +63,7 @@ export default function SignupPage({ params }: { params: Promise<{ token: string
     await signIn("credentials", {
       email,
       password,
-      callbackUrl: "/nodi-edge",
+      callbackUrl: "/dashboard",
     });
   }
 

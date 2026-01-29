@@ -11,11 +11,11 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   }
 
   if (session.user.role !== "ADMIN") {
-    redirect("/nodi-edge");
+    redirect("/dashboard");
   }
 
   const navItems = [
-    { href: "/nodi-edge", label: "nodi-edge", icon: "⬡" },
+    { href: "/dashboard", label: "Dashboard", icon: "⬡" },
     { href: "/settings", label: "Settings", icon: "⚙" },
     { href: "/admin/customers", label: "Admin", icon: "◆", active: true },
   ];
@@ -23,7 +23,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const adminSubItems = [
     { href: "/admin/customers", label: "고객 관리" },
     { href: "/admin/users", label: "사용자 관리" },
-    { href: "/admin/nodi-edge", label: "게이트웨이 관리" },
+    { href: "/admin/gateways", label: "게이트웨이 관리" },
   ];
 
   return (
@@ -97,7 +97,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           >
             <button
               type="submit"
-              className="w-full mt-3 px-4 py-2.5 text-sm text-[var(--color-muted)] border border-[var(--color-border)] hover:text-[var(--color-foreground)] hover:border-[var(--color-muted)]/50 hover:bg-[var(--color-background)]/50 rounded-lg transition-all"
+              className="w-full mt-3 px-4 py-2.5 text-sm text-[var(--color-muted)] bg-[var(--color-card-hover)] border border-[var(--color-border)] hover:text-[var(--color-foreground)] hover:border-[var(--color-muted)]/50 rounded-lg transition-all"
             >
               로그아웃
             </button>

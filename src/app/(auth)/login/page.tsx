@@ -26,13 +26,13 @@ export default function LoginPage() {
       setError("이메일 또는 비밀번호가 올바르지 않습니다.");
       setLoading(false);
     } else {
-      window.location.href = "/nodi-edge";
+      window.location.href = "/dashboard";
     }
   }
 
   async function handleGoogleLogin() {
     setLoading(true);
-    await signIn("google", { callbackUrl: "/nodi-edge" });
+    await signIn("google", { callbackUrl: "/dashboard" });
   }
 
   return (
@@ -110,7 +110,7 @@ export default function LoginPage() {
       <button
         onClick={handleGoogleLogin}
         disabled={loading}
-        className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-[var(--color-border)] rounded-lg hover:bg-[var(--color-card-hover)] transition-colors disabled:opacity-50 text-[var(--color-foreground)]"
+        className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-[var(--color-card-hover)] border border-[var(--color-border)] rounded-lg hover:border-[var(--color-muted)]/50 transition-all disabled:opacity-50 text-[var(--color-foreground)]"
       >
         <svg className="w-5 h-5" viewBox="0 0 24 24">
           <path

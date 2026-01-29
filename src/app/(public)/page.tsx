@@ -50,7 +50,7 @@ export default async function LandingPage() {
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 flex h-16 items-center justify-between border-b border-[var(--color-border)] bg-[var(--color-background)]/80 px-6 backdrop-blur-lg md:px-12">
         <Link href="/" className="flex items-center gap-3">
-          <Image src="/nodi-logo-symbol.png" alt="nodi" width={32} height={32} className="rounded-md" />
+          <Image src="/nodi-logo-symbol.png" alt="Nodi" width={32} height={32} />
           <span className="text-lg font-bold tracking-tight text-[var(--color-foreground)]">Nodi</span>
         </Link>
         <div className="flex items-center gap-8">
@@ -73,7 +73,7 @@ export default async function LandingPage() {
           {session?.user ? (
             <div className="flex items-center gap-2">
               <Link
-                href="/nodi-edge"
+                href="/dashboard"
                 className="flex items-center gap-2 rounded-full border border-[var(--color-border)] pl-1 pr-4 py-1 text-sm font-medium transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
               >
                 <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-brand-blue)] flex items-center justify-center text-black text-xs font-semibold">

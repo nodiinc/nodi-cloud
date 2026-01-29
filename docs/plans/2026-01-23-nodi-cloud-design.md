@@ -101,8 +101,8 @@ src/app/
 │   └── reset-password/[token]/ # 비밀번호 재설정
 ├── (dashboard)/           # Authenticated area
 │   ├── layout.tsx         # 사이드바 레이아웃
-│   ├── nodi-edge/         # Gateway list (table)
-│   ├── nodi-edge/[serial]/ # Individual gateway
+│   ├── dashboard/         # Dashboard (게이트웨이 목록 등)
+│   ├── dashboard/[serial]/ # Individual gateway
 │   │   ├── page.tsx       # Time-series charts
 │   │   └── config/        # Remote configuration
 │   └── settings/          # Account settings
@@ -188,6 +188,20 @@ CSS 변수로 정의됨 (`globals.css`의 `@theme inline`):
 - Section heading: 24-32px
 - Body: 16px, line-height 1.6
 
+### Design Principles
+
+#### 일관성 (Consistency)
+- **로고 위치 고정**: 모든 페이지에서 로고는 동일한 위치에 표시
+  - 위치: `fixed top-0 left-0`, `h-16`, `px-6 md:px-12`
+  - 페이지 전환 시 로고가 움직이지 않아야 함
+- **로고 이미지**: 원본 그대로 사용 (라운드 처리 금지)
+- **네비게이션 높이**: 모든 페이지에서 `h-16` (64px) 통일
+
+#### 시각적 계층 (Visual Hierarchy)
+- 메인 페이지: 로고 + "Nodi" (회사명)
+- 로그인 후 대시보드: 로고 + "Nodi Cloud" (제품명)
+- 로고 클릭 시 항상 메인 페이지(`/`)로 이동
+
 ### Components
 
 #### Login Page
@@ -211,8 +225,10 @@ CSS 변수로 정의됨 (`globals.css`의 `@theme inline`):
 
 #### Buttons
 - Primary: `bg-[var(--color-accent)] text-black font-medium rounded-lg hover:opacity-90`
-- Secondary: `border border-[var(--color-border)] rounded-lg hover:bg-[var(--color-card-hover)]`
+- Secondary: `bg-[var(--color-card-hover)] border border-[var(--color-border)] rounded-lg hover:border-[var(--color-muted)]/50`
 - Rounded pill: `rounded-full px-4 py-1.5`
+
+**Note**: Secondary 버튼은 Input 필드(`bg-[var(--color-card)]`)와 구분되도록 더 밝은 `bg-[var(--color-card-hover)]` 배경색을 사용합니다.
 
 #### Cards
 - `rounded-xl border border-[var(--color-border)] bg-[var(--color-card)]`
@@ -222,6 +238,52 @@ CSS 변수로 정의됨 (`globals.css`의 `@theme inline`):
 - Input: `bg-[var(--color-card)] border border-[var(--color-border)] rounded-lg`
 - Focus: `focus:outline-none focus:border-[var(--color-accent)]`
 - 라벨: `text-sm font-medium mb-2`
+
+### Shared UI Components
+
+재사용 가능한 UI 컴포넌트들은 `src/components/ui/`에 정의되어 있습니다.
+
+```
+src/components/ui/
+├── index.ts          # 모든 컴포넌트 export
+├── Button.tsx        # Button, ButtonLink 컴포넌트
+├── Input.tsx         # Input 컴포넌트
+└── Card.tsx          # Card 컴포넌트
+```
+
+#### Button
+
+```tsx
+import { Button, ButtonLink } from "@/components/ui";
+
+// 버튼 variants: primary, secondary, ghost, danger
+// 버튼 sizes: sm, md, lg
+
+<Button variant="primary" size="lg" fullWidth>로그인</Button>
+<Button variant="secondary">취소</Button>
+<ButtonLink href="/dashboard" variant="secondary">대시보드로 이동</ButtonLink>
+```
+
+#### Input
+
+```tsx
+import { Input } from "@/components/ui";
+
+<Input label="이메일" type="email" placeholder="name@example.com" error="유효하지 않은 이메일" />
+```
+
+#### Card
+
+```tsx
+import { Card } from "@/components/ui";
+
+// padding: none, sm, md, lg
+// hover: true/false
+
+<Card hover padding="lg">카드 내용</Card>
+```
+
+**Note**: 새로운 페이지나 컴포넌트를 만들 때는 인라인 스타일 대신 이 공용 컴포넌트들을 사용해야 합니다.
 
 ### Design Reference
 

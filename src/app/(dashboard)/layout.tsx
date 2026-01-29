@@ -11,7 +11,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
   }
 
   const navItems = [
-    { href: "/nodi-edge", label: "nodi-edge", icon: "⬡" },
+    { href: "/dashboard", label: "Dashboard", icon: "⬡" },
     { href: "/settings", label: "Settings", icon: "⚙" },
   ];
 
@@ -69,7 +69,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
           >
             <button
               type="submit"
-              className="w-full mt-3 px-4 py-2.5 text-sm text-[var(--color-muted)] border border-[var(--color-border)] hover:text-[var(--color-foreground)] hover:border-[var(--color-muted)]/50 hover:bg-[var(--color-background)]/50 rounded-lg transition-all"
+              className="w-full mt-3 px-4 py-2.5 text-sm text-[var(--color-muted)] bg-[var(--color-card-hover)] border border-[var(--color-border)] hover:text-[var(--color-foreground)] hover:border-[var(--color-muted)]/50 rounded-lg transition-all"
             >
               로그아웃
             </button>
