@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, use } from "react";
+import { useState, useEffect, useReducer, use } from "react";
 import Link from "next/link";
 
 interface Customer {
@@ -18,17 +18,26 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
   const [customer, setCustomer] = useState<Customer | null>(null);
   const [inviteUrl, setInviteUrl] = useState("");
   const [loading, setLoading] = useState(true);
+  const [refreshKey, refresh] = useReducer((x: number) => x + 1, 0);
 
   useEffect(() => {
-    fetchCustomer();
-  }, [id]);
+    let cancelled = false;
 
-  async function fetchCustomer() {
-    const res = await fetch(`/api/customers/${id}`);
-    const data = await res.json();
-    setCustomer(data);
-    setLoading(false);
-  }
+    async function fetchData() {
+      const res = await fetch(`/api/customers/${id}`);
+      const data = await res.json();
+      if (!cancelled) {
+        setCustomer(data);
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [id, refreshKey]);
 
   async function createInvitation() {
     const res = await fetch("/api/invitations", {
@@ -38,7 +47,7 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
     });
     const data = await res.json();
     setInviteUrl(data.inviteUrl);
-    fetchCustomer();
+    refresh();
   }
 
   async function copyInviteUrl() {

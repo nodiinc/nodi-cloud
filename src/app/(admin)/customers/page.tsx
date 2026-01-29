@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import Link from "next/link";
 
 interface Customer {
@@ -18,18 +18,27 @@ export default function CustomersPage() {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [newCustomer, setNewCustomer] = useState({ code: "", name: "", description: "" });
   const [loading, setLoading] = useState(true);
+  const [refreshKey, refresh] = useReducer((x: number) => x + 1, 0);
 
   useEffect(() => {
-    fetchCustomers();
-  }, [search]);
+    let cancelled = false;
 
-  async function fetchCustomers() {
-    setLoading(true);
-    const res = await fetch(`/api/customers?search=${encodeURIComponent(search)}`);
-    const data = await res.json();
-    setCustomers(data);
-    setLoading(false);
-  }
+    async function fetchData() {
+      setLoading(true);
+      const res = await fetch(`/api/customers?search=${encodeURIComponent(search)}`);
+      const data = await res.json();
+      if (!cancelled) {
+        setCustomers(data);
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [search, refreshKey]);
 
   async function handleCreate(e: React.FormEvent) {
     e.preventDefault();
@@ -42,7 +51,7 @@ export default function CustomersPage() {
     if (res.ok) {
       setShowCreateModal(false);
       setNewCustomer({ code: "", name: "", description: "" });
-      fetchCustomers();
+      refresh();
     }
   }
 
