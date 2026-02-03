@@ -161,26 +161,127 @@ export default function TagBusPage() {
           <h2 className="text-2xl font-semibold text-[var(--color-foreground)] text-center mb-8">
             공유 태그 공간
           </h2>
-          <div className="max-w-4xl mx-auto">
-            <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-6 font-mono text-sm">
-              <pre className="text-[var(--color-muted)] overflow-x-auto">
-{`┌───────────────────────────────────────────────────────────────────────┐
-│                           공유 태그 공간                                │
-│                                                                       │
-│   modbus/temp        vision/defect_count     inference/result         │
-│   ├─ v: 25.5         ├─ v: 3                 ├─ v: "OK"               │
-│   ├─ t: 1706123456   ├─ t: 1706123457        ├─ t: 1706123458         │
-│   └─ q: good         └─ q: good              └─ q: good               │
-│                                                                       │
-│        ▲           ▲           ▲           ▲           ▲              │
-│   ┌────┴────┐ ┌────┴────┐ ┌────┴────┐ ┌────┴────┐ ┌────┴────┐        │
-│   │ Modbus  │ │ 카메라  │ │  추론   │ │ 클라우드│ │  로깅   │        │
-│   │ 인터페  │ │ 인터페  │ │  엔진   │ │  커넥터 │ │ 에이전트│        │
-│   └─────────┘ └─────────┘ └─────────┘ └─────────┘ └─────────┘        │
-│                                                                       │
-│            모든 앱이 동등합니다. 자유롭게 읽고, 쓰고, 싱크합니다.         │
-└───────────────────────────────────────────────────────────────────────┘`}
-              </pre>
+          <div className="max-w-5xl mx-auto">
+            <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-8 overflow-hidden">
+              {/* Shared Tag Space Diagram */}
+              <div className="relative">
+                {/* Tag Space Container */}
+                <div className="relative rounded-xl border-2 border-dashed border-[var(--color-brand-cyan)]/40 bg-gradient-to-b from-[var(--color-brand-cyan)]/5 to-transparent p-6 pb-32">
+                  {/* Header */}
+                  <div className="text-center mb-6">
+                    <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-brand-cyan)]/10 border border-[var(--color-brand-cyan)]/30">
+                      <svg className="w-5 h-5 text-[var(--color-brand-cyan)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
+                      </svg>
+                      <span className="text-sm font-semibold text-[var(--color-brand-cyan)]">Shared Tag Space</span>
+                    </span>
+                  </div>
+
+                  {/* Tags Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                    {/* Tag 1 */}
+                    <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-background)] p-4">
+                      <div className="text-xs font-mono text-[var(--color-brand-cyan)] mb-2">modbus/temperature</div>
+                      <div className="space-y-1 text-xs font-mono">
+                        <div className="flex justify-between">
+                          <span className="text-[var(--color-muted)]">value</span>
+                          <span className="text-[var(--color-foreground)]">25.5</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-[var(--color-muted)]">timestamp</span>
+                          <span className="text-[var(--color-foreground)]">1706123456</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-[var(--color-muted)]">quality</span>
+                          <span className="text-green-400">good</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Tag 2 */}
+                    <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-background)] p-4">
+                      <div className="text-xs font-mono text-[var(--color-brand-cyan)] mb-2">vision/defect_count</div>
+                      <div className="space-y-1 text-xs font-mono">
+                        <div className="flex justify-between">
+                          <span className="text-[var(--color-muted)]">value</span>
+                          <span className="text-[var(--color-foreground)]">3</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-[var(--color-muted)]">timestamp</span>
+                          <span className="text-[var(--color-foreground)]">1706123457</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-[var(--color-muted)]">quality</span>
+                          <span className="text-green-400">good</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Tag 3 */}
+                    <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-background)] p-4">
+                      <div className="text-xs font-mono text-[var(--color-brand-cyan)] mb-2">inference/result</div>
+                      <div className="space-y-1 text-xs font-mono">
+                        <div className="flex justify-between">
+                          <span className="text-[var(--color-muted)]">value</span>
+                          <span className="text-[var(--color-foreground)]">&quot;OK&quot;</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-[var(--color-muted)]">timestamp</span>
+                          <span className="text-[var(--color-foreground)]">1706123458</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-[var(--color-muted)]">quality</span>
+                          <span className="text-green-400">good</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Connection Lines SVG */}
+                  <svg className="absolute left-0 right-0 bottom-24 h-16 w-full" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="lineGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stopColor="var(--color-brand-cyan)" stopOpacity="0.6" />
+                        <stop offset="100%" stopColor="var(--color-brand-cyan)" stopOpacity="0.2" />
+                      </linearGradient>
+                    </defs>
+                    {/* Vertical lines from each app */}
+                    <line x1="10%" y1="100%" x2="10%" y2="0%" stroke="url(#lineGradient)" strokeWidth="2" strokeDasharray="4 4" />
+                    <line x1="30%" y1="100%" x2="30%" y2="0%" stroke="url(#lineGradient)" strokeWidth="2" strokeDasharray="4 4" />
+                    <line x1="50%" y1="100%" x2="50%" y2="0%" stroke="url(#lineGradient)" strokeWidth="2" strokeDasharray="4 4" />
+                    <line x1="70%" y1="100%" x2="70%" y2="0%" stroke="url(#lineGradient)" strokeWidth="2" strokeDasharray="4 4" />
+                    <line x1="90%" y1="100%" x2="90%" y2="0%" stroke="url(#lineGradient)" strokeWidth="2" strokeDasharray="4 4" />
+                  </svg>
+                </div>
+
+                {/* Applications Row */}
+                <div className="grid grid-cols-5 gap-2 md:gap-4 -mt-8 relative z-10 px-2">
+                  {[
+                    { name: "Modbus", sub: "인터페이스", icon: "M" },
+                    { name: "카메라", sub: "인터페이스", icon: "C" },
+                    { name: "추론", sub: "엔진", icon: "AI" },
+                    { name: "클라우드", sub: "커넥터", icon: "☁" },
+                    { name: "로깅", sub: "에이전트", icon: "L" },
+                  ].map((app, i) => (
+                    <div key={app.name} className="flex flex-col items-center">
+                      <div className="w-12 h-12 md:w-16 md:h-16 rounded-xl bg-gradient-to-br from-[var(--color-brand-blue)] to-[var(--color-brand-cyan)] flex items-center justify-center text-black font-bold text-sm md:text-lg shadow-lg shadow-[var(--color-brand-cyan)]/20">
+                        {app.icon}
+                      </div>
+                      <div className="mt-2 text-center">
+                        <div className="text-xs md:text-sm font-medium text-[var(--color-foreground)]">{app.name}</div>
+                        <div className="text-[10px] md:text-xs text-[var(--color-muted)]">{app.sub}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Footer Text */}
+                <div className="text-center mt-8 pt-4 border-t border-[var(--color-border)]">
+                  <p className="text-sm text-[var(--color-muted)]">
+                    모든 앱이 <span className="text-[var(--color-accent)]">동등</span>합니다. 자유롭게 <span className="text-[var(--color-accent)]">읽고</span>, <span className="text-[var(--color-accent)]">쓰고</span>, <span className="text-[var(--color-accent)]">싱크</span>합니다.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </section>

@@ -38,10 +38,10 @@ const PRODUCTS = [
 
 const SERVICES = [
   {
-    name: "계측기 설치",
+    name: "센서·계측기 설치",
     href: "/solutions/sensor-installation",
-    description: "센서 및 계측기 선정부터 설치, 연동까지 원스톱 서비스",
-    features: ["현장 실사", "장비 선정", "설치 및 시운전"],
+    description: "전력, 환경, 설비 상태 계측을 위한 센서 및 계측기 설치 서비스",
+    features: ["현장 조사", "설치 및 배선", "검증 및 교정"],
     icon: (
       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
@@ -49,10 +49,10 @@ const SERVICES = [
     ),
   },
   {
-    name: "엣지 게이트웨이 구축",
-    href: "/solutions/edge-installation",
-    description: "엣지 게이트웨이 현장 설치 및 네트워크 구성 서비스",
-    features: ["네트워크 설계", "하드웨어 설치", "소프트웨어 배포"],
+    name: "데이터 수집 시스템 구축",
+    href: "/solutions/data-collection",
+    description: "Edge Gateway 기반 통합 데이터 수집 시스템 설계 및 구축 서비스",
+    features: ["시스템 설계", "현장 구축", "클라우드 연동"],
     icon: (
       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />

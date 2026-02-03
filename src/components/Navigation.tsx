@@ -17,8 +17,8 @@ const SOLUTIONS_MENU = {
   services: {
     label: "Services",
     items: [
-      { name: "계측기 설치", href: "/solutions/sensor-installation", desc: "센서 및 계측기 구축" },
-      { name: "엣지 게이트웨이 구축", href: "/solutions/edge-installation", desc: "현장 설치 서비스" },
+      { name: "센서·계측기 설치", href: "/solutions/sensor-installation", desc: "현장 센서 및 계측기 구축" },
+      { name: "데이터 수집 시스템 구축", href: "/solutions/data-collection", desc: "엣지 기반 통합 수집 시스템" },
     ],
   },
 };
