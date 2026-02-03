@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { siteConfig } from "@/config";
+import { siteConfig } from "@/config/site";
 
 const SOLUTIONS_MENU = {
   products: {

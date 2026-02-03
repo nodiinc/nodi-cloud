@@ -61,17 +61,24 @@ PORT=20300
 HOST=192.168.45.123
 
 # Database
-DATABASE_URL="postgresql://..."
+DATABASE_URL="postgresql://nodi:nodi_password@localhost:5432/nodi_cloud"
 
 # NextAuth
-NEXTAUTH_URL="http://HOST:PORT"  # PORT/HOST와 일치해야 함
+NEXTAUTH_URL="http://192.168.45.123:20300"  # 실제 접속 URL과 일치 필수
 NEXTAUTH_SECRET="..."
+AUTH_TRUST_HOST=true  # 내부망/개발환경에서 필요
 
-# AWS SES (이메일)
+# Email Encryption
+EMAIL_ENCRYPTION_KEY="..."  # base64 인코딩된 32바이트 키
+
+# AWS SES (이메일 발송)
 AWS_REGION="ap-northeast-2"
 AWS_ACCESS_KEY_ID=""
 AWS_SECRET_ACCESS_KEY=""
 SES_FROM_EMAIL="noreply@example.com"
+
+# Registration
+REGISTRATION_MODE="invite_only"  # open | invite_only
 
 # Kakao Map
 NEXT_PUBLIC_KAKAO_MAP_API_KEY="..."
@@ -121,13 +128,42 @@ npx prisma migrate   # DB 마이그레이션
 
 ## 인증 시스템
 
-- NextAuth.js v5 사용
+### 개요
+- **NextAuth.js v5** (Auth.js) 사용
+- **세션 저장**: JWT 기반 (DB에 세션 테이블 없음)
+- **이메일 저장**: 암호화 (AES-256-GCM) + 해시 (SHA-256)
 - 이메일/비밀번호 + Google OAuth (선택)
 - 역할: `USER`, `ADMIN`
 - 초대 기반 회원가입 (`REGISTRATION_MODE=invite_only`)
 
-**테스트 계정:**
-- admin@test.com / admin123 (관리자)
+### 테스트 계정
+| 이메일 | 비밀번호 | 역할 |
+|--------|----------|------|
+| admin@test.com | admin123 | ADMIN |
+
+### 주요 파일
+- `src/lib/auth.ts` - NextAuth 설정 (providers, callbacks)
+- `src/lib/auth.config.ts` - 미들웨어용 설정
+- `src/lib/crypto.ts` - 이메일 암호화/복호화
+- `src/middleware.ts` - 인증 미들웨어
+
+### 환경변수 (인증 관련)
+```bash
+NEXTAUTH_URL="http://HOST:PORT"  # 반드시 실제 접속 URL과 일치
+NEXTAUTH_SECRET="..."            # 32바이트 이상 시크릿
+AUTH_TRUST_HOST=true             # 비표준 호스트 허용 (개발/내부망)
+EMAIL_ENCRYPTION_KEY="..."       # 이메일 암호화 키 (base64)
+```
+
+### 비밀번호 재설정 (DB 직접)
+```bash
+# 새 해시 생성
+node -e "console.log(require('bcrypt').hashSync('새비밀번호', 10))"
+
+# DB 업데이트
+PGPASSWORD=nodi_password psql -h localhost -U nodi -d nodi_cloud \
+  -c "UPDATE \"User\" SET password='해시값' WHERE role='ADMIN';"
+```
 
 
 ## 스타일 가이드
@@ -150,3 +186,6 @@ npx prisma migrate   # DB 마이그레이션
 1. **포트 변경 시**: `.env`의 `PORT`, `HOST`, `NEXTAUTH_URL` 모두 일치해야 함
 2. **회사 정보 변경 시**: `src/config/site.ts` 한 곳만 수정
 3. **새 페이지 추가 시**: 적절한 route group 선택 (`(public)`, `(dashboard)`, `(admin)`)
+4. **클라이언트 컴포넌트에서 config 사용 시**:
+   - `@/config` (index.ts) 대신 `@/config/site` 직접 import
+   - `env.ts`는 서버 전용 (`process.env` 사용)

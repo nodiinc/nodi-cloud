@@ -1,15 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { signIn } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import { siteConfig } from "@/config/site";
 
-export default function LoginPage() {
+function LoginForm() {
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const urlError = searchParams.get("error");
+    if (urlError) {
+      if (urlError === "CredentialsSignin") {
+        setError("이메일 또는 비밀번호가 올바르지 않습니다.");
+      } else if (urlError === "AccessDenied") {
+        setError("접근이 거부되었습니다. 초대된 사용자만 로그인할 수 있습니다.");
+      } else {
+        setError("로그인 중 오류가 발생했습니다. 다시 시도해주세요.");
+      }
+    }
+  }, [searchParams]);
 
   async function handleCredentialsLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -39,14 +55,14 @@ export default function LoginPage() {
     <div className="space-y-6">
       <div className="text-center">
         <Image
-          src="/nodi-logo-symbol.png"
-          alt="nodi"
+          src={siteConfig.logo.symbol}
+          alt={siteConfig.name}
           width={48}
           height={48}
           className="mx-auto mb-4"
         />
         <h1 className="text-2xl font-semibold text-[var(--color-foreground)]">로그인</h1>
-        <p className="text-[var(--color-muted)] mt-2">Nodi Cloud에 오신 것을 환영합니다</p>
+        <p className="text-[var(--color-muted)] mt-2">{siteConfig.name} Cloud에 오신 것을 환영합니다</p>
       </div>
 
       <form onSubmit={handleCredentialsLogin} className="space-y-4">
@@ -133,5 +149,13 @@ export default function LoginPage() {
         Google로 로그인
       </button>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="text-center text-[var(--color-muted)]">로딩 중...</div>}>
+      <LoginForm />
+    </Suspense>
   );
 }
