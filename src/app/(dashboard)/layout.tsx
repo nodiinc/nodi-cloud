@@ -2,6 +2,7 @@ import { auth, signOut } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { siteConfig } from "@/config";
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const session = await auth();
@@ -27,8 +28,8 @@ export default async function DashboardLayout({ children }: { children: React.Re
         {/* Logo */}
         <div className="h-16 flex items-center px-6 border-b border-[var(--color-border)]">
           <Link href="/" className="flex items-center gap-3">
-            <Image src="/nodi-logo-symbol.png" alt="nodi" width={28} height={28} />
-            <span className="font-semibold text-lg text-[var(--color-foreground)]">Nodi Cloud</span>
+            <Image src={siteConfig.logo.symbol} alt={siteConfig.name} width={28} height={28} />
+            <span className="font-semibold text-lg text-[var(--color-foreground)]">{siteConfig.name} Cloud</span>
           </Link>
         </div>
 

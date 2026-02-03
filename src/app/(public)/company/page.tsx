@@ -1,7 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
-import { auth, signOut } from "@/lib/auth";
 import KakaoMap from "@/components/KakaoMap";
+import { siteConfig } from "@/config";
 
 const CAPABILITIES = [
   {
@@ -24,89 +23,25 @@ const CAPABILITIES = [
   },
 ];
 
-const CONTACT_INFO = {
-  address: "서울특별시 강남구 테헤란로 123, 456호",
-  email: "contact@nodi.co.kr",
-  phone: "+82-2-1234-5678",
-  coordinates: {
-    latitude: 37.5065,
-    longitude: 127.0536,
-  },
+const COORDINATES = {
+  latitude: 37.5065,
+  longitude: 127.0536,
 };
 
-export default async function CompanyPage() {
-  const session = await auth();
+export default function CompanyPage() {
+  const { company, name } = siteConfig;
 
   return (
     <>
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 flex h-16 items-center justify-between border-b border-[var(--color-border)] bg-[var(--color-background)]/80 px-6 backdrop-blur-lg md:px-12">
-        <Link href="/" className="flex items-center gap-3">
-          <Image src="/nodi-logo-symbol.png" alt="Nodi" width={32} height={32} />
-          <span className="text-lg font-bold tracking-tight text-[var(--color-foreground)]">Nodi</span>
-        </Link>
-        <div className="flex items-center gap-8">
-          <Link href="/platform" className="hidden text-sm text-[var(--color-muted)] transition-colors hover:text-[var(--color-foreground)] md:block">
-            Platform
-          </Link>
-          <Link href="/solutions" className="hidden text-sm text-[var(--color-muted)] transition-colors hover:text-[var(--color-foreground)] md:block">
-            Solutions
-          </Link>
-          <Link href="/integrations" className="hidden text-sm text-[var(--color-muted)] transition-colors hover:text-[var(--color-foreground)] md:block">
-            Integrations
-          </Link>
-          <Link href="/resources" className="hidden text-sm text-[var(--color-muted)] transition-colors hover:text-[var(--color-foreground)] lg:block">
-            Resources
-          </Link>
-          <Link href="/company" className="hidden text-sm text-[var(--color-foreground)] transition-colors lg:block">
-            Company
-          </Link>
-
-          {session?.user ? (
-            <div className="flex items-center gap-2">
-              <Link
-                href="/dashboard"
-                className="flex items-center gap-2 rounded-full border border-[var(--color-border)] pl-1 pr-4 py-1 text-sm font-medium transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
-              >
-                <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-brand-blue)] flex items-center justify-center text-black text-xs font-semibold">
-                  {session.user.name?.[0]?.toUpperCase() || session.user.email?.[0]?.toUpperCase() || "U"}
-                </div>
-                <span className="text-[var(--color-foreground)]">Dashboard</span>
-              </Link>
-              <form
-                action={async () => {
-                  "use server";
-                  await signOut({ redirectTo: "/" });
-                }}
-              >
-                <button
-                  type="submit"
-                  className="px-3 py-1.5 text-sm text-[var(--color-muted)] hover:text-[var(--color-foreground)] transition-colors"
-                >
-                  Logout
-                </button>
-              </form>
-            </div>
-          ) : (
-            <Link
-              href="/login"
-              className="rounded-full border border-[var(--color-border)] px-4 py-1.5 text-sm font-medium transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
-            >
-              Login
-            </Link>
-          )}
-        </div>
-      </nav>
-
       {/* Hero Section */}
-      <section className="relative flex min-h-[60vh] flex-col items-center justify-center px-6 pt-16 text-center">
+      <section className="relative flex min-h-[60vh] flex-col items-center justify-center px-6 text-center">
         {/* Background effects */}
         <div className="pointer-events-none absolute top-1/3 left-1/4 h-[400px] w-[400px] rounded-full bg-[var(--color-brand-blue)]/8 blur-3xl" />
         <div className="pointer-events-none absolute bottom-1/4 right-1/4 h-[300px] w-[300px] rounded-full bg-[var(--color-brand-cyan)]/6 blur-3xl" />
 
         <div className="relative mx-auto max-w-4xl">
           <p className="mb-4 text-base font-medium uppercase tracking-widest text-[var(--color-accent)]">
-            About Nodi
+            About {name}
           </p>
           <h1 className="text-4xl font-semibold leading-tight tracking-tight text-[var(--color-foreground)] md:text-6xl">
             공장 데이터 연결의
@@ -118,7 +53,7 @@ export default async function CompanyPage() {
           <p className="mx-auto mt-6 max-w-2xl text-lg text-[var(--color-muted)] leading-relaxed">
             수십 가지 프로토콜, 수백 대의 장비, 끊임없는 데이터.
             <br className="hidden sm:block" />
-            Nodi는 이 모든 것을 하나로 연결하는 산업용 엣지 게이트웨이 플랫폼입니다.
+            {name}는 이 모든 것을 하나로 연결하는 산업용 엣지 게이트웨이 플랫폼입니다.
           </p>
         </div>
       </section>
@@ -177,7 +112,7 @@ export default async function CompanyPage() {
             을 만듭니다&rdquo;
           </blockquote>
           <p className="mt-8 text-[var(--color-muted)] max-w-2xl mx-auto leading-relaxed">
-            Nodi는 복잡한 산업 환경에서도 데이터가 끊김 없이 흐를 수 있도록,
+            {name}는 복잡한 산업 환경에서도 데이터가 끊김 없이 흐를 수 있도록,
             안정적이고 확장 가능한 연결 인프라를 제공합니다.
           </p>
         </div>
@@ -198,8 +133,8 @@ export default async function CompanyPage() {
           {/* Map */}
           <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-2 overflow-hidden mb-8">
             <KakaoMap
-              latitude={CONTACT_INFO.coordinates.latitude}
-              longitude={CONTACT_INFO.coordinates.longitude}
+              latitude={COORDINATES.latitude}
+              longitude={COORDINATES.longitude}
               className="h-[320px] md:h-[400px]"
             />
           </div>
@@ -217,12 +152,12 @@ export default async function CompanyPage() {
                 </div>
                 <h3 className="text-sm font-medium text-[var(--color-foreground)]">주소</h3>
               </div>
-              <p className="text-[var(--color-muted)] text-sm leading-relaxed">{CONTACT_INFO.address}</p>
+              <p className="text-[var(--color-muted)] text-sm leading-relaxed">{company.address}</p>
             </div>
 
             {/* Email */}
             <a
-              href={`mailto:${CONTACT_INFO.email}`}
+              href={`mailto:${company.email}`}
               className="group rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-5 transition-colors hover:border-[var(--color-accent)]/30"
             >
               <div className="flex items-center gap-3 mb-3">
@@ -233,12 +168,12 @@ export default async function CompanyPage() {
                 </div>
                 <h3 className="text-sm font-medium text-[var(--color-foreground)]">이메일</h3>
               </div>
-              <p className="text-[var(--color-muted)] text-sm group-hover:text-[var(--color-accent)] transition-colors">{CONTACT_INFO.email}</p>
+              <p className="text-[var(--color-muted)] text-sm group-hover:text-[var(--color-accent)] transition-colors">{company.email}</p>
             </a>
 
             {/* Phone */}
             <a
-              href={`tel:${CONTACT_INFO.phone}`}
+              href={`tel:${company.phone}`}
               className="group rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-5 transition-colors hover:border-[var(--color-accent)]/30"
             >
               <div className="flex items-center gap-3 mb-3">
@@ -249,7 +184,7 @@ export default async function CompanyPage() {
                 </div>
                 <h3 className="text-sm font-medium text-[var(--color-foreground)]">전화</h3>
               </div>
-              <p className="text-[var(--color-muted)] text-sm group-hover:text-[var(--color-accent)] transition-colors">{CONTACT_INFO.phone}</p>
+              <p className="text-[var(--color-muted)] text-sm group-hover:text-[var(--color-accent)] transition-colors">{company.phone}</p>
             </a>
           </div>
 

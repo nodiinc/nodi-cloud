@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { siteConfig } from "@/config";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -13,8 +14,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Nodi | Industrial Edge Gateway Platform",
-  description: "Monitor, control, and manage your industrial edge gateways from anywhere.",
+  title: siteConfig.title,
+  description: siteConfig.description,
 };
 
 export default function RootLayout({

@@ -1,6 +1,4 @@
-import Image from "next/image";
 import Link from "next/link";
-import { auth, signOut } from "@/lib/auth";
 
 const PROTOCOLS = [
   { name: "MQTT", category: "Cloud" },
@@ -42,70 +40,9 @@ const FEATURES = [
   },
 ];
 
-export default async function LandingPage() {
-  const session = await auth();
-
+export default function LandingPage() {
   return (
     <>
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 flex h-16 items-center justify-between border-b border-[var(--color-border)] bg-[var(--color-background)]/80 px-6 backdrop-blur-lg md:px-12">
-        <Link href="/" className="flex items-center gap-3">
-          <Image src="/nodi-logo-symbol.png" alt="Nodi" width={32} height={32} />
-          <span className="text-lg font-bold tracking-tight text-[var(--color-foreground)]">Nodi</span>
-        </Link>
-        <div className="flex items-center gap-8">
-          <Link href="/platform" className="hidden text-sm text-[var(--color-muted)] transition-colors hover:text-[var(--color-foreground)] md:block">
-            Platform
-          </Link>
-          <Link href="/solutions" className="hidden text-sm text-[var(--color-muted)] transition-colors hover:text-[var(--color-foreground)] md:block">
-            Solutions
-          </Link>
-          <Link href="/integrations" className="hidden text-sm text-[var(--color-muted)] transition-colors hover:text-[var(--color-foreground)] md:block">
-            Integrations
-          </Link>
-          <Link href="/resources" className="hidden text-sm text-[var(--color-muted)] transition-colors hover:text-[var(--color-foreground)] lg:block">
-            Resources
-          </Link>
-          <Link href="/company" className="hidden text-sm text-[var(--color-muted)] transition-colors hover:text-[var(--color-foreground)] lg:block">
-            Company
-          </Link>
-
-          {session?.user ? (
-            <div className="flex items-center gap-2">
-              <Link
-                href="/dashboard"
-                className="flex items-center gap-2 rounded-full border border-[var(--color-border)] pl-1 pr-4 py-1 text-sm font-medium transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
-              >
-                <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-brand-blue)] flex items-center justify-center text-black text-xs font-semibold">
-                  {session.user.name?.[0]?.toUpperCase() || session.user.email?.[0]?.toUpperCase() || "U"}
-                </div>
-                <span className="text-[var(--color-foreground)]">Dashboard</span>
-              </Link>
-              <form
-                action={async () => {
-                  "use server";
-                  await signOut({ redirectTo: "/" });
-                }}
-              >
-                <button
-                  type="submit"
-                  className="px-3 py-1.5 text-sm text-[var(--color-muted)] hover:text-[var(--color-foreground)] transition-colors"
-                >
-                  Logout
-                </button>
-              </form>
-            </div>
-          ) : (
-            <Link
-              href="/login"
-              className="rounded-full border border-[var(--color-border)] px-4 py-1.5 text-sm font-medium transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
-            >
-              Login
-            </Link>
-          )}
-        </div>
-      </nav>
-
       {/* Hero Section */}
       <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center">
         {/* Background gradient glow */}
