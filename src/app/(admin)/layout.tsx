@@ -3,22 +3,29 @@ import { redirect } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
-export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const session = await auth();
 
   if (!session?.user) {
     redirect("/login");
   }
 
+  if (session.user.role !== "ADMIN") {
+    redirect("/dashboard");
+  }
+
   const navItems = [
     { href: "/dashboard", label: "Dashboard", icon: "⬡" },
     { href: "/settings", label: "Settings", icon: "⚙" },
+    { href: "/admin/customers", label: "Admin", icon: "◆", active: true },
   ];
 
-  // 관리자면 admin 메뉴 추가
-  if (session.user.role === "ADMIN") {
-    navItems.push({ href: "/admin/customers", label: "Admin", icon: "◆" });
-  }
+  const adminSubItems = [
+    { href: "/admin/customers", label: "고객 관리" },
+    { href: "/admin/users", label: "사용자 관리" },
+    { href: "/admin/gateways", label: "게이트웨이 관리" },
+    { href: "/admin/inquiries", label: "문의 관리" },
+  ];
 
   return (
     <div className="flex min-h-screen bg-[var(--color-background)]">
@@ -39,12 +46,34 @@ export default async function DashboardLayout({ children }: { children: React.Re
               <Link
                 key={item.href}
                 href={item.href}
-                className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm text-[var(--color-muted)] hover:text-[var(--color-foreground)] hover:bg-[var(--color-card-hover)] transition-all duration-150"
+                className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm transition-all duration-150 ${
+                  item.active
+                    ? "text-[var(--color-accent)] bg-[var(--color-accent)]/10"
+                    : "text-[var(--color-muted)] hover:text-[var(--color-foreground)] hover:bg-[var(--color-card-hover)]"
+                }`}
               >
                 <span className="text-base opacity-70">{item.icon}</span>
                 <span className="font-medium">{item.label}</span>
               </Link>
             ))}
+          </div>
+
+          {/* Admin Sub Menu */}
+          <div className="mt-6 pt-6 border-t border-[var(--color-border)]">
+            <p className="px-4 mb-3 text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">
+              Admin
+            </p>
+            <div className="space-y-1">
+              {adminSubItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="flex items-center gap-3 px-4 py-2 rounded-lg text-sm text-[var(--color-muted)] hover:text-[var(--color-foreground)] hover:bg-[var(--color-card-hover)] transition-all duration-150"
+                >
+                  <span className="font-medium">{item.label}</span>
+                </Link>
+              ))}
+            </div>
           </div>
         </nav>
 

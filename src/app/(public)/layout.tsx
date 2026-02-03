@@ -36,16 +36,31 @@ export default function PublicLayout({
       <main className="pt-16">
         {children}
       </main>
-      <footer className="border-t border-border py-12">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <p className="text-sm text-muted">
-              &copy; 2026 nodi. All rights reserved.
-            </p>
-            <div className="flex gap-6">
-              <Link href="/contact" className="text-sm text-muted hover:text-foreground transition-colors">
-                Contact
+      <footer className="border-t border-border py-8 px-6">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-6 md:grid-cols-[1fr_auto] items-start">
+            {/* Left: Logo, Tagline & Copyright */}
+            <div className="space-y-1">
+              <Link href="/" className="text-xl font-bold tracking-tight">
+                Nodi
               </Link>
+              <p className="text-sm text-muted">
+                Bring your nodes into the box
+              </p>
+              <p className="text-xs text-muted">
+                &copy; 2026 Nodi. All rights reserved.
+              </p>
+            </div>
+
+            {/* Right: Contact Info */}
+            <div className="text-sm text-muted space-y-1 md:text-right">
+              <p>서울특별시 강남구 테헤란로 123, 456호</p>
+              <p>
+                <a href="tel:+82-2-1234-5678" className="hover:text-foreground transition-colors">+82-2-1234-5678</a>
+                {" | "}
+                <a href="mailto:contact@nodi.co.kr" className="hover:text-foreground transition-colors">contact@nodi.co.kr</a>
+              </p>
+              <p>사업자등록번호: 123-45-67890</p>
             </div>
           </div>
         </div>

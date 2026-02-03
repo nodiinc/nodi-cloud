@@ -13,7 +13,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "nodi - Industrial Edge Gateway Platform",
+  title: "Nodi | Industrial Edge Gateway Platform",
   description: "Monitor, control, and manage your industrial edge gateways from anywhere.",
 };
 

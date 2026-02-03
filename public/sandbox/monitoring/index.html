@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DC 모니터링 시스템</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <div class="brand-logo">INTEGRICT</div>
+        <div class="system-title">DC 모니터링 시스템</div>
+      </div>
+      <div class="header-right">
+        <div class="company-logo">HD현대일렉트릭</div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-wrapper">
+      <!-- Sidebar -->
+      <nav class="sidebar">
+        <a href="#" class="nav-item active" data-page="dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7" rx="1"/>
+            <rect x="14" y="3" width="7" height="7" rx="1"/>
+            <rect x="3" y="14" width="7" height="7" rx="1"/>
+            <rect x="14" y="14" width="7" height="7" rx="1"/>
+          </svg>
+          <span>대시보드</span>
+        </a>
+        <a href="#" class="nav-item" data-page="settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+          </svg>
+          <span>설정</span>
+        </a>
+      </nav>
+
+      <!-- Content Area -->
+      <main class="content">
+        <!-- Dashboard Page -->
+        <div class="page active" id="dashboard">
+          <div class="dashboard-grid">
+            <!-- Row 1: Cumulative Stats -->
+            <div class="card stat-card">
+              <div class="card-title">누적 전력 감축량</div>
+              <div class="stat-content">
+                <div class="stat-icon power">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                  </svg>
+                </div>
+                <div class="stat-value"><span id="power-reduction">1,234.5</span><span class="stat-unit">MWh</span></div>
+              </div>
+            </div>
+            <div class="card stat-card">
+              <div class="card-title">누적 탄소 감축량</div>
+              <div class="stat-content">
+                <div class="stat-icon carbon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/>
+                    <path d="M12 6v6l4 2"/>
+                  </svg>
+                </div>
+                <div class="stat-value"><span id="carbon-reduction">567.8</span><span class="stat-unit">tCO₂</span></div>
+              </div>
+            </div>
+            <div class="card stat-card">
+              <div class="card-title">누적 비용 절감량</div>
+              <div class="stat-content">
+                <div class="stat-icon cost">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 6v12M9 9h6M9 15h6"/>
+                  </svg>
+                </div>
+                <div class="stat-value"><span id="cost-saving">89.2</span><span class="stat-unit">백만원</span></div>
+              </div>
+            </div>
+
+            <!-- Row 2: Gauges + Efficiency -->
+            <div class="card gauge-card">
+              <div class="card-title">공급 예비율</div>
+              <div class="gauge-container">
+                <svg class="gauge" viewBox="0 0 120 80">
+                  <path class="gauge-bg" d="M 10 70 A 50 50 0 0 1 110 70"/>
+                  <path class="gauge-fill reserve" d="M 10 70 A 50 50 0 0 1 110 70" id="gauge-reserve"/>
+                </svg>
+                <div class="gauge-value" id="reserve-value">23.5%</div>
+              </div>
+            </div>
+            <div class="card efficiency-card">
+              <div class="card-title">효율 비교</div>
+              <div class="efficiency-bars">
+                <div class="eff-row">
+                  <span class="eff-label">DC</span>
+                  <div class="eff-bar-wrap">
+                    <div class="eff-bar dc" style="width: 94.2%"></div>
+                  </div>
+                  <span class="eff-value dc">94.2%</span>
+                </div>
+                <div class="eff-row">
+                  <span class="eff-label">AC</span>
+                  <div class="eff-bar-wrap">
+                    <div class="eff-bar ac" style="width: 87.5%"></div>
+                  </div>
+                  <span class="eff-value ac">87.5%</span>
+                </div>
+                <div class="eff-diff">DC 절감 효과: <strong>+6.7%</strong></div>
+              </div>
+            </div>
+            <div class="card stacks-card">
+              <div class="card-title">AC/DC 컨버터 스택</div>
+              <div class="mini-stacks">
+                <div class="mini-stack" data-status="normal">
+                  <div class="mini-stack-bar"><div class="mini-stack-fill" style="height: 65%"></div></div>
+                  <div class="mini-stack-info">
+                    <span class="mini-stack-name">#1</span>
+                    <span class="mini-stack-power">32.5kW</span>
+                  </div>
+                </div>
+                <div class="mini-stack" data-status="normal">
+                  <div class="mini-stack-bar"><div class="mini-stack-fill" style="height: 56%"></div></div>
+                  <div class="mini-stack-info">
+                    <span class="mini-stack-name">#2</span>
+                    <span class="mini-stack-power">28.0kW</span>
+                  </div>
+                </div>
+                <div class="mini-stack" data-status="warning">
+                  <div class="mini-stack-bar"><div class="mini-stack-fill warning" style="height: 85%"></div></div>
+                  <div class="mini-stack-info">
+                    <span class="mini-stack-name">#3</span>
+                    <span class="mini-stack-power warning">42.5kW</span>
+                  </div>
+                </div>
+              </div>
+              <div class="stacks-total">총 103.0 / 150 kW (68.7%)</div>
+            </div>
+
+            <!-- Row 3: Flow Diagrams -->
+            <div class="card flow-card dc-flow">
+              <div class="flow-header">
+                <span class="card-title">DC 배전 시스템</span>
+                <span class="flow-eff dc">94.2%</span>
+              </div>
+              <div class="flow-diagram compact">
+                <div class="flow-node">
+                  <div class="node-box grid">계통</div>
+                </div>
+                <div class="flow-arrow-line"><span class="flow-info">100kW<br>AC 380V</span></div>
+                <div class="flow-node">
+                  <div class="node-box converter">AC/DC</div>
+                  <span class="node-eff">96%</span>
+                </div>
+                <div class="flow-arrow-line dc"><span class="flow-info">96kW<br>DC 380V</span></div>
+                <div class="flow-node">
+                  <div class="node-box dcdc">DC/DC</div>
+                  <span class="node-eff">98%</span>
+                </div>
+                <div class="flow-arrow-line dc"><span class="flow-info">94.1kW<br>DC 48V</span></div>
+                <div class="flow-node">
+                  <div class="node-box load">부하</div>
+                </div>
+              </div>
+            </div>
+            <div class="card flow-card ac-flow">
+              <div class="flow-header">
+                <span class="card-title">AC 배전 시스템</span>
+                <span class="flow-eff ac">87.5%</span>
+              </div>
+              <div class="flow-diagram compact">
+                <div class="flow-node">
+                  <div class="node-box grid">계통</div>
+                </div>
+                <div class="flow-arrow-line"><span class="flow-info">100kW<br>AC 380V</span></div>
+                <div class="flow-node">
+                  <div class="node-box transformer">변압기</div>
+                  <span class="node-eff">95%</span>
+                </div>
+                <div class="flow-arrow-line"><span class="flow-info">95kW<br>AC 220V</span></div>
+                <div class="flow-node">
+                  <div class="node-box smps">SMPS</div>
+                  <span class="node-eff">92%</span>
+                </div>
+                <div class="flow-arrow-line dc"><span class="flow-info">87.4kW<br>DC 48V</span></div>
+                <div class="flow-node">
+                  <div class="node-box load">부하</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Row 4: Trend Charts -->
+            <div class="card trend-card">
+              <div class="card-title">역률 (24시간)</div>
+              <div class="chart-wrap">
+                <canvas id="pfTrendChart"></canvas>
+              </div>
+            </div>
+            <div class="card trend-card">
+              <div class="card-title">전압 불평형률 (24시간)</div>
+              <div class="chart-wrap">
+                <canvas id="unbalanceTrendChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Settings Page -->
+        <div class="page" id="settings">
+          <div class="settings-page">
+            <!-- Equipment Settings -->
+            <div class="settings-section">
+              <div class="section-title">설비사양</div>
+              <div class="section-subtitle">AC/DC 컨버터 정격 용량</div>
+              <div class="settings-row-group">
+                <div class="settings-row">
+                  <label>컨버터 #1</label>
+                  <div class="input-group">
+                    <input type="number" value="50" step="0.1">
+                    <span class="unit">kW</span>
+                  </div>
+                </div>
+                <div class="settings-row">
+                  <label>컨버터 #2</label>
+                  <div class="input-group">
+                    <input type="number" value="50" step="0.1">
+                    <span class="unit">kW</span>
+                  </div>
+                </div>
+                <div class="settings-row">
+                  <label>컨버터 #3</label>
+                  <div class="input-group">
+                    <input type="number" value="50" step="0.1">
+                    <span class="unit">kW</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Loss Constants -->
+            <div class="settings-section">
+              <div class="section-title">손실상수</div>
+              <div class="section-subtitle">손실 계수 설정</div>
+              <div class="table-container">
+                <table class="settings-table">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>2차항 계수</th>
+                      <th>1차항 계수</th>
+                      <th>상수항</th>
+                      <th>정격 (kW)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="row-label">DC 부하</td>
+                      <td><input type="number" value="0.0001" step="0.0001"></td>
+                      <td><input type="number" value="0.02" step="0.001"></td>
+                      <td><input type="number" value="0.5" step="0.1"></td>
+                      <td><input type="number" value="100" step="1"></td>
+                    </tr>
+                    <tr>
+                      <td class="row-label">AC 부하</td>
+                      <td><input type="number" value="0.0002" step="0.0001"></td>
+                      <td><input type="number" value="0.05" step="0.001"></td>
+                      <td><input type="number" value="0.8" step="0.1"></td>
+                      <td><input type="number" value="100" step="1"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Tariff Settings -->
+            <div class="settings-section">
+              <div class="section-title">전기요금</div>
+              <div class="section-subtitle">계절별 전기요금 (원/kWh)</div>
+              <div class="table-container">
+                <table class="settings-table">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>경부하</th>
+                      <th>중간부하</th>
+                      <th>최대부하</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="row-label">봄/가을</td>
+                      <td><input type="number" value="65" step="1"></td>
+                      <td><input type="number" value="105" step="1"></td>
+                      <td><input type="number" value="160" step="1"></td>
+                    </tr>
+                    <tr>
+                      <td class="row-label">여름</td>
+                      <td><input type="number" value="70" step="1"></td>
+                      <td><input type="number" value="115" step="1"></td>
+                      <td><input type="number" value="180" step="1"></td>
+                    </tr>
+                    <tr>
+                      <td class="row-label">겨울</td>
+                      <td><input type="number" value="75" step="1"></td>
+                      <td><input type="number" value="120" step="1"></td>
+                      <td><input type="number" value="175" step="1"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="section-subtitle" style="margin-top: 20px;">시간대별 요금 구분</div>
+              <div class="time-mapping">
+                <div class="time-legend">
+                  <span class="legend-item light">경부하</span>
+                  <span class="legend-item mid">중간부하</span>
+                  <span class="legend-item peak">최대부하</span>
+                </div>
+                <div class="time-grid">
+                  <div class="time-row">
+                    <span class="season-label">봄/가을</span>
+                    <div class="hours">
+                      <div class="hour light" data-hour="0">0</div>
+                      <div class="hour light" data-hour="1">1</div>
+                      <div class="hour light" data-hour="2">2</div>
+                      <div class="hour light" data-hour="3">3</div>
+                      <div class="hour light" data-hour="4">4</div>
+                      <div class="hour light" data-hour="5">5</div>
+                      <div class="hour light" data-hour="6">6</div>
+                      <div class="hour light" data-hour="7">7</div>
+                      <div class="hour mid" data-hour="8">8</div>
+                      <div class="hour mid" data-hour="9">9</div>
+                      <div class="hour peak" data-hour="10">10</div>
+                      <div class="hour peak" data-hour="11">11</div>
+                      <div class="hour peak" data-hour="12">12</div>
+                      <div class="hour mid" data-hour="13">13</div>
+                      <div class="hour mid" data-hour="14">14</div>
+                      <div class="hour mid" data-hour="15">15</div>
+                      <div class="hour mid" data-hour="16">16</div>
+                      <div class="hour peak" data-hour="17">17</div>
+                      <div class="hour peak" data-hour="18">18</div>
+                      <div class="hour mid" data-hour="19">19</div>
+                      <div class="hour mid" data-hour="20">20</div>
+                      <div class="hour mid" data-hour="21">21</div>
+                      <div class="hour light" data-hour="22">22</div>
+                      <div class="hour light" data-hour="23">23</div>
+                    </div>
+                  </div>
+                  <div class="time-row">
+                    <span class="season-label">여름</span>
+                    <div class="hours">
+                      <div class="hour light" data-hour="0">0</div>
+                      <div class="hour light" data-hour="1">1</div>
+                      <div class="hour light" data-hour="2">2</div>
+                      <div class="hour light" data-hour="3">3</div>
+                      <div class="hour light" data-hour="4">4</div>
+                      <div class="hour light" data-hour="5">5</div>
+                      <div class="hour light" data-hour="6">6</div>
+                      <div class="hour light" data-hour="7">7</div>
+                      <div class="hour mid" data-hour="8">8</div>
+                      <div class="hour mid" data-hour="9">9</div>
+                      <div class="hour peak" data-hour="10">10</div>
+                      <div class="hour peak" data-hour="11">11</div>
+                      <div class="hour peak" data-hour="12">12</div>
+                      <div class="hour peak" data-hour="13">13</div>
+                      <div class="hour peak" data-hour="14">14</div>
+                      <div class="hour peak" data-hour="15">15</div>
+                      <div class="hour peak" data-hour="16">16</div>
+                      <div class="hour peak" data-hour="17">17</div>
+                      <div class="hour mid" data-hour="18">18</div>
+                      <div class="hour mid" data-hour="19">19</div>
+                      <div class="hour mid" data-hour="20">20</div>
+                      <div class="hour mid" data-hour="21">21</div>
+                      <div class="hour light" data-hour="22">22</div>
+                      <div class="hour light" data-hour="23">23</div>
+                    </div>
+                  </div>
+                  <div class="time-row">
+                    <span class="season-label">겨울</span>
+                    <div class="hours">
+                      <div class="hour light" data-hour="0">0</div>
+                      <div class="hour light" data-hour="1">1</div>
+                      <div class="hour light" data-hour="2">2</div>
+                      <div class="hour light" data-hour="3">3</div>
+                      <div class="hour light" data-hour="4">4</div>
+                      <div class="hour light" data-hour="5">5</div>
+                      <div class="hour light" data-hour="6">6</div>
+                      <div class="hour light" data-hour="7">7</div>
+                      <div class="hour mid" data-hour="8">8</div>
+                      <div class="hour mid" data-hour="9">9</div>
+                      <div class="hour peak" data-hour="10">10</div>
+                      <div class="hour peak" data-hour="11">11</div>
+                      <div class="hour mid" data-hour="12">12</div>
+                      <div class="hour mid" data-hour="13">13</div>
+                      <div class="hour mid" data-hour="14">14</div>
+                      <div class="hour mid" data-hour="15">15</div>
+                      <div class="hour mid" data-hour="16">16</div>
+                      <div class="hour peak" data-hour="17">17</div>
+                      <div class="hour peak" data-hour="18">18</div>
+                      <div class="hour peak" data-hour="19">19</div>
+                      <div class="hour peak" data-hour="20">20</div>
+                      <div class="hour mid" data-hour="21">21</div>
+                      <div class="hour light" data-hour="22">22</div>
+                      <div class="hour light" data-hour="23">23</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Effect Constants -->
+            <div class="settings-section">
+              <div class="section-title">효과상수</div>
+              <div class="section-subtitle">효과 계수 설정</div>
+              <div class="settings-row-group">
+                <div class="settings-row">
+                  <label>CO₂ 배출계수</label>
+                  <div class="input-group">
+                    <input type="number" value="0.4567" step="0.0001">
+                    <span class="unit">ton/kWh</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="settings-actions">
+              <button class="btn-secondary">초기화</button>
+              <button class="btn-primary">저장</button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
