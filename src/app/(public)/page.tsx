@@ -44,34 +44,30 @@ export default function LandingPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center">
+      <section className="relative flex min-h-[80vh] flex-col items-center justify-center overflow-hidden px-6 text-center">
         {/* Background gradient glow */}
         <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-gradient-to-br from-[var(--color-brand-blue)]/10 to-[var(--color-brand-cyan)]/10 blur-3xl" />
 
         <div className="relative mx-auto max-w-4xl">
           <h1 className="text-5xl font-semibold leading-tight tracking-tight text-[var(--color-foreground)] md:text-7xl">
-            Edge data powers
+            제조 AI 도입,
             <br />
             <span className="bg-gradient-to-r from-[var(--color-brand-blue)] to-[var(--color-brand-cyan)] bg-clip-text text-transparent">
-              Industrial IoT
+              데이터 수집이 첫걸음입니다
             </span>
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-[var(--color-muted)] md:text-xl">
-            Connect, monitor, and control your industrial devices from anywhere.
-            One gateway platform for all your field protocols.
+          <p className="mx-auto mt-6 max-w-2xl text-lg text-[var(--color-muted)] md:text-xl leading-relaxed">
+            제조 AI 도입이 가속화되고 있지만,
+            많은 현장에서는 AI 모델 구축을 위한 데이터 인프라가 갖춰지지 않은 상황입니다.
+            <br className="hidden md:block" />
+            Nodi는 산업 현장에 특화된 데이터 수집 솔루션을 제공합니다.
           </p>
-          <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+          <div className="mt-10">
             <Link
-              href="/contact"
+              href="/solutions"
               className="rounded-full bg-gradient-to-r from-[var(--color-brand-blue)] to-[var(--color-brand-cyan)] px-8 py-3 text-sm font-semibold text-[var(--color-background)] transition-opacity hover:opacity-90"
             >
-              Book a Demo
-            </Link>
-            <Link
-              href="/platform"
-              className="rounded-full border border-[var(--color-border)] px-8 py-3 text-sm font-medium transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
-            >
-              Learn More
+              솔루션 알아보기
             </Link>
           </div>
         </div>
@@ -81,10 +77,10 @@ export default function LandingPage() {
       <section className="py-24 px-6">
         <div className="mx-auto max-w-7xl">
           <h2 className="text-center text-3xl font-semibold tracking-tight text-[var(--color-foreground)] md:text-4xl">
-            Built for Industrial Scale
+            산업 현장을 위한 설계
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-center text-[var(--color-muted)]">
-            Everything you need to bridge the gap between field devices and the cloud.
+            현장 장비부터 클라우드까지, 데이터 수집에 필요한 모든 것을 제공합니다.
           </p>
           <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {FEATURES.map((feature) => (
@@ -106,10 +102,10 @@ export default function LandingPage() {
       <section className="py-24 px-6 border-t border-[var(--color-border)]">
         <div className="mx-auto max-w-7xl">
           <h2 className="text-center text-3xl font-semibold tracking-tight text-[var(--color-foreground)] md:text-4xl">
-            Universal Protocol Support
+            다양한 프로토콜 지원
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-center text-[var(--color-muted)]">
-            From cloud messaging to fieldbus — one platform connects them all.
+            클라우드 메시징부터 필드버스까지, 하나의 플랫폼으로 연결합니다.
           </p>
           <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {PROTOCOLS.map((protocol) => (
@@ -129,16 +125,16 @@ export default function LandingPage() {
       <section className="py-24 px-6 border-t border-[var(--color-border)]">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-3xl font-semibold tracking-tight text-[var(--color-foreground)] md:text-4xl">
-            Ready to connect your factory?
+            AI 전환, 데이터 수집부터 시작하세요
           </h2>
           <p className="mt-4 text-[var(--color-muted)]">
-            Get started with nodi edge gateway. Contact us for a demo and pricing.
+            현장 환경에 맞는 데이터 수집 방안을 함께 설계해 드립니다.
           </p>
           <Link
             href="/contact"
             className="mt-8 inline-block rounded-full bg-gradient-to-r from-[var(--color-brand-blue)] to-[var(--color-brand-cyan)] px-8 py-3 text-sm font-semibold text-[var(--color-background)] transition-opacity hover:opacity-90"
           >
-            Get Started
+            상담 요청하기
           </Link>
         </div>
       </section>

@@ -146,7 +146,7 @@ export default function SensorInstallationPage() {
             Service
           </div>
           <h1 className="text-4xl font-semibold tracking-tight text-[var(--color-foreground)] md:text-5xl mb-6">
-            센서·계측기 설치
+            센서 · 계측기 설치
           </h1>
           <p className="text-lg text-[var(--color-muted)] max-w-3xl mx-auto">
             산업 현장의 다양한 측정 요구사항에 맞는 센서 및 계측기를 설치하고,
