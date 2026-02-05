@@ -101,18 +101,21 @@ NEXT_PUBLIC_KAKAO_MAP_API_KEY="..."
 ## 네비게이션 구조
 
 ```
-Solutions ▾          Platform    References    Resources    Company
+Solutions ▾          Industries    References    Company
 ├─ Products
 │   Edge Gateway
-│   Sparkplug B
 │   TagBus
+│   Sparkplug B
+├─ Platform
+│   Nodi Cloud
 ├─ Services
-│   계측기 설치
-│   엣지 게이트웨이 구축
+│   데이터 수집 시스템 구축
+│   센서 · 계측기 설치
 ```
 
 네비게이션은 `src/components/Navigation.tsx`에서 관리.
-드롭다운 메뉴 항목은 `SOLUTIONS_MENU` 상수에 정의.
+드롭다운 메뉴 항목은 `SOLUTIONS_MENU` 배열에 정의.
+모바일에서는 로고+로그인 아래에 메뉴 링크가 가로 스크롤로 표시.
 
 
 ## 개발 명령어
@@ -124,6 +127,25 @@ npm run start        # 프로덕션 서버
 npx prisma studio    # DB 관리 UI
 npx prisma migrate   # DB 마이그레이션
 ```
+
+
+## 배포
+
+프로덕션 서버는 systemd 서비스(`nodi-cloud.service`)로 `npm run start`를 실행합니다.
+빌드된 `.next/` 결과물을 서빙하므로, **코드 변경 후 반드시 빌드 + 재시작**이 필요합니다.
+
+```bash
+# 배포 (빌드 + 서비스 재시작)
+cd /root/nodi-cloud && npm run build && systemctl restart nodi-cloud
+
+# 서비스 상태 확인
+systemctl status nodi-cloud
+
+# 서비스 로그 확인
+journalctl -u nodi-cloud -f
+```
+
+**주의**: `npm run build`만 실행하고 서비스를 재시작하지 않으면, 이전 빌드와 새 빌드의 JS 청크가 불일치하여 클라이언트 에러가 발생합니다.
 
 
 ## 인증 시스템
@@ -164,6 +186,47 @@ node -e "console.log(require('bcrypt').hashSync('새비밀번호', 10))"
 PGPASSWORD=nodi_password psql -h localhost -U nodi -d nodi_cloud \
   -c "UPDATE \"User\" SET password='해시값' WHERE role='ADMIN';"
 ```
+
+
+## 핵심 코드 파일
+
+### 백엔드
+
+| 파일 | 역할 |
+|------|------|
+| `src/lib/auth.ts` | NextAuth 설정 (로그인 로직, JWT 콜백, 세션 관리) |
+| `src/lib/prisma.ts` | Prisma 클라이언트 (DB 연결) |
+| `src/lib/crypto.ts` | 이메일 암호화/복호화 (AES-256-GCM) |
+| `src/lib/email.ts` | AWS SES 이메일 발송 |
+| `src/middleware.ts` | 라우트 보호 (인증/권한 체크) |
+| `prisma/schema.prisma` | DB 스키마 정의 |
+| `src/app/api/customers/route.ts` | 고객 CRUD API |
+| `src/app/api/inquiries/route.ts` | 문의 CRUD API |
+| `src/app/api/invitations/route.ts` | 초대 생성/관리 API |
+
+### 프론트엔드
+
+| 파일 | 역할 |
+|------|------|
+| `src/app/layout.tsx` | 루트 레이아웃 (폰트, 메타데이터) |
+| `src/app/globals.css` | 글로벌 스타일, CSS 변수 (다크테마 색상) |
+| `src/components/Navigation.tsx` | 상단 네비게이션 (드롭다운, 반응형) |
+| `src/config/site.ts` | 사이트/회사 정보 중앙 관리 |
+| `src/app/(public)/page.tsx` | 랜딩 페이지 |
+| `src/app/(public)/solutions/page.tsx` | 솔루션 개요 |
+| `src/app/(dashboard)/dashboard/page.tsx` | 사용자 대시보드 메인 |
+| `src/app/(admin)/customers/page.tsx` | 관리자 고객 관리 |
+
+### DB 모델 (PostgreSQL + Prisma)
+
+| 모델 | 설명 |
+|------|------|
+| `Customer` | 고객사 (게이트웨이 접근 권한 단위) |
+| `User` | 사용자 (USER/ADMIN 역할) |
+| `GatewayAccess` | 고객사별 게이트웨이 접근 권한 |
+| `Invitation` | 초대 토큰 (회원가입용) |
+| `PasswordResetToken` | 비밀번호 재설정 토큰 |
+| `Inquiry` | 문의 (contact 폼) |
 
 
 ## 스타일 가이드

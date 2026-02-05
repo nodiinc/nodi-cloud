@@ -1,5 +1,16 @@
-import Link from "next/link";
-import Image from "next/image";
+import {
+  Button,
+  PageHeader,
+  SectionHeader,
+  Section,
+  FeatureCard,
+  CTACard,
+  CardGrid,
+  HeroBadge,
+  GradientText,
+  IconBox,
+  CircleIcon,
+} from "@/components/ui";
 
 const FEATURES = [
   {
@@ -59,10 +70,10 @@ const FEATURES = [
   },
 ];
 
-const SCREENSHOTS = [
-  { title: "대시보드", desc: "게이트웨이 현황 한눈에" },
-  { title: "장비 상세", desc: "실시간 태그 데이터" },
-  { title: "설정 관리", desc: "원격 설정 변경" },
+const STEPS = [
+  { num: "1", title: "게이트웨이 설치", desc: "현장에 Edge Gateway를 설치하고\n클라우드에 등록합니다" },
+  { num: "2", title: "장비 연결", desc: "PLC, 센서 등 현장 장비를\n게이트웨이에 연결합니다" },
+  { num: "3", title: "모니터링 시작", desc: "대시보드에서 실시간 데이터를\n확인하고 관리합니다" },
 ];
 
 export default function PlatformPage() {
@@ -71,15 +82,11 @@ export default function PlatformPage() {
       <div className="mx-auto max-w-7xl">
         {/* Hero */}
         <div className="text-center mb-20">
-          <div className="inline-block mb-4 px-4 py-1 rounded-full bg-[var(--color-brand-cyan)]/10 text-[var(--color-brand-cyan)] text-sm font-medium">
-            Nodi Cloud Platform
-          </div>
+          <HeroBadge>Nodi Cloud Platform</HeroBadge>
           <h1 className="text-4xl font-semibold tracking-tight text-[var(--color-foreground)] md:text-5xl mb-6">
             모든 현장을
             <br />
-            <span className="bg-gradient-to-r from-[var(--color-brand-blue)] to-[var(--color-brand-cyan)] bg-clip-text text-transparent">
-              하나의 대시보드에서
-            </span>
+            <GradientText>하나의 대시보드에서</GradientText>
           </h1>
           <p className="text-lg text-[var(--color-muted)] max-w-2xl mx-auto mb-10">
             Nodi Cloud Platform은 분산된 산업 현장의 모든 데이터를
@@ -87,18 +94,8 @@ export default function PlatformPage() {
             통합 관리할 수 있는 클라우드 기반 모니터링 플랫폼입니다.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/login"
-              className="rounded-full bg-gradient-to-r from-[var(--color-brand-blue)] to-[var(--color-brand-cyan)] px-8 py-3 text-sm font-semibold text-[var(--color-background)] transition-opacity hover:opacity-90"
-            >
-              무료로 시작하기
-            </Link>
-            <Link
-              href="/contact"
-              className="rounded-full border border-[var(--color-border)] px-8 py-3 text-sm font-medium transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
-            >
-              데모 요청
-            </Link>
+            <Button href="/login">무료로 시작하기</Button>
+            <Button href="/contact" variant="secondary">데모 요청</Button>
           </div>
         </div>
 
@@ -107,11 +104,11 @@ export default function PlatformPage() {
           <div className="relative rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-2 overflow-hidden">
             <div className="aspect-video rounded-xl bg-gradient-to-br from-[var(--color-background)] to-[var(--color-card)] flex items-center justify-center">
               <div className="text-center">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-[var(--color-brand-blue)]/20 to-[var(--color-brand-cyan)]/20 flex items-center justify-center">
-                  <svg className="w-8 h-8 text-[var(--color-brand-cyan)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <IconBox size="xl" variant="gradient" className="mx-auto mb-4">
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
-                </div>
+                </IconBox>
                 <p className="text-[var(--color-muted)]">Dashboard Preview</p>
               </div>
             </div>
@@ -123,24 +120,16 @@ export default function PlatformPage() {
           <h2 className="text-2xl font-semibold text-[var(--color-foreground)] text-center mb-12">
             주요 기능
           </h2>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <CardGrid cols={1} mdCols={2} lgCols={3}>
             {FEATURES.map((feature) => (
-              <div
+              <FeatureCard
                 key={feature.title}
-                className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-6 transition-all hover:border-[var(--color-brand-cyan)]/30"
-              >
-                <div className="w-12 h-12 rounded-xl bg-[var(--color-brand-cyan)]/10 text-[var(--color-brand-cyan)] flex items-center justify-center mb-4">
-                  {feature.icon}
-                </div>
-                <h3 className="text-lg font-medium text-[var(--color-foreground)] mb-2">
-                  {feature.title}
-                </h3>
-                <p className="text-sm text-[var(--color-muted)] leading-relaxed">
-                  {feature.description}
-                </p>
-              </div>
+                icon={<IconBox>{feature.icon}</IconBox>}
+                title={feature.title}
+                description={feature.description}
+              />
             ))}
-          </div>
+          </CardGrid>
         </section>
 
         {/* How it works */}
@@ -148,52 +137,28 @@ export default function PlatformPage() {
           <h2 className="text-2xl font-semibold text-[var(--color-foreground)] text-center mb-12">
             어떻게 동작하나요?
           </h2>
-          <div className="grid gap-8 md:grid-cols-3">
-            <div className="text-center">
-              <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-[var(--color-brand-cyan)]/10 text-[var(--color-brand-cyan)] flex items-center justify-center text-xl font-bold">
-                1
+          <CardGrid cols={1} mdCols={3} gap="lg">
+            {STEPS.map((step) => (
+              <div key={step.num} className="text-center">
+                <CircleIcon size="md" className="mx-auto mb-4">
+                  {step.num}
+                </CircleIcon>
+                <h3 className="font-medium text-[var(--color-foreground)] mb-2">{step.title}</h3>
+                <p className="text-sm text-[var(--color-muted)] whitespace-pre-line">
+                  {step.desc}
+                </p>
               </div>
-              <h3 className="font-medium text-[var(--color-foreground)] mb-2">게이트웨이 설치</h3>
-              <p className="text-sm text-[var(--color-muted)]">
-                현장에 Edge Gateway를 설치하고<br />클라우드에 등록합니다
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-[var(--color-brand-cyan)]/10 text-[var(--color-brand-cyan)] flex items-center justify-center text-xl font-bold">
-                2
-              </div>
-              <h3 className="font-medium text-[var(--color-foreground)] mb-2">장비 연결</h3>
-              <p className="text-sm text-[var(--color-muted)]">
-                PLC, 센서 등 현장 장비를<br />게이트웨이에 연결합니다
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-[var(--color-brand-cyan)]/10 text-[var(--color-brand-cyan)] flex items-center justify-center text-xl font-bold">
-                3
-              </div>
-              <h3 className="font-medium text-[var(--color-foreground)] mb-2">모니터링 시작</h3>
-              <p className="text-sm text-[var(--color-muted)]">
-                대시보드에서 실시간 데이터를<br />확인하고 관리합니다
-              </p>
-            </div>
-          </div>
+            ))}
+          </CardGrid>
         </section>
 
         {/* CTA */}
-        <div className="text-center rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-12">
-          <h2 className="text-2xl font-semibold text-[var(--color-foreground)] mb-4">
-            지금 바로 시작하세요
-          </h2>
-          <p className="text-[var(--color-muted)] mb-8">
-            무료 체험으로 Nodi Cloud Platform의 모든 기능을 경험해보세요
-          </p>
-          <Link
-            href="/login"
-            className="inline-block rounded-full bg-gradient-to-r from-[var(--color-brand-blue)] to-[var(--color-brand-cyan)] px-8 py-3 text-sm font-semibold text-[var(--color-background)] transition-opacity hover:opacity-90"
-          >
-            무료로 시작하기
-          </Link>
-        </div>
+        <CTACard
+          title="지금 바로 시작하세요"
+          description="무료 체험으로 Nodi Cloud Platform의 모든 기능을 경험해보세요"
+        >
+          <Button href="/login">무료로 시작하기</Button>
+        </CTACard>
       </div>
     </div>
   );

@@ -1,80 +1,108 @@
-import { forwardRef, ButtonHTMLAttributes } from "react";
 import Link from "next/link";
+import { forwardRef } from "react";
 
-type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
+// Types
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+type ButtonVariant = "primary" | "secondary" | "ghost";
 type ButtonSize = "sm" | "md" | "lg";
 
 interface ButtonBaseProps {
   variant?: ButtonVariant;
   size?: ButtonSize;
-  fullWidth?: boolean;
-}
-
-interface ButtonAsButtonProps extends ButtonBaseProps, ButtonHTMLAttributes<HTMLButtonElement> {
-  href?: never;
-}
-
-interface ButtonAsLinkProps extends ButtonBaseProps {
-  href: string;
   children: React.ReactNode;
   className?: string;
+  icon?: React.ReactNode;
+  iconPosition?: "left" | "right";
 }
 
-type ButtonProps = ButtonAsButtonProps | ButtonAsLinkProps;
+interface ButtonAsButton extends ButtonBaseProps {
+  href?: never;
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
+  onClick?: () => void;
+}
+
+interface ButtonAsLink extends ButtonBaseProps {
+  href: string;
+  type?: never;
+  disabled?: never;
+  onClick?: never;
+}
+
+type ButtonProps = ButtonAsButton | ButtonAsLink;
+
+
+// Styles
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
-    "bg-[var(--color-accent)] text-black font-medium hover:opacity-90 disabled:opacity-50",
+    "bg-gradient-to-r from-[var(--color-brand-blue)] to-[var(--color-brand-cyan)] text-[var(--color-background)] hover:opacity-90",
   secondary:
-    "bg-[var(--color-card-hover)] border border-[var(--color-border)] text-[var(--color-foreground)] font-medium hover:border-[var(--color-muted)]/50 disabled:opacity-50",
+    "border border-[var(--color-border)] text-[var(--color-foreground)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]",
   ghost:
-    "text-[var(--color-muted)] hover:text-[var(--color-foreground)] hover:bg-[var(--color-card-hover)] disabled:opacity-50",
-  danger:
-    "bg-red-500/10 border border-red-500/20 text-red-400 font-medium hover:bg-red-500/20 disabled:opacity-50",
+    "text-[var(--color-muted)] hover:text-[var(--color-foreground)]",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
-  sm: "px-3 py-1.5 text-sm rounded-md",
-  md: "px-4 py-2.5 text-sm rounded-lg",
-  lg: "px-4 py-3 text-base rounded-lg",
+  sm: "px-4 py-2 text-xs",
+  md: "px-6 py-2.5 text-sm",
+  lg: "px-8 py-3 text-sm",
 };
 
-export const Button = forwardRef<HTMLButtonElement, ButtonAsButtonProps>(
-  ({ variant = "primary", size = "md", fullWidth = false, className = "", children, ...props }, ref) => {
-    const baseStyles = "inline-flex items-center justify-center gap-2 transition-all";
-    const widthStyles = fullWidth ? "w-full" : "";
+const baseStyles =
+  "inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed";
+
+
+// Component
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
+  function Button(props, ref) {
+    const {
+      variant = "primary",
+      size = "lg",
+      children,
+      className = "",
+      icon,
+      iconPosition = "right",
+    } = props;
+
+    const combinedClassName = `${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${className}`;
+
+    const content = (
+      <>
+        {icon && iconPosition === "left" && icon}
+        {children}
+        {icon && iconPosition === "right" && icon}
+      </>
+    );
+
+    if ("href" in props && props.href) {
+      return (
+        <Link
+          href={props.href}
+          className={combinedClassName}
+          ref={ref as React.Ref<HTMLAnchorElement>}
+        >
+          {content}
+        </Link>
+      );
+    }
+
+    const { type = "button", disabled, onClick } = props as ButtonAsButton;
 
     return (
       <button
-        ref={ref}
-        className={`${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${widthStyles} ${className}`}
-        {...props}
+        type={type}
+        disabled={disabled}
+        onClick={onClick}
+        className={combinedClassName}
+        ref={ref as React.Ref<HTMLButtonElement>}
       >
-        {children}
+        {content}
       </button>
     );
   }
 );
-
-Button.displayName = "Button";
-
-export function ButtonLink({
-  variant = "primary",
-  size = "md",
-  fullWidth = false,
-  href,
-  className = "",
-  children,
-}: ButtonAsLinkProps) {
-  const baseStyles = "inline-flex items-center justify-center gap-2 transition-all";
-  const widthStyles = fullWidth ? "w-full" : "";
-
-  return (
-    <Link
-      href={href}
-      className={`${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${widthStyles} ${className}`}
-    >
-      {children}
-    </Link>
-  );
-}

@@ -20,6 +20,10 @@
   --font-mono: var(--font-jetbrains-mono);
 }
 
+html, body {
+  overflow-x: hidden;
+}
+
 body {
   background: var(--color-background);
   color: var(--color-foreground);

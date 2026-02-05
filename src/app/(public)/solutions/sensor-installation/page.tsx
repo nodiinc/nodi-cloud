@@ -1,4 +1,19 @@
-import Link from "next/link";
+import {
+  Button,
+  PageHeader,
+  SectionLabel,
+  CardGrid,
+  CTACard,
+  Card,
+  StatCard,
+  ProcessStepCard,
+  DotList,
+  Badge,
+  CheckCircleIcon,
+  ClockIcon,
+  DocumentIcon,
+  SupportIcon,
+} from "@/components/ui";
 
 const SENSOR_TYPES = [
   {
@@ -98,174 +113,83 @@ const COMMUNICATION_PROTOCOLS = [
 ];
 
 const BENEFITS = [
-  {
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
-    title: "전문 설치",
-    desc: "산업 현장 경험이 풍부한 엔지니어의 전문 설치",
-  },
-  {
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
-    title: "신속한 대응",
-    desc: "현장 상황에 맞는 유연하고 신속한 설치 서비스",
-  },
-  {
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-      </svg>
-    ),
-    title: "완벽한 문서화",
-    desc: "설치 도면, 배선도, 설정값 등 완벽한 문서 제공",
-  },
-  {
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
-    title: "유지보수 지원",
-    desc: "설치 후 지속적인 기술 지원 및 유지보수 서비스",
-  },
+  { icon: <CheckCircleIcon />, title: "전문 설치", desc: "산업 현장 경험이 풍부한 엔지니어의 전문 설치" },
+  { icon: <ClockIcon />, title: "신속한 대응", desc: "현장 상황에 맞는 유연하고 신속한 설치 서비스" },
+  { icon: <DocumentIcon />, title: "완벽한 문서화", desc: "설치 도면, 배선도, 설정값 등 완벽한 문서 제공" },
+  { icon: <SupportIcon />, title: "유지보수 지원", desc: "설치 후 지속적인 기술 지원 및 유지보수 서비스" },
 ];
 
 export default function SensorInstallationPage() {
   return (
     <div className="min-h-screen pt-24 pb-16 px-6">
       <div className="mx-auto max-w-7xl">
-        {/* Hero Section */}
-        <div className="text-center mb-16">
-          <div className="inline-block px-3 py-1 mb-4 text-xs font-medium rounded-full bg-[var(--color-accent)]/10 text-[var(--color-accent)]">
-            Service
-          </div>
-          <h1 className="text-4xl font-semibold tracking-tight text-[var(--color-foreground)] md:text-5xl mb-6">
-            센서 · 계측기 설치
-          </h1>
-          <p className="text-lg text-[var(--color-muted)] max-w-3xl mx-auto">
-            산업 현장의 다양한 측정 요구사항에 맞는 센서 및 계측기를 설치하고,
-            Edge Gateway와 연동하여 실시간 데이터 수집 환경을 구축합니다.
-          </p>
-        </div>
+        <PageHeader
+          badge="Service"
+          title="센서 · 계측기 설치"
+          description="산업 현장의 다양한 측정 요구사항에 맞는 센서 및 계측기를 설치하고, Edge Gateway와 연동하여 실시간 데이터 수집 환경을 구축합니다."
+        />
 
         {/* Benefits */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
+        <CardGrid cols={2} mdCols={4} gap="sm" className="mb-20">
           {BENEFITS.map((benefit) => (
-            <div
+            <StatCard
               key={benefit.title}
-              className="text-center p-6 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)]"
-            >
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[var(--color-accent)]/10 text-[var(--color-accent)] mb-3">
-                {benefit.icon}
-              </div>
-              <div className="text-sm font-semibold text-[var(--color-foreground)] mb-1">{benefit.title}</div>
-              <div className="text-xs text-[var(--color-muted)]">{benefit.desc}</div>
-            </div>
+              icon={benefit.icon}
+              value={benefit.title}
+              label={benefit.desc}
+            />
           ))}
-        </div>
+        </CardGrid>
 
         {/* Sensor Types */}
         <section className="mb-20">
-          <h2 className="text-sm font-semibold text-[var(--color-accent)] uppercase tracking-wider mb-8 text-center">
-            지원 센서 및 계측기
-          </h2>
-          <div className="grid md:grid-cols-3 gap-6">
+          <SectionLabel>지원 센서 및 계측기</SectionLabel>
+          <CardGrid cols={1} mdCols={3}>
             {SENSOR_TYPES.map((category) => (
-              <div
-                key={category.category}
-                className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-6"
-              >
+              <Card key={category.category} size="md">
                 <h3 className="text-lg font-semibold text-[var(--color-foreground)] mb-4">
                   {category.category}
                 </h3>
-                <div className="space-y-3">
-                  {category.items.map((item) => (
-                    <div key={item.name} className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] mt-2 flex-shrink-0" />
-                      <div>
-                        <div className="text-sm font-medium text-[var(--color-foreground)]">{item.name}</div>
-                        <div className="text-xs text-[var(--color-muted)]">{item.desc}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+                <DotList items={category.items} />
+              </Card>
             ))}
-          </div>
+          </CardGrid>
         </section>
 
         {/* Communication Protocols */}
         <section className="mb-20">
-          <h2 className="text-sm font-semibold text-[var(--color-accent)] uppercase tracking-wider mb-8 text-center">
-            지원 통신 프로토콜
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <SectionLabel>지원 통신 프로토콜</SectionLabel>
+          <CardGrid cols={2} mdCols={3} lgCols={6} gap="sm">
             {COMMUNICATION_PROTOCOLS.map((protocol) => (
-              <div
-                key={protocol.name}
-                className="text-center p-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] hover:border-[var(--color-brand-cyan)]/30 transition-colors"
-              >
-                <span className="inline-block px-2 py-0.5 text-[10px] font-medium rounded bg-[var(--color-background)] text-[var(--color-muted)] mb-2">
-                  {protocol.type}
-                </span>
+              <Card key={protocol.name} variant="hover" size="sm" className="text-center">
+                <Badge size="xs" className="mb-2">{protocol.type}</Badge>
                 <div className="text-sm font-semibold text-[var(--color-foreground)]">{protocol.name}</div>
                 <div className="text-xs text-[var(--color-muted)] mt-1">{protocol.desc}</div>
-              </div>
+              </Card>
             ))}
-          </div>
+          </CardGrid>
         </section>
 
         {/* Installation Process */}
         <section className="mb-20">
-          <h2 className="text-sm font-semibold text-[var(--color-accent)] uppercase tracking-wider mb-8 text-center">
-            설치 프로세스
-          </h2>
+          <SectionLabel>설치 프로세스</SectionLabel>
           <div className="space-y-4">
-            {INSTALLATION_PROCESS.map((step, index) => (
-              <div
+            {INSTALLATION_PROCESS.map((step) => (
+              <ProcessStepCard
                 key={step.step}
-                className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-6 md:p-8"
-              >
-                <div className="flex flex-col md:flex-row md:items-start gap-6">
-                  <div className="flex-shrink-0">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[var(--color-brand-blue)] to-[var(--color-brand-cyan)] flex items-center justify-center text-lg font-bold text-black">
-                      {step.step}
-                    </div>
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-xl font-semibold text-[var(--color-foreground)] mb-2">
-                      {step.title}
-                    </h3>
-                    <p className="text-[var(--color-muted)] mb-4">{step.desc}</p>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                      {step.details.map((detail, i) => (
-                        <div key={i} className="flex items-center gap-2 text-sm text-[var(--color-muted)]">
-                          <svg className="w-4 h-4 text-[var(--color-accent)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                          </svg>
-                          {detail}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
+                step={step.step}
+                title={step.title}
+                description={step.desc}
+                details={step.details}
+              />
             ))}
           </div>
         </section>
 
         {/* Integration Diagram Placeholder */}
         <section className="mb-20">
-          <h2 className="text-sm font-semibold text-[var(--color-accent)] uppercase tracking-wider mb-8 text-center">
-            시스템 연동 구성
-          </h2>
-          <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-8">
+          <SectionLabel>시스템 연동 구성</SectionLabel>
+          <Card size="lg">
             <div className="aspect-[16/9] max-w-4xl mx-auto rounded-xl bg-[var(--color-background)] border border-dashed border-[var(--color-border)] flex items-center justify-center">
               <div className="text-center text-[var(--color-muted)]">
                 <svg className="w-16 h-16 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -275,26 +199,22 @@ export default function SensorInstallationPage() {
                 <p className="text-xs mt-1">(다이어그램 이미지 영역)</p>
               </div>
             </div>
-          </div>
+          </Card>
         </section>
 
         {/* CTA */}
-        <div className="text-center rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-12">
-          <h2 className="text-2xl font-semibold text-[var(--color-foreground)] mb-4">
-            설치 문의
-          </h2>
-          <p className="text-[var(--color-muted)] mb-8 max-w-xl mx-auto">
-            현장 환경에 맞는 최적의 센서 및 계측기 설치 방안을 제안해 드립니다.
-            <br />
-            현장 조사부터 설치, 교정까지 원스톱 서비스를 제공합니다.
-          </p>
-          <Link
-            href="/contact"
-            className="inline-block rounded-full bg-gradient-to-r from-[var(--color-brand-blue)] to-[var(--color-brand-cyan)] px-8 py-3 text-sm font-semibold text-[var(--color-background)] transition-opacity hover:opacity-90"
-          >
-            설치 상담 요청
-          </Link>
-        </div>
+        <CTACard
+          title="설치 문의"
+          description={
+            <>
+              현장 환경에 맞는 최적의 센서 및 계측기 설치 방안을 제안해 드립니다.
+              <br />
+              현장 조사부터 설치, 교정까지 원스톱 서비스를 제공합니다.
+            </>
+          }
+        >
+          <Button href="/contact">설치 상담 요청</Button>
+        </CTACard>
       </div>
     </div>
   );

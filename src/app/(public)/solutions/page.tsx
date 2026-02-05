@@ -1,4 +1,11 @@
 import Link from "next/link";
+import {
+  Button,
+  PageHeader,
+  SectionLabel,
+  CardGrid,
+  Tag,
+} from "@/components/ui";
 
 const PRODUCTS = [
   {
@@ -75,120 +82,75 @@ const SERVICES = [
   },
 ];
 
+interface SolutionCardProps {
+  href: string;
+  icon: React.ReactNode;
+  name: string;
+  description: string;
+  features: string[];
+}
+
+function SolutionCard({ href, icon, name, description, features }: SolutionCardProps) {
+  return (
+    <Link
+      href={href}
+      className="group rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-6 transition-all hover:border-[var(--color-brand-cyan)]/50 hover:bg-[var(--color-card-hover)]"
+    >
+      <div className="mb-4 text-[var(--color-brand-cyan)]">{icon}</div>
+      <h3 className="text-xl font-semibold text-[var(--color-foreground)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
+        {name}
+      </h3>
+      <p className="text-sm text-[var(--color-muted)] mb-4 leading-relaxed">
+        {description}
+      </p>
+      <ul className="flex flex-wrap gap-2">
+        {features.map((feature) => (
+          <li key={feature}>
+            <Tag>{feature}</Tag>
+          </li>
+        ))}
+      </ul>
+    </Link>
+  );
+}
+
 export default function SolutionsPage() {
   return (
     <div className="min-h-screen pt-24 pb-16 px-6">
       <div className="mx-auto max-w-7xl">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-semibold tracking-tight text-[var(--color-foreground)] md:text-5xl">
-            Solutions
-          </h1>
-          <p className="mt-4 text-lg text-[var(--color-muted)] max-w-2xl mx-auto">
-            산업 현장의 데이터를 클라우드로 연결하는 통합 솔루션
-          </p>
-        </div>
+        <PageHeader
+          title="Solutions"
+          description="산업 현장의 데이터를 클라우드로 연결하는 통합 솔루션"
+        />
 
         {/* Products Section */}
         <section className="mb-20">
-          <h2 className="text-sm font-semibold text-[var(--color-accent)] uppercase tracking-wider mb-8">
-            Products
-          </h2>
-          <div className="grid gap-6 md:grid-cols-3">
+          <SectionLabel centered={false}>Products</SectionLabel>
+          <CardGrid cols={1} mdCols={3}>
             {PRODUCTS.map((product) => (
-              <Link
-                key={product.href}
-                href={product.href}
-                className="group rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-6 transition-all hover:border-[var(--color-brand-cyan)]/50 hover:bg-[var(--color-card-hover)]"
-              >
-                <div className="mb-4 text-[var(--color-brand-cyan)]">{product.icon}</div>
-                <h3 className="text-xl font-semibold text-[var(--color-foreground)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
-                  {product.name}
-                </h3>
-                <p className="text-sm text-[var(--color-muted)] mb-4 leading-relaxed">
-                  {product.description}
-                </p>
-                <ul className="flex flex-wrap gap-2">
-                  {product.features.map((feature) => (
-                    <li
-                      key={feature}
-                      className="text-xs px-2 py-1 rounded-full bg-[var(--color-background)] text-[var(--color-muted)]"
-                    >
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </Link>
+              <SolutionCard key={product.href} {...product} />
             ))}
-          </div>
+          </CardGrid>
         </section>
 
         {/* Platform Section */}
         <section className="mb-20">
-          <h2 className="text-sm font-semibold text-[var(--color-accent)] uppercase tracking-wider mb-8">
-            Platform
-          </h2>
-          <div className="grid gap-6 md:grid-cols-2">
+          <SectionLabel centered={false}>Platform</SectionLabel>
+          <CardGrid cols={1} mdCols={2}>
             {PLATFORM.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="group rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-6 transition-all hover:border-[var(--color-brand-cyan)]/50 hover:bg-[var(--color-card-hover)]"
-              >
-                <div className="mb-4 text-[var(--color-brand-cyan)]">{item.icon}</div>
-                <h3 className="text-xl font-semibold text-[var(--color-foreground)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
-                  {item.name}
-                </h3>
-                <p className="text-sm text-[var(--color-muted)] mb-4 leading-relaxed">
-                  {item.description}
-                </p>
-                <ul className="flex flex-wrap gap-2">
-                  {item.features.map((feature) => (
-                    <li
-                      key={feature}
-                      className="text-xs px-2 py-1 rounded-full bg-[var(--color-background)] text-[var(--color-muted)]"
-                    >
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </Link>
+              <SolutionCard key={item.href} {...item} />
             ))}
-          </div>
+          </CardGrid>
         </section>
 
         {/* Services Section */}
         <section>
-          <h2 className="text-sm font-semibold text-[var(--color-accent)] uppercase tracking-wider mb-8">
-            Services
-          </h2>
-          <div className="grid gap-6 md:grid-cols-2">
+          <SectionLabel centered={false}>Services</SectionLabel>
+          <CardGrid cols={1} mdCols={2}>
             {SERVICES.map((service) => (
-              <Link
-                key={service.href}
-                href={service.href}
-                className="group rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-6 transition-all hover:border-[var(--color-brand-cyan)]/50 hover:bg-[var(--color-card-hover)]"
-              >
-                <div className="mb-4 text-[var(--color-brand-cyan)]">{service.icon}</div>
-                <h3 className="text-xl font-semibold text-[var(--color-foreground)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
-                  {service.name}
-                </h3>
-                <p className="text-sm text-[var(--color-muted)] mb-4 leading-relaxed">
-                  {service.description}
-                </p>
-                <ul className="flex flex-wrap gap-2">
-                  {service.features.map((feature) => (
-                    <li
-                      key={feature}
-                      className="text-xs px-2 py-1 rounded-full bg-[var(--color-background)] text-[var(--color-muted)]"
-                    >
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </Link>
+              <SolutionCard key={service.href} {...service} />
             ))}
-          </div>
+          </CardGrid>
         </section>
 
         {/* CTA */}
@@ -196,12 +158,7 @@ export default function SolutionsPage() {
           <p className="text-[var(--color-muted)] mb-6">
             어떤 솔루션이 적합한지 모르시겠나요?
           </p>
-          <Link
-            href="/contact"
-            className="inline-block rounded-full bg-gradient-to-r from-[var(--color-brand-blue)] to-[var(--color-brand-cyan)] px-8 py-3 text-sm font-semibold text-[var(--color-background)] transition-opacity hover:opacity-90"
-          >
-            상담 요청하기
-          </Link>
+          <Button href="/contact">상담 요청하기</Button>
         </div>
       </div>
     </div>
