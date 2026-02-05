@@ -3,6 +3,8 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/config";
 
+// Note: Next.js font loader requires literal values
+// Font config is defined in @/config/fonts.ts for reference
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],

@@ -16,15 +16,29 @@ import {
   SectionHeader,
   PageHero,
   PageHeader,
-  GradientText,
-  MutedText,
+  // Typography
+  DisplayText,
+  PageTitle,
+  SectionTitle,
+  SubsectionTitle,
   CardTitle,
+  BodyText,
+  BodyLarge,
+  BodySmall,
+  MutedText,
   CardDescription,
+  LabelText,
+  LabelAccent,
+  CodeText,
+  CodeBlock,
+  GradientText,
+  // Layout
   CardGrid,
   FlexContainer,
   BulletList,
   CheckList,
   DotList,
+  // Icons
   ArrowRightIcon,
   ArrowLeftIcon,
   ChevronDownIcon,
@@ -40,6 +54,7 @@ import {
   HexagonIcon,
   DiamondIcon,
   DiamondOutlineIcon,
+  // Doc components
   ComponentPreview,
   DocSectionDivider,
   DocTableOfContents,
@@ -70,6 +85,9 @@ export default function ComponentsPage() {
           title="Components"
           items={[
             "Badge",
+            "BodyLarge",
+            "BodySmall",
+            "BodyText",
             "BulletList",
             "Button",
             "Card",
@@ -78,8 +96,11 @@ export default function ComponentsPage() {
             "CardTitle",
             "CheckList",
             "CircleIcon",
+            "CodeBlock",
+            "CodeText",
             "ContactCard",
             "CTACard",
+            "DisplayText",
             "DotList",
             "FeatureCard",
             "FlexContainer",
@@ -87,14 +108,19 @@ export default function ComponentsPage() {
             "HeroBadge",
             "IconBox",
             "Icons (15+)",
+            "LabelAccent",
+            "LabelText",
             "MutedText",
             "PageHeader",
             "PageHero",
+            "PageTitle",
             "ProcessStepCard",
             "Section",
             "SectionHeader",
             "SectionLabel",
+            "SectionTitle",
             "StatCard",
+            "SubsectionTitle",
             "Tag",
           ]}
         />
@@ -483,6 +509,88 @@ export default function ComponentsPage() {
         <DocSectionDivider title="Typography" />
 
         <ComponentPreview
+          name="Typography Scale"
+          description="타이포그래피 스케일 - 용도별 텍스트 스타일 (src/config/fonts.ts에서 관리)"
+          code={`<DisplayText>Display Text</DisplayText>
+<PageTitle>Page Title</PageTitle>
+<SectionTitle>Section Title</SectionTitle>
+<SubsectionTitle>Subsection Title</SubsectionTitle>
+<CardTitle>Card Title</CardTitle>
+<BodyLarge>Body Large</BodyLarge>
+<BodyText>Body Text</BodyText>
+<BodySmall>Body Small</BodySmall>`}
+        >
+          <div className="space-y-6">
+            <div>
+              <LabelText>Display (Hero)</LabelText>
+              <DisplayText className="mt-2">Display Text</DisplayText>
+            </div>
+            <div>
+              <LabelText>Page Title</LabelText>
+              <PageTitle className="mt-2">Page Title</PageTitle>
+            </div>
+            <div>
+              <LabelText>Section Title</LabelText>
+              <SectionTitle className="mt-2">Section Title</SectionTitle>
+            </div>
+            <div>
+              <LabelText>Subsection Title</LabelText>
+              <SubsectionTitle className="mt-2">Subsection Title</SubsectionTitle>
+            </div>
+            <div>
+              <LabelText>Card Title</LabelText>
+              <CardTitle className="mt-2">Card Title</CardTitle>
+            </div>
+            <div className="grid md:grid-cols-3 gap-4">
+              <div>
+                <LabelText>Body Large</LabelText>
+                <BodyLarge className="mt-2">Body Large 텍스트입니다.</BodyLarge>
+              </div>
+              <div>
+                <LabelText>Body (default)</LabelText>
+                <BodyText className="mt-2">Body 텍스트입니다.</BodyText>
+              </div>
+              <div>
+                <LabelText>Body Small</LabelText>
+                <BodySmall className="mt-2">Body Small 텍스트입니다.</BodySmall>
+              </div>
+            </div>
+          </div>
+        </ComponentPreview>
+
+        <ComponentPreview
+          name="LabelText"
+          description="레이블, 배지, 메타 정보용 텍스트"
+          code={`<LabelText>Label Text</LabelText>
+<LabelAccent>Accent Label</LabelAccent>`}
+        >
+          <div className="flex flex-wrap gap-6 items-center">
+            <div>
+              <LabelText>Label Text</LabelText>
+            </div>
+            <div>
+              <LabelAccent>Accent Label</LabelAccent>
+            </div>
+          </div>
+        </ComponentPreview>
+
+        <ComponentPreview
+          name="CodeText"
+          description="인라인 코드 및 코드 블록"
+          code={`<CodeText>inline code</CodeText>
+<CodeBlock>code block</CodeBlock>`}
+        >
+          <div className="space-y-4">
+            <p className="text-sm text-[var(--color-muted)]">
+              모든 컴포넌트는 <CodeText>@/components/ui</CodeText>에서 import합니다.
+            </p>
+            <div>
+              <CodeBlock>npm install @nodi/edge-gateway</CodeBlock>
+            </div>
+          </div>
+        </ComponentPreview>
+
+        <ComponentPreview
           name="GradientText"
           description="그라데이션 텍스트"
           code={`<GradientText>Gradient Text</GradientText>
@@ -499,23 +607,16 @@ export default function ComponentsPage() {
         </ComponentPreview>
 
         <ComponentPreview
-          name="CardTitle & CardDescription"
-          description="카드 내부 제목/설명 텍스트"
-          code={`<CardTitle>Card Title</CardTitle>
-<CardDescription>Card description text</CardDescription>`}
+          name="MutedText & CardDescription"
+          description="부가 설명용 회색 텍스트"
+          code={`<MutedText>Muted text</MutedText>
+<CardDescription>Card description</CardDescription>`}
         >
           <Card>
-            <CardTitle>카드 제목 (CardTitle)</CardTitle>
-            <CardDescription>카드 설명 텍스트입니다. 작은 사이즈의 muted 색상 텍스트로 표시됩니다.</CardDescription>
+            <CardTitle>카드 제목</CardTitle>
+            <CardDescription>CardDescription: 카드 설명 텍스트입니다.</CardDescription>
+            <MutedText className="mt-4">MutedText: 일반 회색 텍스트입니다.</MutedText>
           </Card>
-        </ComponentPreview>
-
-        <ComponentPreview
-          name="MutedText"
-          description="회색 텍스트"
-          code={`<MutedText>Muted text content</MutedText>`}
-        >
-          <MutedText>이것은 MutedText 컴포넌트입니다. 부가 설명이나 덜 중요한 정보에 사용합니다.</MutedText>
         </ComponentPreview>
 
 

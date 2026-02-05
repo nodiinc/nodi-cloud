@@ -27,7 +27,25 @@ export { IconBox, CircleIcon } from "./IconBox";
 export { Section, SectionHeader, PageHero, PageHeader } from "./Section";
 
 // Typography
-export { GradientText, MutedText, CardTitle, CardDescription } from "./Typography";
+export {
+  DisplayText,
+  PageTitle,
+  SectionTitle,
+  SubsectionTitle,
+  CardTitle,
+  BodyText,
+  BodyLarge,
+  BodySmall,
+  MutedText,
+  CardDescription,
+  LabelText,
+  LabelAccent,
+  CodeText,
+  CodeBlock,
+  GradientText,
+  typography,
+  textStyles,
+} from "./Typography";
 
 // Grid
 export { CardGrid, FlexContainer } from "./Grid";
