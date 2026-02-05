@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import {
   Button,
   Card,
@@ -43,73 +40,10 @@ import {
   HexagonIcon,
   DiamondIcon,
   DiamondOutlineIcon,
+  ComponentPreview,
+  DocSectionDivider,
+  DocTableOfContents,
 } from "@/components/ui";
-
-
-// Component Preview Wrapper
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-interface ComponentPreviewProps {
-  name: string;
-  description?: string;
-  children: React.ReactNode;
-  code?: string;
-}
-
-function ComponentPreview({ name, description, children, code }: ComponentPreviewProps) {
-  const [showCode, setShowCode] = useState(false);
-
-  return (
-    <div className="mb-12 border border-[var(--color-border)] rounded-xl overflow-hidden">
-      {/* Header */}
-      <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--color-border)] bg-[var(--color-card)]">
-        <div>
-          <h3 className="text-lg font-semibold text-[var(--color-foreground)] font-mono">
-            {name}
-          </h3>
-          {description && (
-            <p className="text-sm text-[var(--color-muted)] mt-1">{description}</p>
-          )}
-        </div>
-        {code && (
-          <button
-            onClick={() => setShowCode(!showCode)}
-            className="text-xs px-3 py-1.5 rounded-lg border border-[var(--color-border)] text-[var(--color-muted)] hover:text-[var(--color-foreground)] hover:border-[var(--color-accent)] transition-colors"
-          >
-            {showCode ? "Hide Code" : "Show Code"}
-          </button>
-        )}
-      </div>
-
-      {/* Preview */}
-      <div className="p-6 bg-[var(--color-background)]">
-        {children}
-      </div>
-
-      {/* Code */}
-      {showCode && code && (
-        <div className="border-t border-[var(--color-border)] bg-[#1a1a1a] p-4 overflow-x-auto">
-          <pre className="text-xs text-[var(--color-muted)] font-mono whitespace-pre-wrap">
-            {code}
-          </pre>
-        </div>
-      )}
-    </div>
-  );
-}
-
-
-// Section Divider
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-function SectionDivider({ title }: { title: string }) {
-  return (
-    <div className="mt-16 mb-8 flex items-center gap-4">
-      <h2 className="text-2xl font-bold text-[var(--color-foreground)]">{title}</h2>
-      <div className="flex-1 h-px bg-[var(--color-border)]" />
-    </div>
-  );
-}
 
 
 // Page Component
@@ -117,7 +51,7 @@ function SectionDivider({ title }: { title: string }) {
 
 export default function ComponentsPage() {
   return (
-    <div className="min-h-screen pt-24 pb-16 px-6">
+    <div id="top" className="min-h-screen pt-24 pb-16 px-6">
       <div className="mx-auto max-w-6xl">
         {/* Page Header */}
         <div className="mb-12">
@@ -132,35 +66,42 @@ export default function ComponentsPage() {
         </div>
 
         {/* Table of Contents */}
-        <div className="mb-12 p-6 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)]">
-          <h2 className="text-sm font-semibold text-[var(--color-muted)] uppercase tracking-wider mb-4">
-            Components
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
-            {[
-              "Button", "Card", "FeatureCard", "StatCard", "CTACard", "ContactCard", "ProcessStepCard",
-              "Badge", "SectionLabel", "Tag", "HeroBadge",
-              "IconBox", "CircleIcon",
-              "Section", "SectionHeader", "PageHero", "PageHeader",
-              "GradientText", "MutedText", "CardTitle", "CardDescription",
-              "CardGrid", "FlexContainer",
-              "BulletList", "CheckList", "DotList",
-              "Icons (15+)"
-            ].map((name) => (
-              <a
-                key={name}
-                href={`#${name.toLowerCase().replace(/[^a-z]/g, "")}`}
-                className="text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors font-mono"
-              >
-                {name}
-              </a>
-            ))}
-          </div>
-        </div>
+        <DocTableOfContents
+          title="Components"
+          items={[
+            "Badge",
+            "BulletList",
+            "Button",
+            "Card",
+            "CardDescription",
+            "CardGrid",
+            "CardTitle",
+            "CheckList",
+            "CircleIcon",
+            "ContactCard",
+            "CTACard",
+            "DotList",
+            "FeatureCard",
+            "FlexContainer",
+            "GradientText",
+            "HeroBadge",
+            "IconBox",
+            "Icons (15+)",
+            "MutedText",
+            "PageHeader",
+            "PageHero",
+            "ProcessStepCard",
+            "Section",
+            "SectionHeader",
+            "SectionLabel",
+            "StatCard",
+            "Tag",
+          ]}
+        />
 
 
         {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
-        <SectionDivider title="Buttons" />
+        <DocSectionDivider title="Buttons" />
 
         <ComponentPreview
           name="Button"
@@ -173,23 +114,51 @@ export default function ComponentsPage() {
 <Button size="md">Medium</Button>
 <Button disabled>Disabled</Button>`}
         >
-          <div className="flex flex-wrap gap-4 items-center">
-            <Button href="#">Primary</Button>
-            <Button variant="secondary">Secondary</Button>
-            <Button variant="ghost">Ghost</Button>
-            <Button icon={<ArrowRightIcon />}>With Icon</Button>
-          </div>
-          <div className="flex flex-wrap gap-4 items-center mt-4">
-            <Button size="sm">Small</Button>
-            <Button size="md">Medium</Button>
-            <Button size="lg">Large</Button>
-            <Button disabled>Disabled</Button>
+          <div className="space-y-6">
+            {/* Variants */}
+            <div>
+              <p className="text-xs text-[var(--color-muted)] mb-3 uppercase tracking-wider">Variants</p>
+              <div className="flex flex-wrap gap-4 items-center">
+                <Button href="#">Primary</Button>
+                <Button variant="secondary">Secondary</Button>
+                <Button variant="ghost">Ghost</Button>
+                <Button icon={<ArrowRightIcon />}>With Icon</Button>
+              </div>
+            </div>
+            {/* Sizes */}
+            <div>
+              <p className="text-xs text-[var(--color-muted)] mb-3 uppercase tracking-wider">Sizes</p>
+              <div className="flex flex-wrap gap-4 items-center">
+                <Button size="sm">Small</Button>
+                <Button size="md">Medium</Button>
+                <Button size="lg">Large</Button>
+              </div>
+            </div>
+            {/* States */}
+            <div>
+              <p className="text-xs text-[var(--color-muted)] mb-3 uppercase tracking-wider">States</p>
+              <div className="flex flex-wrap gap-4 items-center">
+                <Button disabled>Disabled</Button>
+              </div>
+            </div>
+            {/* UI Buttons (used in this page) */}
+            <div>
+              <p className="text-xs text-[var(--color-muted)] mb-3 uppercase tracking-wider">UI Buttons (Show Code, ↑ Top style)</p>
+              <div className="flex flex-wrap gap-4 items-center">
+                <button className="text-xs px-3 py-1.5 rounded-lg border border-[var(--color-border)] text-[var(--color-muted)] hover:text-[var(--color-foreground)] hover:border-[var(--color-accent)] transition-colors">
+                  Show Code
+                </button>
+                <a href="#top" className="text-sm text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors">
+                  ↑ Top
+                </a>
+              </div>
+            </div>
           </div>
         </ComponentPreview>
 
 
         {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
-        <SectionDivider title="Cards" />
+        <DocSectionDivider title="Cards" />
 
         <ComponentPreview
           name="Card"
@@ -315,7 +284,7 @@ export default function ComponentsPage() {
 
 
         {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
-        <SectionDivider title="Badges & Tags" />
+        <DocSectionDivider title="Badges & Tags" />
 
         <ComponentPreview
           name="Badge"
@@ -375,7 +344,7 @@ export default function ComponentsPage() {
 
 
         {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
-        <SectionDivider title="Icon Containers" />
+        <DocSectionDivider title="Icon Containers" />
 
         <ComponentPreview
           name="IconBox"
@@ -429,7 +398,7 @@ export default function ComponentsPage() {
 
 
         {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
-        <SectionDivider title="Layout Components" />
+        <DocSectionDivider title="Layout Components" />
 
         <ComponentPreview
           name="Section"
@@ -511,7 +480,7 @@ export default function ComponentsPage() {
 
 
         {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
-        <SectionDivider title="Typography" />
+        <DocSectionDivider title="Typography" />
 
         <ComponentPreview
           name="GradientText"
@@ -551,7 +520,7 @@ export default function ComponentsPage() {
 
 
         {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
-        <SectionDivider title="Lists" />
+        <DocSectionDivider title="Lists" />
 
         <ComponentPreview
           name="BulletList"
@@ -592,7 +561,7 @@ export default function ComponentsPage() {
 
 
         {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
-        <SectionDivider title="Icons" />
+        <DocSectionDivider title="Icons" />
 
         <ComponentPreview
           name="Icons"

@@ -53,3 +53,6 @@ export {
   DiamondIcon,
   DiamondOutlineIcon,
 } from "./Icons";
+
+// Doc (Documentation components)
+export { ComponentPreview, DocSectionDivider, DocTableOfContents } from "./Doc";
