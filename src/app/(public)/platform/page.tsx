@@ -1,15 +1,16 @@
 import {
   Button,
-  PageHeader,
-  SectionHeader,
-  Section,
-  FeatureCard,
   CTACard,
   CardGrid,
+  FeatureCard,
   HeroBadge,
   GradientText,
   IconBox,
   CircleIcon,
+  PageTitle,
+  SectionTitle,
+  Title,
+  Body,
 } from "@/components/ui";
 
 const FEATURES = [
@@ -83,16 +84,16 @@ export default function PlatformPage() {
         {/* Hero */}
         <div className="text-center mb-20">
           <HeroBadge>Nodi Cloud Platform</HeroBadge>
-          <h1 className="text-4xl font-semibold tracking-tight text-[var(--color-foreground)] md:text-5xl mb-6">
+          <PageTitle className="mb-6">
             모든 현장을
             <br />
             <GradientText>하나의 대시보드에서</GradientText>
-          </h1>
-          <p className="text-lg text-[var(--color-muted)] max-w-2xl mx-auto mb-10">
+          </PageTitle>
+          <Body className="max-w-2xl mx-auto mb-10 text-base md:text-lg">
             Nodi Cloud Platform은 분산된 산업 현장의 모든 데이터를
             <br className="hidden md:block" />
             통합 관리할 수 있는 클라우드 기반 모니터링 플랫폼입니다.
-          </p>
+          </Body>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button href="/login">무료로 시작하기</Button>
             <Button href="/contact" variant="secondary">데모 요청</Button>
@@ -109,7 +110,7 @@ export default function PlatformPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </IconBox>
-                <p className="text-[var(--color-muted)]">Dashboard Preview</p>
+                <Body>Dashboard Preview</Body>
               </div>
             </div>
           </div>
@@ -117,9 +118,7 @@ export default function PlatformPage() {
 
         {/* Features Grid */}
         <section className="mb-20">
-          <h2 className="text-2xl font-semibold text-[var(--color-foreground)] text-center mb-12">
-            주요 기능
-          </h2>
+          <SectionTitle className="text-center mb-12">주요 기능</SectionTitle>
           <CardGrid cols={1} mdCols={2} lgCols={3}>
             {FEATURES.map((feature) => (
               <FeatureCard
@@ -134,19 +133,15 @@ export default function PlatformPage() {
 
         {/* How it works */}
         <section className="mb-20">
-          <h2 className="text-2xl font-semibold text-[var(--color-foreground)] text-center mb-12">
-            어떻게 동작하나요?
-          </h2>
+          <SectionTitle className="text-center mb-12">어떻게 동작하나요?</SectionTitle>
           <CardGrid cols={1} mdCols={3} gap="lg">
             {STEPS.map((step) => (
               <div key={step.num} className="text-center">
                 <CircleIcon size="md" className="mx-auto mb-4">
                   {step.num}
                 </CircleIcon>
-                <h3 className="font-medium text-[var(--color-foreground)] mb-2">{step.title}</h3>
-                <p className="text-sm text-[var(--color-muted)] whitespace-pre-line">
-                  {step.desc}
-                </p>
+                <Title className="mb-2">{step.title}</Title>
+                <Body className="whitespace-pre-line">{step.desc}</Body>
               </div>
             ))}
           </CardGrid>

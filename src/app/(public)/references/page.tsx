@@ -8,7 +8,11 @@ import {
   Badge,
   Tag,
   BulletList,
+  Title,
+  Body,
+  Small,
 } from "@/components/ui";
+import { textStyles } from "@/config/fonts";
 
 const CLIENTS = [
   { name: "HD현대일렉트릭", logo: "/clients/hd-hyundai-electric.png" },
@@ -82,10 +86,10 @@ export default function ReferencesPage() {
         <CardGrid cols={2} mdCols={4} gap="sm" className="mb-20">
           {STATS.map((stat) => (
             <Card key={stat.label} className="text-center">
-              <div className="text-3xl font-semibold text-[var(--color-accent)] mb-1">
+              <div className={`${textStyles.section} text-[var(--color-accent)] mb-1`}>
                 {stat.value}
               </div>
-              <div className="text-sm text-[var(--color-muted)]">{stat.label}</div>
+              <Body>{stat.label}</Body>
             </Card>
           ))}
         </CardGrid>
@@ -97,19 +101,13 @@ export default function ReferencesPage() {
             {CLIENTS.map((client) => (
               <Card key={client.name} variant="hover" className="flex flex-col items-center justify-center p-8">
                 <div className="w-24 h-16 rounded-lg bg-[var(--color-background)] flex items-center justify-center mb-4">
-                  <span className="text-xs text-[var(--color-muted)] text-center px-2">
-                    {client.name}
-                  </span>
+                  <Small className="text-center px-2">{client.name}</Small>
                 </div>
-                <span className="text-sm font-medium text-[var(--color-foreground)] text-center">
-                  {client.name}
-                </span>
+                <Title as="span" className="text-center">{client.name}</Title>
               </Card>
             ))}
           </CardGrid>
-          <p className="text-center text-sm text-[var(--color-muted)] mt-6">
-            * 로고는 고객사 승인 후 게시됩니다
-          </p>
+          <Body className="text-center mt-6">* 로고는 고객사 승인 후 게시됩니다</Body>
         </section>
 
         {/* Projects */}
@@ -117,28 +115,22 @@ export default function ReferencesPage() {
           <SectionLabel>주요 프로젝트</SectionLabel>
           <div className="space-y-6">
             {PROJECTS.map((project) => (
-              <Card
-                key={project.title}
-                variant="hover"
-                size="lg"
-              >
+              <Card key={project.title} variant="hover" size="lg">
                 <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
                   <div>
                     <div className="flex flex-wrap items-center gap-2 mb-2">
                       <Badge variant="accent">{project.category}</Badge>
-                      <span className="text-sm text-[var(--color-muted)]">{project.year}</span>
+                      <Small>{project.year}</Small>
                     </div>
-                    <h3 className="text-xl font-semibold text-[var(--color-foreground)]">
-                      {project.title}
-                    </h3>
-                    <p className="text-[var(--color-muted)] mt-1">{project.client}</p>
+                    <Title as="h3" className="text-lg md:text-xl">{project.title}</Title>
+                    <Body className="mt-1">{project.client}</Body>
                   </div>
                 </div>
 
-                <p className="text-[var(--color-muted)] mb-4">{project.description}</p>
+                <Body className="mb-4">{project.description}</Body>
 
                 <div className="mb-4">
-                  <h4 className="text-sm font-medium text-[var(--color-foreground)] mb-2">주요 내용</h4>
+                  <Title as="h4" className="text-sm mb-2">주요 내용</Title>
                   <BulletList items={project.details} />
                 </div>
 

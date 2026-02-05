@@ -5,8 +5,12 @@ import {
   FeatureCard,
   CTACard,
   CardGrid,
-  GradientText,
   Card,
+  Display,
+  Body,
+  Small,
+  GradientText,
+  Code,
 } from "@/components/ui";
 
 const PROTOCOLS = [
@@ -57,17 +61,17 @@ export default function LandingPage() {
         <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-gradient-to-br from-[var(--color-brand-blue)]/10 to-[var(--color-brand-cyan)]/10 blur-3xl" />
 
         <div className="relative mx-auto max-w-4xl">
-          <h1 className="text-5xl font-semibold leading-tight tracking-tight text-[var(--color-foreground)] md:text-7xl">
+          <Display>
             제조 AI 도입,
             <br />
             <GradientText>데이터 수집이 첫걸음입니다</GradientText>
-          </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-[var(--color-muted)] md:text-xl leading-relaxed">
+          </Display>
+          <Body className="mx-auto mt-6 max-w-2xl text-base md:text-lg">
             제조 AI 도입이 가속화되고 있지만,
             많은 현장에서는 AI 모델 구축을 위한 데이터 인프라가 갖춰지지 않은 상황입니다.
             <br className="hidden md:block" />
             Nodi는 산업 현장에 특화된 데이터 수집 솔루션을 제공합니다.
-          </p>
+          </Body>
           <div className="mt-10">
             <Button href="/solutions">솔루션 알아보기</Button>
           </div>
@@ -100,12 +104,8 @@ export default function LandingPage() {
         <CardGrid cols={1} mdCols={2} lgCols={5} gap="sm">
           {PROTOCOLS.map((protocol) => (
             <Card key={protocol.name} variant="hover" size="sm" className="text-center">
-              <span className="font-mono text-sm font-medium text-[var(--color-foreground)]">
-                {protocol.name}
-              </span>
-              <span className="block mt-1 text-xs text-[var(--color-muted)]">
-                {protocol.category}
-              </span>
+              <Code className="text-[var(--color-foreground)]">{protocol.name}</Code>
+              <Small className="block mt-1">{protocol.category}</Small>
             </Card>
           ))}
         </CardGrid>

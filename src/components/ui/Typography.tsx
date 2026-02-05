@@ -9,113 +9,45 @@ interface TextProps {
   className?: string;
 }
 
-type HeadingElement = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span";
+type HeadingElement = "h1" | "h2" | "h3" | "h4" | "p" | "span" | "div";
 
 interface HeadingProps extends TextProps {
   as?: HeadingElement;
 }
 
 
-// Display Text (Hero headlines)
+// Headings
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-export function DisplayText({ children, className = "", as: Component = "h1" }: HeadingProps) {
-  return (
-    <Component className={`${textStyles.display} ${className}`}>
-      {children}
-    </Component>
-  );
+export function Display({ children, className = "", as: Component = "h1" }: HeadingProps) {
+  return <Component className={`${textStyles.display} ${className}`}>{children}</Component>;
 }
-
-
-// Page Title
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 export function PageTitle({ children, className = "", as: Component = "h1" }: HeadingProps) {
-  return (
-    <Component className={`${textStyles.pageTitle} ${className}`}>
-      {children}
-    </Component>
-  );
+  return <Component className={`${textStyles.pageTitle} ${className}`}>{children}</Component>;
 }
-
-
-// Section Title
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 export function SectionTitle({ children, className = "", as: Component = "h2" }: HeadingProps) {
-  return (
-    <Component className={`${textStyles.sectionTitle} ${className}`}>
-      {children}
-    </Component>
-  );
+  return <Component className={`${textStyles.section} ${className}`}>{children}</Component>;
 }
 
-
-// Subsection Title
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-export function SubsectionTitle({ children, className = "", as: Component = "h3" }: HeadingProps) {
-  return (
-    <Component className={`${textStyles.subsectionTitle} ${className}`}>
-      {children}
-    </Component>
-  );
-}
-
-
-// Card Title
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-export function CardTitle({ children, className = "" }: TextProps) {
-  return (
-    <h3 className={`${textStyles.cardTitle} ${className}`}>
-      {children}
-    </h3>
-  );
+export function Title({ children, className = "", as: Component = "h3" }: HeadingProps) {
+  return <Component className={`${textStyles.title} ${className}`}>{children}</Component>;
 }
 
 
 // Body Text
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-export function BodyText({ children, className = "" }: TextProps) {
+export function Body({ children, className = "" }: TextProps) {
   return <p className={`${textStyles.body} ${className}`}>{children}</p>;
 }
 
-export function BodyLarge({ children, className = "" }: TextProps) {
-  return <p className={`${textStyles.bodyLarge} ${className}`}>{children}</p>;
+export function Small({ children, className = "" }: TextProps) {
+  return <span className={`${textStyles.small} ${className}`}>{children}</span>;
 }
 
-export function BodySmall({ children, className = "" }: TextProps) {
-  return <p className={`${textStyles.bodySmall} ${className}`}>{children}</p>;
-}
-
-
-// Muted Text (alias for BodyText)
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-export function MutedText({ children, className = "" }: TextProps) {
-  return <p className={`${textStyles.body} ${className}`}>{children}</p>;
-}
-
-
-// Card Description
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-export function CardDescription({ children, className = "" }: TextProps) {
-  return (
-    <p className={`${textStyles.body} leading-relaxed ${className}`}>
-      {children}
-    </p>
-  );
-}
-
-
-// Label Text
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-export function LabelText({ children, className = "" }: TextProps) {
+export function Label({ children, className = "" }: TextProps) {
   return <span className={`${textStyles.label} ${className}`}>{children}</span>;
 }
 
@@ -124,15 +56,15 @@ export function LabelAccent({ children, className = "" }: TextProps) {
 }
 
 
-// Code Text
+// Code
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-export function CodeText({ children, className = "" }: TextProps) {
+export function Code({ children, className = "" }: TextProps) {
   return <code className={`${textStyles.code} ${className}`}>{children}</code>;
 }
 
-export function CodeBlock({ children, className = "" }: TextProps) {
-  return <code className={`${textStyles.codeBlock} ${className}`}>{children}</code>;
+export function CodeMuted({ children, className = "" }: TextProps) {
+  return <code className={`${textStyles.codeMuted} ${className}`}>{children}</code>;
 }
 
 
@@ -148,7 +80,23 @@ export function GradientText({ children, className = "", as: Component = "span" 
 }
 
 
-// Re-export typography config for direct access
+// Aliases (backward compatibility)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+export const DisplayText = Display;
+export const CardTitle = Title;
+export const CardDescription = Body;
+export const MutedText = Body;
+export const BodyText = Body;
+export const BodyLarge = Body;
+export const BodySmall = Small;
+export const SubsectionTitle = Title;
+export const LabelText = Label;
+export const CodeText = Code;
+export const CodeBlock = CodeMuted;
+
+
+// Re-export config
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 export { typography, textStyles };

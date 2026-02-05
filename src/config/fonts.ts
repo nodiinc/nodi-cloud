@@ -2,16 +2,12 @@
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // Note: Actual font loading happens in src/app/layout.tsx
 // Next.js font loader requires literal values, so we can't use these variables there
-// This config is for reference and typography style definitions
 
 export const fontsConfig = {
-  // Font Families
   families: {
     sans: "Inter",
     mono: "JetBrains Mono",
   },
-
-  // CSS Variable Names (defined in layout.tsx)
   variables: {
     sans: "--font-inter",
     mono: "--font-jetbrains-mono",
@@ -19,64 +15,63 @@ export const fontsConfig = {
 };
 
 
-// Typography Styles
+// Typography Scale (6 levels only)
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//
+// display     → Hero headlines (landing page)
+// pageTitle   → Page titles
+// section     → Section headers
+// title       → Card titles, subsections
+// body        → Default text
+// small       → Labels, meta, captions
+//
 
 export const typography = {
-  // Display - Landing hero, main headlines
-  display: "text-5xl md:text-7xl font-semibold leading-tight tracking-tight",
+  // Display - Hero headlines only
+  display: "text-4xl sm:text-5xl md:text-6xl font-semibold leading-tight tracking-tight",
 
   // Page Title - Top of each page
-  pageTitle: "text-4xl md:text-5xl font-semibold tracking-tight",
+  pageTitle: "text-3xl md:text-4xl font-semibold tracking-tight",
 
-  // Section Title - Major sections within a page
-  sectionTitle: "text-2xl font-semibold",
+  // Section - Section headers within a page
+  section: "text-xl md:text-2xl font-semibold",
 
-  // Subsection Title - Subsections, card groups
-  subsectionTitle: "text-xl font-semibold",
+  // Title - Card titles, subsection headers
+  title: "text-base md:text-lg font-semibold",
 
-  // Card Title - Individual card headers
-  cardTitle: "text-lg font-semibold",
+  // Body - Standard text (default)
+  body: "text-sm leading-relaxed",
 
-  // Body Large - Intro paragraphs, descriptions
-  bodyLarge: "text-lg",
+  // Small - Labels, badges, meta info, captions
+  small: "text-xs",
 
-  // Body - Standard body text
-  body: "text-sm",
-
-  // Body Small - Secondary text, captions
-  bodySmall: "text-xs",
-
-  // Label - Section labels, badges, meta info
+  // Label - Uppercase labels
   label: "text-xs font-medium uppercase tracking-wider",
 
-  // Code - Inline code, technical values
-  code: "font-mono",
-
-  // Code Block - Code blocks, component names
-  codeBlock: "text-sm font-mono",
+  // Code
+  code: "font-mono text-sm",
 };
 
 
-// Semantic Typography (with color)
+// Text Styles (typography + color)
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 export const textStyles = {
-  // Headings
+  // Headings (foreground color)
   display: `${typography.display} text-[var(--color-foreground)]`,
   pageTitle: `${typography.pageTitle} text-[var(--color-foreground)]`,
-  sectionTitle: `${typography.sectionTitle} text-[var(--color-foreground)]`,
-  subsectionTitle: `${typography.subsectionTitle} text-[var(--color-foreground)]`,
-  cardTitle: `${typography.cardTitle} text-[var(--color-foreground)]`,
+  section: `${typography.section} text-[var(--color-foreground)]`,
+  title: `${typography.title} text-[var(--color-foreground)]`,
 
-  // Body
-  bodyLarge: `${typography.bodyLarge} text-[var(--color-muted)]`,
+  // Body (muted color)
   body: `${typography.body} text-[var(--color-muted)]`,
-  bodySmall: `${typography.bodySmall} text-[var(--color-muted)]`,
+  small: `${typography.small} text-[var(--color-muted)]`,
 
-  // Special
+  // Labels
   label: `${typography.label} text-[var(--color-muted)]`,
   labelAccent: `${typography.label} text-[var(--color-accent)]`,
+
+  // Code
   code: `${typography.code} text-[var(--color-accent)]`,
-  codeBlock: `${typography.codeBlock} text-[var(--color-muted)]`,
+  codeMuted: `${typography.code} text-[var(--color-muted)]`,
 };

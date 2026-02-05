@@ -26,25 +26,36 @@ export { IconBox, CircleIcon } from "./IconBox";
 // Section
 export { Section, SectionHeader, PageHero, PageHeader } from "./Section";
 
-// Typography
+// Typography (core)
 export {
-  DisplayText,
+  Display,
   PageTitle,
   SectionTitle,
-  SubsectionTitle,
-  CardTitle,
-  BodyText,
-  BodyLarge,
-  BodySmall,
-  MutedText,
-  CardDescription,
-  LabelText,
+  Title,
+  Body,
+  Small,
+  Label,
   LabelAccent,
-  CodeText,
-  CodeBlock,
+  Code,
+  CodeMuted,
   GradientText,
   typography,
   textStyles,
+} from "./Typography";
+
+// Typography (aliases for backward compatibility)
+export {
+  DisplayText,
+  CardTitle,
+  CardDescription,
+  MutedText,
+  BodyText,
+  BodyLarge,
+  BodySmall,
+  SubsectionTitle,
+  LabelText,
+  CodeText,
+  CodeBlock,
 } from "./Typography";
 
 // Grid

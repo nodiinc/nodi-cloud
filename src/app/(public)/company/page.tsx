@@ -5,11 +5,14 @@ import {
   Section,
   SectionHeader,
   PageHero,
-  FeatureCard,
   ContactCard,
   CardGrid,
   GradientText,
   IconBox,
+  Title,
+  Body,
+  Label,
+  PageTitle,
   ArrowRightIcon,
   LocationIcon,
   EmailIcon,
@@ -84,12 +87,8 @@ export default function CompanyPage() {
               <IconBox variant="gradient" className="mb-6">
                 {item.icon}
               </IconBox>
-              <h3 className="text-xl font-semibold text-[var(--color-foreground)] mb-3">
-                {item.title}
-              </h3>
-              <p className="text-[var(--color-muted)] leading-relaxed">
-                {item.description}
-              </p>
+              <Title className="mb-3">{item.title}</Title>
+              <Body>{item.description}</Body>
               <div className="absolute bottom-0 left-8 right-8 h-[2px] bg-gradient-to-r from-transparent via-[var(--color-accent)]/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
             </div>
           ))}
@@ -99,19 +98,17 @@ export default function CompanyPage() {
       {/* Vision Section */}
       <Section className="relative overflow-hidden">
         <div className="mx-auto max-w-4xl text-center relative">
-          <p className="mb-4 text-base font-medium uppercase tracking-widest text-[var(--color-accent)]">
-            Our Vision
-          </p>
-          <blockquote className="text-3xl md:text-4xl font-light leading-relaxed text-[var(--color-foreground)]">
+          <Label className="mb-4 block text-[var(--color-accent)]">Our Vision</Label>
+          <PageTitle as="p" className="font-light">
             &ldquo;모든 산업 현장의 데이터가
             <br />
             <GradientText className="font-semibold">자유롭게 흐르는 세상</GradientText>
             을 만듭니다&rdquo;
-          </blockquote>
-          <p className="mt-8 text-[var(--color-muted)] max-w-2xl mx-auto leading-relaxed">
+          </PageTitle>
+          <Body className="mt-8 max-w-2xl mx-auto">
             {name}는 복잡한 산업 환경에서도 데이터가 끊김 없이 흐를 수 있도록,
             안정적이고 확장 가능한 연결 인프라를 제공합니다.
-          </p>
+          </Body>
         </div>
       </Section>
 

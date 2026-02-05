@@ -5,6 +5,8 @@ import {
   SectionLabel,
   CardGrid,
   Tag,
+  Title,
+  Body,
 } from "@/components/ui";
 
 const PRODUCTS = [
@@ -97,12 +99,10 @@ function SolutionCard({ href, icon, name, description, features }: SolutionCardP
       className="group rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-6 transition-all hover:border-[var(--color-brand-cyan)]/50 hover:bg-[var(--color-card-hover)]"
     >
       <div className="mb-4 text-[var(--color-brand-cyan)]">{icon}</div>
-      <h3 className="text-xl font-semibold text-[var(--color-foreground)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
+      <Title className="mb-2 group-hover:text-[var(--color-accent)] transition-colors">
         {name}
-      </h3>
-      <p className="text-sm text-[var(--color-muted)] mb-4 leading-relaxed">
-        {description}
-      </p>
+      </Title>
+      <Body className="mb-4">{description}</Body>
       <ul className="flex flex-wrap gap-2">
         {features.map((feature) => (
           <li key={feature}>
@@ -155,9 +155,7 @@ export default function SolutionsPage() {
 
         {/* CTA */}
         <div className="mt-20 text-center">
-          <p className="text-[var(--color-muted)] mb-6">
-            어떤 솔루션이 적합한지 모르시겠나요?
-          </p>
+          <Body className="mb-6">어떤 솔루션이 적합한지 모르시겠나요?</Body>
           <Button href="/contact">상담 요청하기</Button>
         </div>
       </div>
