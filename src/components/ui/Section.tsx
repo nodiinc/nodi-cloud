@@ -110,31 +110,55 @@ export function PageHero({
 // Page Header (simpler, for detail pages)
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
+import Link from "next/link";
+
 interface PageHeaderProps {
   badge?: string;
   title: string;
-  description?: string;
+  subtitle?: string;
+  description?: string | React.ReactNode;
+  backLink?: string;
+  backLabel?: string;
   className?: string;
 }
 
 export function PageHeader({
   badge,
   title,
+  subtitle,
   description,
+  backLink,
+  backLabel,
   className = "",
 }: PageHeaderProps) {
   return (
     <div className={`text-center mb-16 ${className}`}>
+      {backLink && (
+        <Link
+          href={backLink}
+          className="inline-flex items-center gap-2 text-sm text-[var(--color-muted)] hover:text-[var(--color-foreground)] mb-6 transition-colors"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+          {backLabel || "Back"}
+        </Link>
+      )}
       {badge && (
         <div className="inline-block px-3 py-1 mb-4 text-xs font-medium rounded-full bg-[var(--color-accent)]/10 text-[var(--color-accent)]">
           {badge}
         </div>
       )}
-      <h1 className="text-4xl font-semibold tracking-tight text-[var(--color-foreground)] md:text-5xl mb-6">
+      <h1 className="text-4xl font-semibold tracking-tight text-[var(--color-foreground)] md:text-5xl mb-4">
         {title}
       </h1>
+      {subtitle && (
+        <p className="text-xl text-[var(--color-accent)] font-medium mb-6">
+          {subtitle}
+        </p>
+      )}
       {description && (
-        <p className="text-lg text-[var(--color-muted)] max-w-3xl mx-auto">
+        <p className="text-lg text-[var(--color-muted)] max-w-3xl mx-auto leading-relaxed">
           {description}
         </p>
       )}

@@ -12,6 +12,7 @@ import {
   GradientText,
   Code,
 } from "@/components/ui";
+import DevBanner from "@/components/DevBanner";
 
 const PROTOCOLS = [
   { name: "MQTT", category: "Cloud" },
@@ -56,6 +57,8 @@ const FEATURES = [
 export default function LandingPage() {
   return (
     <>
+      <DevBanner />
+
       {/* Hero Section */}
       <section className="relative flex min-h-[80vh] flex-col items-center justify-center overflow-hidden px-6 text-center">
         <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-gradient-to-br from-[var(--color-brand-blue)]/10 to-[var(--color-brand-cyan)]/10 blur-3xl" />

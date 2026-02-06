@@ -1,4 +1,4 @@
-import { auth, signOut } from "@/lib/auth";
+import { auth, signOut, Role } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,7 +17,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
   ];
 
   // 관리자면 admin 메뉴 추가
-  if (session.user.role === "ADMIN") {
+  if (session.user.role === Role.SUPER_ADMIN) {
     navItems.push({ href: "/admin/customers", label: "Admin", icon: "◆" });
   }
 

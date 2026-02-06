@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@/lib/auth";
+import { getAdminSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { decryptEmail } from "@/lib/crypto";
 
@@ -7,8 +7,8 @@ export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const session = await auth();
-  if (!session || session.user.role !== "ADMIN") {
+  const session = await getAdminSession();
+  if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

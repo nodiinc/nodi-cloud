@@ -1,4 +1,4 @@
-import { auth, signOut } from "@/lib/auth";
+import { auth, signOut, Role } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,7 +11,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     redirect("/login");
   }
 
-  if (session.user.role !== "ADMIN") {
+  if (session.user.role !== Role.SUPER_ADMIN) {
     redirect("/dashboard");
   }
 
@@ -26,6 +26,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     { href: "/admin/users", label: "사용자 관리" },
     { href: "/admin/gateways", label: "게이트웨이 관리" },
     { href: "/admin/inquiries", label: "문의 관리" },
+    { href: "/admin/settings", label: "사이트 설정" },
   ];
 
   return (

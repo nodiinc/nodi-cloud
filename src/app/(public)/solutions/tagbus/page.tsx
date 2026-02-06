@@ -1,4 +1,20 @@
-import Link from "next/link";
+import {
+  Button,
+  PageHeader,
+  SectionLabel,
+  CardGrid,
+  CTACard,
+  Card,
+  FeatureCard,
+  IconBox,
+  SectionTitle,
+  Title,
+  Body,
+  Small,
+  Code,
+  LabelAccent,
+} from "@/components/ui";
+import { textStyles } from "@/config/fonts";
 
 const PERFORMANCE_SPECS = [
   { label: "처리량", value: "100K+", unit: "태그/초" },
@@ -111,58 +127,51 @@ const SDK_SUPPORT = [
   { lang: "C++", status: "지원 중", version: "C++17" },
 ];
 
+const APPS = [
+  { name: "Modbus", sub: "인터페이스", icon: "M" },
+  { name: "카메라", sub: "인터페이스", icon: "C" },
+  { name: "추론", sub: "엔진", icon: "AI" },
+  { name: "클라우드", sub: "커넥터", icon: "☁" },
+  { name: "로깅", sub: "에이전트", icon: "L" },
+];
+
 export default function TagBusPage() {
   return (
     <div className="min-h-screen pt-24 pb-16 px-6">
       <div className="mx-auto max-w-7xl">
-        {/* Hero */}
-        <div className="text-center mb-20">
-          <Link
-            href="/solutions"
-            className="inline-flex items-center gap-2 text-sm text-[var(--color-muted)] hover:text-[var(--color-foreground)] mb-6 transition-colors"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            Solutions
-          </Link>
-          <h1 className="text-4xl font-semibold tracking-tight text-[var(--color-foreground)] md:text-5xl mb-4">
-            TagBus
-          </h1>
-          <p className="text-xl text-[var(--color-accent)] font-medium mb-6">
-            초고속 호스트 내부 데이터 교환 SDK
-          </p>
-          <p className="text-lg text-[var(--color-muted)] max-w-3xl mx-auto leading-relaxed">
-            엔트리급 엣지 디바이스에서 <span className="text-[var(--color-foreground)] font-semibold">초당 100,000+ 태그</span>.
-            메시지 손실 없음.
-            <br className="hidden md:block" />
-            단일 호스트에서 여러 애플리케이션이 실시간 데이터를 공유할 수 있는 개별 태그 중심 동기화 SDK.
-          </p>
+        <PageHeader
+          backLink="/solutions"
+          backLabel="Solutions"
+          title="TagBus"
+          subtitle="초고속 호스트 내부 데이터 교환 SDK"
+          description={
+            <>
+              엔트리급 엣지 디바이스에서 <span className="text-[var(--color-foreground)] font-semibold">초당 100,000+ 태그</span>.
+              메시지 손실 없음.
+              <br className="hidden md:block" />
+              단일 호스트에서 여러 애플리케이션이 실시간 데이터를 공유할 수 있는 개별 태그 중심 동기화 SDK.
+            </>
+          }
+        />
 
-          {/* Performance Specs */}
-          <div className="flex flex-wrap justify-center gap-4 mt-10">
-            {PERFORMANCE_SPECS.map((spec) => (
-              <div
-                key={spec.label}
-                className="px-6 py-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)]"
-              >
-                <div className="flex items-baseline gap-1 justify-center">
-                  <span className="text-3xl font-semibold text-[var(--color-accent)]">{spec.value}</span>
-                  <span className="text-sm text-[var(--color-muted)]">{spec.unit}</span>
-                </div>
-                <div className="text-sm text-[var(--color-muted)] mt-1">{spec.label}</div>
+        {/* Performance Specs */}
+        <CardGrid cols={2} mdCols={4} gap="sm" className="mb-20">
+          {PERFORMANCE_SPECS.map((spec) => (
+            <Card key={spec.label} className="text-center">
+              <div className="flex items-baseline gap-1 justify-center">
+                <span className={`${textStyles.section} text-[var(--color-accent)]`}>{spec.value}</span>
+                <Small>{spec.unit}</Small>
               </div>
-            ))}
-          </div>
-        </div>
+              <Body className="mt-1">{spec.label}</Body>
+            </Card>
+          ))}
+        </CardGrid>
 
         {/* Architecture Diagram */}
         <section className="mb-24">
-          <h2 className="text-2xl font-semibold text-[var(--color-foreground)] text-center mb-8">
-            공유 태그 공간
-          </h2>
+          <SectionTitle className="text-center mb-8">공유 태그 공간</SectionTitle>
           <div className="max-w-5xl mx-auto">
-            <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-8 overflow-hidden">
+            <Card size="lg">
               {/* Shared Tag Space Diagram */}
               <div className="relative">
                 {/* Tag Space Container */}
@@ -173,15 +182,15 @@ export default function TagBusPage() {
                       <svg className="w-5 h-5 text-[var(--color-brand-cyan)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
                       </svg>
-                      <span className="text-sm font-semibold text-[var(--color-brand-cyan)]">Shared Tag Space</span>
+                      <Small className="font-semibold text-[var(--color-brand-cyan)]">Shared Tag Space</Small>
                     </span>
                   </div>
 
                   {/* Tags Grid */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                  <CardGrid cols={1} mdCols={3} gap="sm" className="mb-8">
                     {/* Tag 1 */}
                     <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-background)] p-4">
-                      <div className="text-xs font-mono text-[var(--color-brand-cyan)] mb-2">modbus/temperature</div>
+                      <Code className="text-[var(--color-brand-cyan)] mb-2 block">modbus/temperature</Code>
                       <div className="space-y-1 text-xs font-mono">
                         <div className="flex justify-between">
                           <span className="text-[var(--color-muted)]">value</span>
@@ -200,7 +209,7 @@ export default function TagBusPage() {
 
                     {/* Tag 2 */}
                     <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-background)] p-4">
-                      <div className="text-xs font-mono text-[var(--color-brand-cyan)] mb-2">vision/defect_count</div>
+                      <Code className="text-[var(--color-brand-cyan)] mb-2 block">vision/defect_count</Code>
                       <div className="space-y-1 text-xs font-mono">
                         <div className="flex justify-between">
                           <span className="text-[var(--color-muted)]">value</span>
@@ -219,7 +228,7 @@ export default function TagBusPage() {
 
                     {/* Tag 3 */}
                     <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-background)] p-4">
-                      <div className="text-xs font-mono text-[var(--color-brand-cyan)] mb-2">inference/result</div>
+                      <Code className="text-[var(--color-brand-cyan)] mb-2 block">inference/result</Code>
                       <div className="space-y-1 text-xs font-mono">
                         <div className="flex justify-between">
                           <span className="text-[var(--color-muted)]">value</span>
@@ -235,7 +244,7 @@ export default function TagBusPage() {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </CardGrid>
 
                   {/* Connection Lines SVG */}
                   <svg className="absolute left-0 right-0 bottom-24 h-16 w-full" preserveAspectRatio="none">
@@ -245,7 +254,6 @@ export default function TagBusPage() {
                         <stop offset="100%" stopColor="var(--color-brand-cyan)" stopOpacity="0.2" />
                       </linearGradient>
                     </defs>
-                    {/* Vertical lines from each app */}
                     <line x1="10%" y1="100%" x2="10%" y2="0%" stroke="url(#lineGradient)" strokeWidth="2" strokeDasharray="4 4" />
                     <line x1="30%" y1="100%" x2="30%" y2="0%" stroke="url(#lineGradient)" strokeWidth="2" strokeDasharray="4 4" />
                     <line x1="50%" y1="100%" x2="50%" y2="0%" stroke="url(#lineGradient)" strokeWidth="2" strokeDasharray="4 4" />
@@ -256,20 +264,14 @@ export default function TagBusPage() {
 
                 {/* Applications Row */}
                 <div className="grid grid-cols-5 gap-2 md:gap-4 -mt-8 relative z-10 px-2">
-                  {[
-                    { name: "Modbus", sub: "인터페이스", icon: "M" },
-                    { name: "카메라", sub: "인터페이스", icon: "C" },
-                    { name: "추론", sub: "엔진", icon: "AI" },
-                    { name: "클라우드", sub: "커넥터", icon: "☁" },
-                    { name: "로깅", sub: "에이전트", icon: "L" },
-                  ].map((app, i) => (
+                  {APPS.map((app) => (
                     <div key={app.name} className="flex flex-col items-center">
                       <div className="w-12 h-12 md:w-16 md:h-16 rounded-xl bg-gradient-to-br from-[var(--color-brand-blue)] to-[var(--color-brand-cyan)] flex items-center justify-center text-black font-bold text-sm md:text-lg shadow-lg shadow-[var(--color-brand-cyan)]/20">
                         {app.icon}
                       </div>
                       <div className="mt-2 text-center">
-                        <div className="text-xs md:text-sm font-medium text-[var(--color-foreground)]">{app.name}</div>
-                        <div className="text-[10px] md:text-xs text-[var(--color-muted)]">{app.sub}</div>
+                        <Small className="font-medium text-[var(--color-foreground)]">{app.name}</Small>
+                        <Small className="block text-[10px] md:text-xs">{app.sub}</Small>
                       </div>
                     </div>
                   ))}
@@ -277,52 +279,38 @@ export default function TagBusPage() {
 
                 {/* Footer Text */}
                 <div className="text-center mt-8 pt-4 border-t border-[var(--color-border)]">
-                  <p className="text-sm text-[var(--color-muted)]">
+                  <Body>
                     모든 앱이 <span className="text-[var(--color-accent)]">동등</span>합니다. 자유롭게 <span className="text-[var(--color-accent)]">읽고</span>, <span className="text-[var(--color-accent)]">쓰고</span>, <span className="text-[var(--color-accent)]">싱크</span>합니다.
-                  </p>
+                  </Body>
                 </div>
               </div>
-            </div>
+            </Card>
           </div>
         </section>
 
         {/* Features */}
         <section className="mb-24">
-          <h2 className="text-2xl font-semibold text-[var(--color-foreground)] text-center mb-12">
-            핵심 기능
-          </h2>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <SectionTitle className="text-center mb-12">핵심 기능</SectionTitle>
+          <CardGrid cols={1} mdCols={2} lgCols={3}>
             {FEATURES.map((feature) => (
-              <div
+              <FeatureCard
                 key={feature.title}
-                className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-6 transition-all hover:border-[var(--color-brand-cyan)]/30"
-              >
-                <div className="w-12 h-12 rounded-xl bg-[var(--color-brand-cyan)]/10 text-[var(--color-brand-cyan)] flex items-center justify-center mb-4">
-                  {feature.icon}
-                </div>
-                <h3 className="text-lg font-medium text-[var(--color-foreground)] mb-2">
-                  {feature.title}
-                </h3>
-                <p className="text-sm text-[var(--color-muted)] leading-relaxed">
-                  {feature.description}
-                </p>
-              </div>
+                icon={<IconBox>{feature.icon}</IconBox>}
+                title={feature.title}
+                description={feature.description}
+              />
             ))}
-          </div>
+          </CardGrid>
         </section>
 
         {/* Code Example */}
         <section className="mb-24">
-          <h2 className="text-2xl font-semibold text-[var(--color-foreground)] text-center mb-4">
-            간단한 API
-          </h2>
-          <p className="text-center text-[var(--color-muted)] mb-8">
-            토픽 설계, 스키마 정의 없이 바로 사용
-          </p>
-          <div className="grid gap-6 md:grid-cols-2 max-w-5xl mx-auto">
-            <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] overflow-hidden">
-              <div className="px-4 py-2 border-b border-[var(--color-border)] text-sm font-medium text-[var(--color-muted)]">
-                데이터 발행
+          <SectionTitle className="text-center mb-4">간단한 API</SectionTitle>
+          <Body className="text-center mb-8">토픽 설계, 스키마 정의 없이 바로 사용</Body>
+          <CardGrid cols={1} mdCols={2} className="max-w-5xl mx-auto">
+            <Card className="overflow-hidden p-0">
+              <div className="px-4 py-2 border-b border-[var(--color-border)]">
+                <Small className="font-medium">데이터 발행</Small>
               </div>
               <pre className="p-4 text-sm overflow-x-auto">
                 <code className="text-[var(--color-foreground)]">{`from tagbus import TagBus
@@ -336,10 +324,10 @@ bus.set_tags({
 })
 bus.commit()`}</code>
               </pre>
-            </div>
-            <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] overflow-hidden">
-              <div className="px-4 py-2 border-b border-[var(--color-border)] text-sm font-medium text-[var(--color-muted)]">
-                데이터 싱크
+            </Card>
+            <Card className="overflow-hidden p-0">
+              <div className="px-4 py-2 border-b border-[var(--color-border)]">
+                <Small className="font-medium">데이터 싱크</Small>
               </div>
               <pre className="p-4 text-sm overflow-x-auto">
                 <code className="text-[var(--color-foreground)]">{`from tagbus import TagBus
@@ -352,23 +340,18 @@ bus.commit()
 
 tags = bus.get_tags()`}</code>
               </pre>
-            </div>
-          </div>
+            </Card>
+          </CardGrid>
         </section>
 
         {/* Comparisons */}
         <section className="mb-24">
-          <h2 className="text-2xl font-semibold text-[var(--color-foreground)] text-center mb-12">
-            기존 솔루션과 비교
-          </h2>
-          <div className="grid gap-6 md:grid-cols-2 max-w-5xl mx-auto">
+          <SectionTitle className="text-center mb-12">기존 솔루션과 비교</SectionTitle>
+          <CardGrid cols={1} mdCols={2} className="max-w-5xl mx-auto">
             {COMPARISONS.map((comparison) => (
-              <div
-                key={comparison.title}
-                className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] overflow-hidden"
-              >
+              <Card key={comparison.title} className="overflow-hidden p-0">
                 <div className="px-6 py-4 border-b border-[var(--color-border)]">
-                  <h3 className="font-medium text-[var(--color-foreground)]">{comparison.title}</h3>
+                  <Title>{comparison.title}</Title>
                 </div>
                 <div className="p-4">
                   <table className="w-full text-sm">
@@ -390,102 +373,79 @@ tags = bus.get_tags()`}</code>
                     </tbody>
                   </table>
                 </div>
-              </div>
+              </Card>
             ))}
-          </div>
+          </CardGrid>
         </section>
 
         {/* Use Cases */}
         <section className="mb-24">
-          <h2 className="text-2xl font-semibold text-[var(--color-foreground)] text-center mb-12">
-            적용 분야
-          </h2>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <SectionTitle className="text-center mb-12">적용 분야</SectionTitle>
+          <CardGrid cols={1} mdCols={2} lgCols={4}>
             {USE_CASES.map((useCase) => (
-              <div
-                key={useCase.title}
-                className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-6"
-              >
+              <Card key={useCase.title} size="md">
                 <div className="text-3xl mb-4">{useCase.icon}</div>
-                <h3 className="font-medium text-[var(--color-foreground)] mb-2">{useCase.title}</h3>
-                <p className="text-sm text-[var(--color-muted)]">{useCase.description}</p>
-              </div>
+                <Title className="mb-2">{useCase.title}</Title>
+                <Body>{useCase.description}</Body>
+              </Card>
             ))}
-          </div>
+          </CardGrid>
         </section>
 
         {/* SDK Support */}
         <section className="mb-24">
-          <h2 className="text-2xl font-semibold text-[var(--color-foreground)] text-center mb-8">
-            SDK 지원
-          </h2>
+          <SectionTitle className="text-center mb-8">SDK 지원</SectionTitle>
           <div className="flex flex-wrap justify-center gap-4">
             {SDK_SUPPORT.map((sdk) => (
-              <div
-                key={sdk.lang}
-                className="px-6 py-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] text-center"
-              >
-                <div className="text-lg font-semibold text-[var(--color-foreground)]">{sdk.lang}</div>
-                <div className="text-sm text-[var(--color-accent)]">{sdk.status}</div>
-                <div className="text-xs text-[var(--color-muted)] mt-1">{sdk.version}</div>
-              </div>
+              <Card key={sdk.lang} className="text-center">
+                <Title className="mb-1">{sdk.lang}</Title>
+                <LabelAccent className="block">{sdk.status}</LabelAccent>
+                <Small className="mt-1">{sdk.version}</Small>
+              </Card>
             ))}
           </div>
-          <p className="text-center text-sm text-[var(--color-muted)] mt-6">
+          <Body className="text-center mt-6">
             언어 독립적 아키텍처로 다른 언어 바인딩 확장 가능
-          </p>
+          </Body>
         </section>
 
         {/* Installation */}
         <section className="mb-24">
-          <h2 className="text-2xl font-semibold text-[var(--color-foreground)] text-center mb-8">
-            설치
-          </h2>
-          <div className="grid gap-4 md:grid-cols-2 max-w-3xl mx-auto">
-            <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] overflow-hidden">
-              <div className="px-4 py-2 border-b border-[var(--color-border)] text-sm font-medium text-[var(--color-muted)]">
-                Python
+          <SectionTitle className="text-center mb-8">설치</SectionTitle>
+          <CardGrid cols={1} mdCols={2} gap="sm" className="max-w-3xl mx-auto">
+            <Card className="overflow-hidden p-0">
+              <div className="px-4 py-2 border-b border-[var(--color-border)]">
+                <Small className="font-medium">Python</Small>
               </div>
               <pre className="p-4 text-sm">
                 <code className="text-[var(--color-accent)]">pip install nodi-tagbus</code>
               </pre>
-            </div>
-            <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] overflow-hidden">
-              <div className="px-4 py-2 border-b border-[var(--color-border)] text-sm font-medium text-[var(--color-muted)]">
-                C++ (Debian/Ubuntu)
+            </Card>
+            <Card className="overflow-hidden p-0">
+              <div className="px-4 py-2 border-b border-[var(--color-border)]">
+                <Small className="font-medium">C++ (Debian/Ubuntu)</Small>
               </div>
               <pre className="p-4 text-sm">
                 <code className="text-[var(--color-accent)]">sudo apt install nodi-tagbus-dev</code>
               </pre>
-            </div>
-          </div>
+            </Card>
+          </CardGrid>
         </section>
 
         {/* CTA */}
-        <div className="text-center rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-12">
-          <h2 className="text-2xl font-semibold text-[var(--color-foreground)] mb-4">
-            고성능 엣지 데이터 아키텍처를 시작하세요
-          </h2>
-          <p className="text-[var(--color-muted)] mb-8 max-w-xl mx-auto">
-            평가판과 기업 지원에 대해 문의하세요.
-            <br />
-            기술 상담 및 PoC 지원도 가능합니다.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/contact"
-              className="rounded-full bg-gradient-to-r from-[var(--color-brand-blue)] to-[var(--color-brand-cyan)] px-8 py-3 text-sm font-semibold text-[var(--color-background)] transition-opacity hover:opacity-90"
-            >
-              문의하기
-            </Link>
-            <Link
-              href="/solutions"
-              className="rounded-full border border-[var(--color-border)] px-8 py-3 text-sm font-medium transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
-            >
-              다른 솔루션 보기
-            </Link>
-          </div>
-        </div>
+        <CTACard
+          title="고성능 엣지 데이터 아키텍처를 시작하세요"
+          description={
+            <>
+              평가판과 기업 지원에 대해 문의하세요.
+              <br />
+              기술 상담 및 PoC 지원도 가능합니다.
+            </>
+          }
+        >
+          <Button href="/contact">문의하기</Button>
+          <Button href="/solutions" variant="secondary">다른 솔루션 보기</Button>
+        </CTACard>
       </div>
     </div>
   );

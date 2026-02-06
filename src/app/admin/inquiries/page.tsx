@@ -68,41 +68,33 @@ export default function InquiriesPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">문의 관리</h1>
-        <span className="text-sm text-[var(--muted)]">
-          총 {inquiries.length}건
-        </span>
+        <div>
+          <h1 className="text-2xl font-semibold text-[var(--color-foreground)]">문의 관리</h1>
+          <p className="mt-1 text-sm text-[var(--color-muted)]">총 {inquiries.length}건</p>
+        </div>
       </div>
 
-      <div className="border border-[var(--border)] rounded-xl overflow-hidden">
+      <div className="border border-[var(--color-border)] rounded-xl overflow-hidden bg-[var(--color-card)]">
         <table className="w-full">
-          <thead className="bg-[var(--card)]">
-            <tr>
-              <th className="px-6 py-4 text-left text-sm font-medium text-[var(--muted)]">상태</th>
-              <th className="px-6 py-4 text-left text-sm font-medium text-[var(--muted)]">이름</th>
-              <th className="px-6 py-4 text-left text-sm font-medium text-[var(--muted)]">이메일</th>
-              <th className="px-6 py-4 text-left text-sm font-medium text-[var(--muted)]">내용</th>
-              <th className="px-6 py-4 text-left text-sm font-medium text-[var(--muted)]">접수일</th>
+          <thead>
+            <tr className="border-b border-[var(--color-border)]">
+              <th className="px-6 py-3.5 text-left text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">상태</th>
+              <th className="px-6 py-3.5 text-left text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">이름</th>
+              <th className="px-6 py-3.5 text-left text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">이메일</th>
+              <th className="px-6 py-3.5 text-left text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">내용</th>
+              <th className="px-6 py-3.5 text-left text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">접수일</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[var(--border)]">
+          <tbody className="divide-y divide-[var(--color-border)]">
             {loading ? (
-              <tr>
-                <td colSpan={5} className="px-6 py-8 text-center text-[var(--muted)]">
-                  로딩 중...
-                </td>
-              </tr>
+              <tr><td colSpan={5} className="px-6 py-12 text-center text-[var(--color-muted)]">로딩 중...</td></tr>
             ) : inquiries.length === 0 ? (
-              <tr>
-                <td colSpan={5} className="px-6 py-8 text-center text-[var(--muted)]">
-                  문의가 없습니다.
-                </td>
-              </tr>
+              <tr><td colSpan={5} className="px-6 py-12 text-center text-[var(--color-muted)]">문의가 없습니다.</td></tr>
             ) : (
               inquiries.map((inquiry) => (
                 <tr
                   key={inquiry.id}
-                  className="hover:bg-[var(--card-hover)] cursor-pointer"
+                  className="hover:bg-[var(--color-card-hover)] cursor-pointer transition-colors"
                   onClick={() => {
                     setSelectedInquiry(inquiry);
                     if (inquiry.status === "PENDING") {
@@ -115,14 +107,10 @@ export default function InquiriesPage() {
                       {STATUS_LABELS[inquiry.status].label}
                     </span>
                   </td>
-                  <td className="px-6 py-4 font-medium">{inquiry.name}</td>
-                  <td className="px-6 py-4 text-[var(--muted)]">{inquiry.email}</td>
-                  <td className="px-6 py-4 text-[var(--muted)] max-w-xs truncate">
-                    {inquiry.message}
-                  </td>
-                  <td className="px-6 py-4 text-[var(--muted)] text-sm">
-                    {formatDate(inquiry.createdAt)}
-                  </td>
+                  <td className="px-6 py-4 font-medium text-[var(--color-foreground)]">{inquiry.name}</td>
+                  <td className="px-6 py-4 text-sm text-[var(--color-muted)]">{inquiry.email}</td>
+                  <td className="px-6 py-4 text-sm text-[var(--color-muted)] max-w-xs truncate">{inquiry.message}</td>
+                  <td className="px-6 py-4 text-sm text-[var(--color-muted)]">{formatDate(inquiry.createdAt)}</td>
                 </tr>
               ))
             )}
@@ -130,16 +118,13 @@ export default function InquiriesPage() {
         </table>
       </div>
 
-      {/* Detail Modal */}
       {selectedInquiry && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setSelectedInquiry(null)}>
-          <div className="bg-[var(--card)] rounded-xl p-6 w-full max-w-lg mx-4" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-[var(--color-card)] border border-[var(--color-border)] rounded-2xl p-6 w-full max-w-lg mx-4 shadow-2xl">
             <div className="flex items-start justify-between mb-6">
               <div>
-                <h2 className="text-xl font-semibold">{selectedInquiry.name}</h2>
-                <a href={`mailto:${selectedInquiry.email}`} className="text-sm text-[var(--accent)] hover:underline">
-                  {selectedInquiry.email}
-                </a>
+                <h2 className="text-xl font-semibold text-[var(--color-foreground)]">{selectedInquiry.name}</h2>
+                <a href={`mailto:${selectedInquiry.email}`} className="text-sm text-[var(--color-accent)] hover:underline">{selectedInquiry.email}</a>
               </div>
               <span className={`inline-flex px-2.5 py-1 rounded-full text-xs font-medium ${STATUS_LABELS[selectedInquiry.status].color}`}>
                 {STATUS_LABELS[selectedInquiry.status].label}
@@ -147,32 +132,20 @@ export default function InquiriesPage() {
             </div>
 
             <div className="mb-6">
-              <p className="text-sm text-[var(--muted)] mb-2">문의 내용</p>
-              <div className="p-4 bg-[var(--background)] rounded-lg text-sm leading-relaxed whitespace-pre-wrap">
+              <p className="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider mb-2">문의 내용</p>
+              <div className="p-4 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-sm text-[var(--color-foreground)] leading-relaxed whitespace-pre-wrap">
                 {selectedInquiry.message}
               </div>
             </div>
 
-            <div className="mb-6">
-              <p className="text-sm text-[var(--muted)]">
-                접수일: {formatDate(selectedInquiry.createdAt)}
-              </p>
-            </div>
+            <p className="text-sm text-[var(--color-muted)] mb-6">접수일: {formatDate(selectedInquiry.createdAt)}</p>
 
             <div className="flex gap-3 justify-end">
-              <button
-                onClick={() => setSelectedInquiry(null)}
-                className="px-4 py-2 border border-[var(--border)] rounded-lg hover:bg-[var(--card-hover)]"
-              >
-                닫기
-              </button>
+              <button onClick={() => setSelectedInquiry(null)}
+                className="px-4 py-2.5 border border-[var(--color-border)] text-[var(--color-foreground)] rounded-lg hover:bg-[var(--color-card-hover)] transition-colors text-sm">닫기</button>
               {selectedInquiry.status !== "REPLIED" && (
-                <button
-                  onClick={() => updateStatus(selectedInquiry.id, "REPLIED")}
-                  className="px-4 py-2 bg-[var(--accent)] text-black font-medium rounded-lg hover:bg-[var(--accent)]/90"
-                >
-                  답변완료 처리
-                </button>
+                <button onClick={() => updateStatus(selectedInquiry.id, "REPLIED")}
+                  className="px-4 py-2.5 bg-gradient-to-r from-[var(--color-brand-blue)] to-[var(--color-brand-cyan)] text-[var(--color-background)] font-medium rounded-lg hover:opacity-90 transition-opacity text-sm">답변완료 처리</button>
               )}
             </div>
           </div>

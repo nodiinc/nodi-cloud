@@ -9,6 +9,7 @@ import {
   ProcessStepCard,
   DotList,
   Badge,
+  Title,
   CheckCircleIcon,
   ClockIcon,
   DocumentIcon,
@@ -147,9 +148,7 @@ export default function SensorInstallationPage() {
           <CardGrid cols={1} mdCols={3}>
             {SENSOR_TYPES.map((category) => (
               <Card key={category.category} size="md">
-                <h3 className="text-lg font-semibold text-[var(--color-foreground)] mb-4">
-                  {category.category}
-                </h3>
+                <Title className="mb-4">{category.category}</Title>
                 <DotList items={category.items} />
               </Card>
             ))}

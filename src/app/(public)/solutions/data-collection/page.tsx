@@ -1,4 +1,20 @@
-import Link from "next/link";
+import {
+  Button,
+  PageHeader,
+  SectionLabel,
+  CardGrid,
+  CTACard,
+  Card,
+  StatCard,
+  IconBox,
+  CheckList,
+  SectionTitle,
+  Title,
+  Body,
+  Small,
+  Badge,
+  ImagePlaceholderIcon,
+} from "@/components/ui";
 
 const SYSTEM_COMPONENTS = [
   {
@@ -189,171 +205,122 @@ export default function DataCollectionPage() {
   return (
     <div className="min-h-screen pt-24 pb-16 px-6">
       <div className="mx-auto max-w-7xl">
-        {/* Hero Section */}
-        <div className="text-center mb-16">
-          <div className="inline-block px-3 py-1 mb-4 text-xs font-medium rounded-full bg-[var(--color-accent)]/10 text-[var(--color-accent)]">
-            Service
-          </div>
-          <h1 className="text-4xl font-semibold tracking-tight text-[var(--color-foreground)] md:text-5xl mb-6">
-            데이터 수집 시스템 구축
-          </h1>
-          <p className="text-lg text-[var(--color-muted)] max-w-3xl mx-auto">
-            Edge Gateway를 활용하여 현장의 다양한 설비와 시스템에서 데이터를 수집하고,
-            클라우드 또는 온프레미스 서버로 전송하는 통합 데이터 수집 시스템을 구축합니다.
-          </p>
-        </div>
+        <PageHeader
+          badge="Service"
+          title="데이터 수집 시스템 구축"
+          description="Edge Gateway를 활용하여 현장의 다양한 설비와 시스템에서 데이터를 수집하고, 클라우드 또는 온프레미스 서버로 전송하는 통합 데이터 수집 시스템을 구축합니다."
+        />
 
         {/* Benefits */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
+        <CardGrid cols={2} mdCols={4} gap="sm" className="mb-20">
           {BENEFITS.map((benefit) => (
-            <div
+            <StatCard
               key={benefit.title}
-              className="text-center p-6 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)]"
-            >
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-[var(--color-accent)]/10 text-[var(--color-accent)] mb-4">
-                {benefit.icon}
-              </div>
-              <div className="text-sm font-semibold text-[var(--color-foreground)] mb-1">{benefit.title}</div>
-              <div className="text-xs text-[var(--color-muted)]">{benefit.desc}</div>
-            </div>
+              icon={benefit.icon}
+              value={benefit.title}
+              label={benefit.desc}
+            />
           ))}
-        </div>
+        </CardGrid>
 
         {/* System Architecture */}
         <section className="mb-20">
-          <h2 className="text-sm font-semibold text-[var(--color-accent)] uppercase tracking-wider mb-8 text-center">
-            시스템 아키텍처
-          </h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            {SYSTEM_COMPONENTS.map((component, index) => (
-              <div
-                key={component.layer}
-                className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-6"
-              >
+          <SectionLabel>시스템 아키텍처</SectionLabel>
+          <CardGrid cols={1} mdCols={3}>
+            {SYSTEM_COMPONENTS.map((component) => (
+              <Card key={component.layer} size="md">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-lg bg-[var(--color-accent)]/10 text-[var(--color-accent)] flex items-center justify-center">
-                    {component.icon}
-                  </div>
-                  <h3 className="text-lg font-semibold text-[var(--color-foreground)]">
-                    {component.layer}
-                  </h3>
+                  <IconBox variant="default">{component.icon}</IconBox>
+                  <Title>{component.layer}</Title>
                 </div>
                 <div className="space-y-3">
                   {component.items.map((item) => (
                     <div key={item.name} className="flex items-start gap-3">
                       <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] mt-2 flex-shrink-0" />
                       <div>
-                        <div className="text-sm font-medium text-[var(--color-foreground)]">{item.name}</div>
-                        <div className="text-xs text-[var(--color-muted)]">{item.desc}</div>
+                        <Small className="font-medium text-[var(--color-foreground)]">{item.name}</Small>
+                        <Small className="block">{item.desc}</Small>
                       </div>
                     </div>
                   ))}
                 </div>
-                {index < SYSTEM_COMPONENTS.length - 1 && (
-                  <div className="hidden md:flex justify-center mt-6">
-                    <svg className="w-6 h-6 text-[var(--color-muted)] rotate-90 md:rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </div>
-                )}
-              </div>
+              </Card>
             ))}
-          </div>
+          </CardGrid>
 
           {/* Architecture Diagram Placeholder */}
-          <div className="mt-8 rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-8">
+          <Card size="lg" className="mt-8">
             <div className="aspect-[21/9] rounded-xl bg-[var(--color-background)] border border-dashed border-[var(--color-border)] flex items-center justify-center">
-              <div className="text-center text-[var(--color-muted)]">
-                <svg className="w-16 h-16 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <p className="text-sm">데이터 수집 시스템 아키텍처 다이어그램</p>
-                <p className="text-xs mt-1">(다이어그램 이미지 영역)</p>
+              <div className="text-center">
+                <ImagePlaceholderIcon className="w-16 h-16 mx-auto mb-4 opacity-50" />
+                <Body>데이터 수집 시스템 아키텍처 다이어그램</Body>
+                <Small className="mt-1">(다이어그램 이미지 영역)</Small>
               </div>
             </div>
-          </div>
+          </Card>
         </section>
 
         {/* Supported Protocols */}
         <section className="mb-20">
-          <h2 className="text-sm font-semibold text-[var(--color-accent)] uppercase tracking-wider mb-8 text-center">
-            지원 프로토콜
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <SectionLabel>지원 프로토콜</SectionLabel>
+          <CardGrid cols={2} mdCols={4} gap="sm">
             {SUPPORTED_PROTOCOLS.map((protocol) => (
-              <div
-                key={protocol.name}
-                className="text-center p-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] hover:border-[var(--color-brand-cyan)]/30 transition-colors"
-              >
-                <span className="inline-block px-2 py-0.5 text-[10px] font-medium rounded bg-[var(--color-background)] text-[var(--color-muted)] mb-2">
-                  {protocol.category}
-                </span>
-                <div className="text-sm font-semibold text-[var(--color-foreground)]">{protocol.name}</div>
-              </div>
+              <Card key={protocol.name} variant="hover" size="sm" className="text-center">
+                <Badge size="xs" className="mb-2">{protocol.category}</Badge>
+                <Title as="span" className="text-sm">{protocol.name}</Title>
+              </Card>
             ))}
-          </div>
+          </CardGrid>
         </section>
 
         {/* Use Cases */}
         <section className="mb-20">
-          <h2 className="text-sm font-semibold text-[var(--color-accent)] uppercase tracking-wider mb-8 text-center">
-            적용 분야
-          </h2>
-          <div className="grid md:grid-cols-2 gap-6">
+          <SectionLabel>적용 분야</SectionLabel>
+          <CardGrid cols={1} mdCols={2}>
             {USE_CASES.map((useCase) => (
-              <div
-                key={useCase.title}
-                className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-6"
-              >
-                <h3 className="text-lg font-semibold text-[var(--color-foreground)] mb-2">
-                  {useCase.title}
-                </h3>
-                <p className="text-sm text-[var(--color-muted)] mb-4">{useCase.desc}</p>
+              <Card key={useCase.title} size="md">
+                <Title className="mb-2">{useCase.title}</Title>
+                <Body className="mb-4">{useCase.desc}</Body>
                 <div className="grid grid-cols-2 gap-2">
                   {useCase.features.map((feature, i) => (
-                    <div key={i} className="flex items-center gap-2 text-sm text-[var(--color-muted)]">
+                    <div key={i} className="flex items-center gap-2">
                       <svg className="w-4 h-4 text-[var(--color-accent)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
-                      {feature}
+                      <Small className="text-[var(--color-muted)]">{feature}</Small>
                     </div>
                   ))}
                 </div>
-              </div>
+              </Card>
             ))}
-          </div>
+          </CardGrid>
         </section>
 
         {/* Implementation Steps */}
         <section className="mb-20">
-          <h2 className="text-sm font-semibold text-[var(--color-accent)] uppercase tracking-wider mb-8 text-center">
-            구축 프로세스
-          </h2>
-          <div className="grid md:grid-cols-4 gap-4">
+          <SectionLabel>구축 프로세스</SectionLabel>
+          <CardGrid cols={1} mdCols={4} gap="sm">
             {IMPLEMENTATION_STEPS.map((step, index) => (
-              <div
-                key={step.phase}
-                className="relative rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-6"
-              >
-                <div className="flex items-center gap-2 mb-4">
-                  <span className="px-2 py-1 text-xs font-semibold rounded bg-gradient-to-r from-[var(--color-brand-blue)] to-[var(--color-brand-cyan)] text-black">
-                    {step.phase}
-                  </span>
-                  <span className="text-xs text-[var(--color-muted)]">{step.duration}</span>
-                </div>
-                <h3 className="text-lg font-semibold text-[var(--color-foreground)] mb-3">
-                  {step.title}
-                </h3>
-                <ul className="space-y-2">
-                  {step.tasks.map((task, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-[var(--color-muted)]">
-                      <span className="text-[var(--color-accent)] mt-0.5">•</span>
-                      {task}
-                    </li>
-                  ))}
-                </ul>
+              <div key={step.phase} className="relative">
+                <Card size="md">
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="px-2 py-1 text-xs font-semibold rounded bg-gradient-to-r from-[var(--color-brand-blue)] to-[var(--color-brand-cyan)] text-black">
+                      {step.phase}
+                    </span>
+                    <Small>{step.duration}</Small>
+                  </div>
+                  <Title className="mb-3">{step.title}</Title>
+                  <ul className="space-y-2">
+                    {step.tasks.map((task, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="text-[var(--color-accent)] mt-0.5">•</span>
+                        <Small>{task}</Small>
+                      </li>
+                    ))}
+                  </ul>
+                </Card>
                 {index < IMPLEMENTATION_STEPS.length - 1 && (
-                  <div className="hidden md:block absolute top-1/2 -right-2 transform -translate-y-1/2">
+                  <div className="hidden md:block absolute top-1/2 -right-2 transform -translate-y-1/2 z-10">
                     <svg className="w-4 h-4 text-[var(--color-muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
@@ -361,34 +328,23 @@ export default function DataCollectionPage() {
                 )}
               </div>
             ))}
-          </div>
+          </CardGrid>
         </section>
 
         {/* CTA */}
-        <div className="text-center rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-12">
-          <h2 className="text-2xl font-semibold text-[var(--color-foreground)] mb-4">
-            구축 상담
-          </h2>
-          <p className="text-[var(--color-muted)] mb-8 max-w-xl mx-auto">
-            현장 환경과 요구사항에 맞는 최적의 데이터 수집 시스템을 제안해 드립니다.
-            <br />
-            기술 상담부터 구축, 유지보수까지 원스톱 서비스를 제공합니다.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/contact"
-              className="inline-block rounded-full bg-gradient-to-r from-[var(--color-brand-blue)] to-[var(--color-brand-cyan)] px-8 py-3 text-sm font-semibold text-[var(--color-background)] transition-opacity hover:opacity-90"
-            >
-              구축 상담 요청
-            </Link>
-            <Link
-              href="/solutions/edge-gateway"
-              className="inline-block rounded-full border border-[var(--color-border)] px-8 py-3 text-sm font-semibold text-[var(--color-foreground)] transition-colors hover:border-[var(--color-accent)]"
-            >
-              Edge Gateway 알아보기
-            </Link>
-          </div>
-        </div>
+        <CTACard
+          title="구축 상담"
+          description={
+            <>
+              현장 환경과 요구사항에 맞는 최적의 데이터 수집 시스템을 제안해 드립니다.
+              <br />
+              기술 상담부터 구축, 유지보수까지 원스톱 서비스를 제공합니다.
+            </>
+          }
+        >
+          <Button href="/contact">구축 상담 요청</Button>
+          <Button href="/solutions/edge-gateway" variant="secondary">Edge Gateway 알아보기</Button>
+        </CTACard>
       </div>
     </div>
   );

@@ -15,16 +15,16 @@ import {
 import { textStyles } from "@/config/fonts";
 
 const CLIENTS = [
-  { name: "HD현대일렉트릭", logo: "/clients/hd-hyundai-electric.png" },
-  { name: "한국전자통신연구원", logo: "/clients/etri.png" },
-  { name: "한국생산기술연구원", logo: "/clients/kitech.png" },
-  { name: "CJ대한통운", logo: "/clients/cj-logistics.png" },
+  { name: "국내 대형 전기기기 제조사", logo: "" },
+  { name: "국책 ICT 연구기관", logo: "" },
+  { name: "국책 생산기술 연구기관", logo: "" },
+  { name: "국내 대형 물류 기업", logo: "" },
 ];
 
 const PROJECTS = [
   {
-    title: "한솔제지 EIS/EOS 인프라 구축",
-    client: "한솔제지",
+    title: "제지 공장 EIS/EOS 인프라 구축",
+    client: "국내 제지사",
     category: "에너지 관리",
     year: "2024",
     description: "전력미터 설치 및 엣지 게이트웨이 기반 에너지 정보 시스템 구축",
@@ -38,7 +38,7 @@ const PROJECTS = [
   },
   {
     title: "스마트 팩토리 데이터 수집 시스템",
-    client: "HD현대일렉트릭",
+    client: "국내 전기기기 제조사",
     category: "스마트 팩토리",
     year: "2024",
     description: "생산 설비 데이터 실시간 수집 및 클라우드 연동 시스템 구축",
@@ -52,7 +52,7 @@ const PROJECTS = [
   },
   {
     title: "연구 장비 데이터 통합 플랫폼",
-    client: "한국생산기술연구원",
+    client: "국책 연구기관",
     category: "연구개발",
     year: "2023",
     description: "다양한 연구 장비의 데이터를 통합 관리하는 플랫폼 구축",

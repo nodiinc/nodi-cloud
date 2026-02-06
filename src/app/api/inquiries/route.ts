@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { auth } from "@/lib/auth";
+import { getAdminSession } from "@/lib/auth";
 
 export async function POST(request: NextRequest) {
   try {
@@ -33,18 +33,9 @@ export async function POST(request: NextRequest) {
 
 export async function GET() {
   try {
-    const session = await auth();
-
-    if (!session?.user) {
+    const session = await getAdminSession();
+    if (!session) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
-    const user = await prisma.user.findUnique({
-      where: { email: session.user.email! },
-    });
-
-    if (user?.role !== "ADMIN") {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
     const inquiries = await prisma.inquiry.findMany({

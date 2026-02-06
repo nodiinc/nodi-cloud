@@ -122,6 +122,13 @@ export default function ComponentsPage() {
             "StatCard",
             "SubsectionTitle",
             "Tag",
+            "Admin Buttons",
+            "Admin Table",
+            "Admin Modal",
+            "Admin Form",
+            "Role Badges",
+            "Status Badges",
+            "Preset Selector",
           ]}
         />
 
@@ -708,6 +715,250 @@ export default function ComponentsPage() {
                 <DiamondOutlineIcon />
                 <span className="text-[10px] text-[var(--color-muted)]">DiamondOutline</span>
               </div>
+            </div>
+          </div>
+        </ComponentPreview>
+
+
+        {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+        <DocSectionDivider title="Admin Patterns" />
+
+        <ComponentPreview
+          name="Admin Buttons"
+          description="관리자 페이지에서 사용하는 버튼 스타일. 그라데이션 Primary, 테두리 Secondary, 위험 Danger"
+          code={`// Primary (gradient)
+<button className="px-4 py-2.5 bg-gradient-to-r from-[var(--color-brand-blue)] to-[var(--color-brand-cyan)] text-[var(--color-background)] font-medium rounded-lg hover:opacity-90 transition-opacity text-sm">
+  저장
+</button>
+
+// Secondary (border)
+<button className="px-4 py-2.5 border border-[var(--color-border)] text-[var(--color-foreground)] rounded-lg hover:bg-[var(--color-card-hover)] transition-colors text-sm">
+  취소
+</button>
+
+// Danger (red border)
+<button className="px-4 py-2.5 text-red-400 border border-red-500/30 rounded-lg hover:bg-red-500/10 transition-colors text-sm">
+  삭제
+</button>`}
+        >
+          <div className="space-y-4">
+            <div className="flex flex-wrap gap-4 items-center">
+              <button className="px-4 py-2.5 bg-gradient-to-r from-[var(--color-brand-blue)] to-[var(--color-brand-cyan)] text-[var(--color-background)] font-medium rounded-lg hover:opacity-90 transition-opacity text-sm">
+                Primary (저장)
+              </button>
+              <button className="px-4 py-2.5 border border-[var(--color-border)] text-[var(--color-foreground)] rounded-lg hover:bg-[var(--color-card-hover)] transition-colors text-sm">
+                Secondary (취소)
+              </button>
+              <button className="px-4 py-2.5 text-red-400 border border-red-500/30 rounded-lg hover:bg-red-500/10 transition-colors text-sm">
+                Danger (삭제)
+              </button>
+              <button className="px-4 py-2.5 bg-gradient-to-r from-[var(--color-brand-blue)] to-[var(--color-brand-cyan)] text-[var(--color-background)] font-medium rounded-lg opacity-50 text-sm cursor-not-allowed">
+                Disabled
+              </button>
+            </div>
+          </div>
+        </ComponentPreview>
+
+        <ComponentPreview
+          name="Admin Table"
+          description="관리자 데이터 테이블. 카드 컨테이너 + uppercase 헤더 + hover 행"
+          code={`<div className="border border-[var(--color-border)] rounded-xl overflow-hidden bg-[var(--color-card)]">
+  <table className="w-full">
+    <thead>
+      <tr className="border-b border-[var(--color-border)]">
+        <th className="px-6 py-3.5 text-left text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">
+          컬럼명
+        </th>
+      </tr>
+    </thead>
+    <tbody className="divide-y divide-[var(--color-border)]">
+      <tr className="hover:bg-[var(--color-card-hover)] transition-colors">
+        <td className="px-6 py-4 text-[var(--color-foreground)]">값</td>
+      </tr>
+    </tbody>
+  </table>
+</div>`}
+        >
+          <div className="border border-[var(--color-border)] rounded-xl overflow-hidden bg-[var(--color-card)]">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-[var(--color-border)]">
+                  <th className="px-6 py-3.5 text-left text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">코드</th>
+                  <th className="px-6 py-3.5 text-left text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">이름</th>
+                  <th className="px-6 py-3.5 text-left text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">역할</th>
+                  <th className="px-6 py-3.5 text-left text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">상태</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[var(--color-border)]">
+                <tr className="hover:bg-[var(--color-card-hover)] cursor-pointer transition-colors">
+                  <td className="px-6 py-4 font-mono text-sm text-[var(--color-accent)]">ACME-001</td>
+                  <td className="px-6 py-4 font-medium text-[var(--color-foreground)]">ACME 제조</td>
+                  <td className="px-6 py-4"><span className="inline-flex px-2.5 py-1 rounded-full text-xs font-medium bg-red-500/20 text-red-400">최고관리자</span></td>
+                  <td className="px-6 py-4"><span className="inline-flex px-2.5 py-1 rounded-full text-xs font-medium bg-green-500/20 text-green-400">활성</span></td>
+                </tr>
+                <tr className="hover:bg-[var(--color-card-hover)] cursor-pointer transition-colors">
+                  <td className="px-6 py-4 font-mono text-sm text-[var(--color-accent)]">BETA-002</td>
+                  <td className="px-6 py-4 font-medium text-[var(--color-foreground)]">Beta 솔루션</td>
+                  <td className="px-6 py-4"><span className="inline-flex px-2.5 py-1 rounded-full text-xs font-medium bg-blue-500/20 text-blue-400">운영자</span></td>
+                  <td className="px-6 py-4"><span className="inline-flex px-2.5 py-1 rounded-full text-xs font-medium bg-yellow-500/20 text-yellow-400">대기</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ComponentPreview>
+
+        <ComponentPreview
+          name="Admin Modal"
+          description="관리자 모달. backdrop-blur 오버레이 + 카드 컨테이너. 클릭으로 외부 닫기"
+          code={`// Overlay
+<div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50"
+     onClick={close}>
+  // Modal Container
+  <div className="bg-[var(--color-card)] border border-[var(--color-border)] rounded-2xl p-6 w-full max-w-md mx-4 shadow-2xl"
+       onClick={(e) => e.stopPropagation()}>
+    <h2 className="text-xl font-semibold text-[var(--color-foreground)] mb-6">
+      모달 제목
+    </h2>
+    {/* content */}
+    <div className="flex gap-3 justify-end mt-6">
+      <button className={secondaryBtn}>취소</button>
+      <button className={primaryBtn}>저장</button>
+    </div>
+  </div>
+</div>`}
+        >
+          <div className="relative rounded-2xl overflow-hidden" style={{ minHeight: "280px" }}>
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center">
+              <div className="bg-[var(--color-card)] border border-[var(--color-border)] rounded-2xl p-6 w-full max-w-sm mx-4 shadow-2xl">
+                <h2 className="text-xl font-semibold text-[var(--color-foreground)] mb-1">사용자 편집</h2>
+                <p className="text-sm text-[var(--color-muted)] font-mono mb-5">admin@example.com</p>
+                <div className="space-y-3">
+                  <div>
+                    <label className="block text-sm font-medium text-[var(--color-foreground)] mb-2">역할</label>
+                    <select className="w-full px-4 py-3 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-foreground)] focus:outline-none focus:border-[var(--color-accent)]">
+                      <option>최고관리자</option>
+                      <option>운영자</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="flex gap-3 justify-between mt-5">
+                  <button className="px-4 py-2.5 text-red-400 border border-red-500/30 rounded-lg hover:bg-red-500/10 transition-colors text-sm">삭제</button>
+                  <div className="flex gap-3">
+                    <button className="px-4 py-2.5 border border-[var(--color-border)] text-[var(--color-foreground)] rounded-lg hover:bg-[var(--color-card-hover)] transition-colors text-sm">취소</button>
+                    <button className="px-4 py-2.5 bg-gradient-to-r from-[var(--color-brand-blue)] to-[var(--color-brand-cyan)] text-[var(--color-background)] font-medium rounded-lg hover:opacity-90 transition-opacity text-sm">저장</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ComponentPreview>
+
+        <ComponentPreview
+          name="Admin Form"
+          description="관리자 폼 입력 요소. 카드 컨테이너 안에 라벨 + 인풋 구조"
+          code={`// Card container
+<div className="p-6 bg-[var(--color-card)] border border-[var(--color-border)] rounded-xl space-y-5">
+  // Label
+  <label className="block text-sm font-medium text-[var(--color-foreground)] mb-2">
+    필드명
+  </label>
+  // Text input
+  <input className="w-full px-4 py-3 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-foreground)] focus:outline-none focus:border-[var(--color-accent)]" />
+  // Search input
+  <input className="w-full px-4 py-3 bg-[var(--color-card)] border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-[var(--color-accent)] text-[var(--color-foreground)] placeholder:text-[var(--color-muted)]/50" />
+</div>`}
+        >
+          <div className="p-6 bg-[var(--color-card)] border border-[var(--color-border)] rounded-xl space-y-5">
+            <div>
+              <h2 className="text-lg font-medium text-[var(--color-foreground)]">섹션 제목</h2>
+              <p className="text-sm text-[var(--color-muted)] mt-1">섹션에 대한 설명 텍스트입니다.</p>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-[var(--color-foreground)] mb-2">텍스트 입력</label>
+              <input type="text" placeholder="입력하세요..." className="w-full px-4 py-3 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-foreground)] placeholder:text-[var(--color-muted)]/50 focus:outline-none focus:border-[var(--color-accent)]" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-[var(--color-foreground)] mb-2">선택</label>
+              <select className="w-full px-4 py-3 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-[var(--color-foreground)] focus:outline-none focus:border-[var(--color-accent)]">
+                <option>옵션 1</option>
+                <option>옵션 2</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-[var(--color-foreground)] mb-2">검색 (카드 배경)</label>
+              <input type="text" placeholder="이름, 이메일로 검색..." className="w-full px-4 py-3 bg-[var(--color-card)] border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-[var(--color-accent)] text-[var(--color-foreground)] placeholder:text-[var(--color-muted)]/50" />
+            </div>
+          </div>
+        </ComponentPreview>
+
+        <ComponentPreview
+          name="Role Badges"
+          description="사용자 역할별 색상 뱃지"
+          code={`<span className="inline-flex px-2.5 py-1 rounded-full text-xs font-medium bg-red-500/20 text-red-400">
+  최고관리자
+</span>
+<span className="... bg-orange-500/20 text-orange-400">고객관리자</span>
+<span className="... bg-blue-500/20 text-blue-400">운영자</span>
+<span className="... bg-gray-500/20 text-gray-400">뷰어</span>`}
+        >
+          <div className="flex flex-wrap gap-3 items-center">
+            <span className="inline-flex px-2.5 py-1 rounded-full text-xs font-medium bg-red-500/20 text-red-400">최고관리자 (SUPER_ADMIN)</span>
+            <span className="inline-flex px-2.5 py-1 rounded-full text-xs font-medium bg-orange-500/20 text-orange-400">고객관리자 (CUSTOMER_ADMIN)</span>
+            <span className="inline-flex px-2.5 py-1 rounded-full text-xs font-medium bg-blue-500/20 text-blue-400">운영자 (OPERATOR)</span>
+            <span className="inline-flex px-2.5 py-1 rounded-full text-xs font-medium bg-gray-500/20 text-gray-400">뷰어 (VIEWER)</span>
+          </div>
+        </ComponentPreview>
+
+        <ComponentPreview
+          name="Status Badges"
+          description="상태별 색상 뱃지 (문의, 게이트웨이 등)"
+          code={`<span className="inline-flex px-2.5 py-1 rounded-full text-xs font-medium bg-yellow-500/20 text-yellow-400">대기</span>
+<span className="... bg-blue-500/20 text-blue-400">확인</span>
+<span className="... bg-green-500/20 text-green-400">완료</span>`}
+        >
+          <div className="space-y-4">
+            <div>
+              <p className="text-xs text-[var(--color-muted)] mb-3 uppercase tracking-wider">문의 상태</p>
+              <div className="flex flex-wrap gap-3">
+                <span className="inline-flex px-2.5 py-1 rounded-full text-xs font-medium bg-yellow-500/20 text-yellow-400">대기 (PENDING)</span>
+                <span className="inline-flex px-2.5 py-1 rounded-full text-xs font-medium bg-blue-500/20 text-blue-400">확인 (READ)</span>
+                <span className="inline-flex px-2.5 py-1 rounded-full text-xs font-medium bg-green-500/20 text-green-400">답변완료 (REPLIED)</span>
+              </div>
+            </div>
+            <div>
+              <p className="text-xs text-[var(--color-muted)] mb-3 uppercase tracking-wider">수량 뱃지</p>
+              <div className="flex flex-wrap gap-3">
+                <span className="inline-flex px-2 py-0.5 rounded-md text-xs font-medium bg-[var(--color-brand-blue)]/10 text-[var(--color-brand-blue)]">12 사용자</span>
+                <span className="inline-flex px-2 py-0.5 rounded-md text-xs font-medium bg-[var(--color-accent)]/10 text-[var(--color-accent)]">8 게이트웨이</span>
+              </div>
+            </div>
+          </div>
+        </ComponentPreview>
+
+        <ComponentPreview
+          name="Preset Selector"
+          description="프리셋 선택 버튼 그룹 (세션 기간 등). 선택/미선택 상태 구분"
+          code={`// Selected
+<button className="px-3.5 py-2 rounded-lg text-sm font-medium border transition-all border-[var(--color-accent)] bg-[var(--color-accent)]/10 text-[var(--color-accent)]">
+  30일
+</button>
+// Unselected
+<button className="px-3.5 py-2 rounded-lg text-sm font-medium border transition-all border-[var(--color-border)] text-[var(--color-muted)] hover:border-[var(--color-muted)]/50 hover:text-[var(--color-foreground)]">
+  7일
+</button>`}
+        >
+          <div className="p-6 bg-[var(--color-card)] border border-[var(--color-border)] rounded-xl space-y-4">
+            <label className="block text-sm font-medium text-[var(--color-foreground)] mb-3">세션 유지 기간</label>
+            <div className="flex flex-wrap gap-2">
+              <button className="px-3.5 py-2 rounded-lg text-sm font-medium border transition-all border-[var(--color-border)] text-[var(--color-muted)] hover:border-[var(--color-muted)]/50 hover:text-[var(--color-foreground)]">1일</button>
+              <button className="px-3.5 py-2 rounded-lg text-sm font-medium border transition-all border-[var(--color-border)] text-[var(--color-muted)] hover:border-[var(--color-muted)]/50 hover:text-[var(--color-foreground)]">7일</button>
+              <button className="px-3.5 py-2 rounded-lg text-sm font-medium border transition-all border-[var(--color-accent)] bg-[var(--color-accent)]/10 text-[var(--color-accent)]">30일</button>
+              <button className="px-3.5 py-2 rounded-lg text-sm font-medium border transition-all border-[var(--color-border)] text-[var(--color-muted)] hover:border-[var(--color-muted)]/50 hover:text-[var(--color-foreground)]">90일</button>
+              <button className="px-3.5 py-2 rounded-lg text-sm font-medium border transition-all border-[var(--color-border)] text-[var(--color-muted)] hover:border-[var(--color-muted)]/50 hover:text-[var(--color-foreground)]">365일</button>
+            </div>
+            <div className="flex items-center gap-3">
+              <input type="number" defaultValue={30} className="w-24 px-4 py-3 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg text-center text-[var(--color-foreground)] focus:outline-none focus:border-[var(--color-accent)]" />
+              <span className="text-sm text-[var(--color-muted)]">일</span>
             </div>
           </div>
         </ComponentPreview>

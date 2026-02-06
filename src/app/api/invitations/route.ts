@@ -1,15 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@/lib/auth";
+import { getAdminSession, Role } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { generateToken } from "@/lib/crypto";
+import { isSesConfigured, sendInvitationEmail } from "@/lib/email";
 
 export async function POST(request: NextRequest) {
-  const session = await auth();
-  if (!session || session.user.role !== "ADMIN") {
+  const session = await getAdminSession();
+  if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { customerId, role = "USER", expiresInDays = 7 } = await request.json();
+  const { customerId, role = Role.OPERATOR, expiresInDays = 7, email, sendEmail } =
+    await request.json();
 
   const customer = await prisma.customer.findUnique({ where: { id: customerId } });
   if (!customer) {
@@ -31,5 +33,16 @@ export async function POST(request: NextRequest) {
 
   const inviteUrl = `${process.env.NEXTAUTH_URL}/signup/${invitation.token}`;
 
-  return NextResponse.json({ invitation, inviteUrl });
+  // Send invitation email if requested and SES is configured
+  let emailSent = false;
+  if (sendEmail && email && isSesConfigured()) {
+    try {
+      await sendInvitationEmail(email, inviteUrl, customer.name);
+      emailSent = true;
+    } catch {
+      // Email send failed, but invitation was created successfully
+    }
+  }
+
+  return NextResponse.json({ invitation, inviteUrl, emailSent });
 }

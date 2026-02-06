@@ -1,16 +1,16 @@
 export const siteConfig = {
   name: "Nodi",
-  tagline: "Bring your nodes into the box",
+  tagline: "Node Integration",
   title: "Nodi | Industrial Edge Gateway Platform",
   description: "Connect, monitor, and control your industrial devices from anywhere.",
 
   company: {
-    name: "Nodi",
+    name: "Nodi Inc.",
     legalName: "(주)노디",
-    address: "서울특별시 강남구 테헤란로 123, 456호",
-    phone: "+82-2-1234-5678",
+    address: "(16976) 경기도 용인시 기흥구 기흥로 58-1 (구갈동), 기흥ICT밸리 A동 1881호",
+    phone: "+82-31-000-0000",
     email: "contact@nodi.co.kr",
-    businessNumber: "123-45-67890",
+    businessNumber: "787-87-02955",
   },
 
   logo: {

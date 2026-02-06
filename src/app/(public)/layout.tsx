@@ -20,14 +20,14 @@ export default function PublicLayout({
           <div className="grid gap-6 md:grid-cols-[1fr_auto] items-start">
             {/* Left: Logo, Tagline & Copyright */}
             <div className="space-y-1">
-              <Link href="/" className="text-xl font-bold tracking-tight">
-                {siteConfig.name}
-              </Link>
+              <span className="text-xl font-bold tracking-tight">
+                {company.name}
+              </span>
               <p className="text-sm text-[var(--color-muted)]">
                 {tagline}
               </p>
               <p className="text-xs text-[var(--color-muted)]">
-                &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
+                &copy; {new Date().getFullYear()} {company.name}. All rights reserved.
               </p>
             </div>
 
@@ -35,8 +35,6 @@ export default function PublicLayout({
             <div className="text-sm text-[var(--color-muted)] space-y-1 md:text-right">
               <p>{company.address}</p>
               <p>
-                <a href={`tel:${company.phone}`} className="hover:text-[var(--color-foreground)] transition-colors">{company.phone}</a>
-                {" | "}
                 <a href={`mailto:${company.email}`} className="hover:text-[var(--color-foreground)] transition-colors">{company.email}</a>
               </p>
               <p>사업자등록번호: {company.businessNumber}</p>

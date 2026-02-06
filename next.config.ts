@@ -6,6 +6,15 @@ const nextConfig: NextConfig = {
     root: path.resolve(__dirname),
   },
   allowedDevOrigins: ["http://192.168.45.123:20301"],
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+        pathname: "/**",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

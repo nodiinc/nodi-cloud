@@ -1,7 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import {
+  Button,
+  PageHeader,
+  Card,
+  Input,
+  IconBox,
+  SectionTitle,
+  Body,
+  CheckIcon,
+} from "@/components/ui";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -41,23 +50,12 @@ export default function ContactPage() {
     return (
       <div className="min-h-[60vh] flex items-center justify-center px-6">
         <div className="text-center max-w-md">
-          <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-[var(--color-brand-blue)]/20 to-[var(--color-brand-cyan)]/20">
-            <svg className="h-8 w-8 text-[var(--color-accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-            </svg>
-          </div>
-          <h1 className="text-2xl font-semibold text-[var(--color-foreground)] mb-3">
-            문의가 접수되었습니다
-          </h1>
-          <p className="text-[var(--color-muted)] mb-8">
-            빠른 시일 내에 답변 드리겠습니다.
-          </p>
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[var(--color-brand-blue)] to-[var(--color-brand-cyan)] px-6 py-3 text-sm font-semibold text-[var(--color-background)] transition-opacity hover:opacity-90"
-          >
-            홈으로 돌아가기
-          </Link>
+          <IconBox size="xl" variant="gradient" className="mx-auto mb-6">
+            <CheckIcon className="w-8 h-8" />
+          </IconBox>
+          <SectionTitle className="mb-3">문의가 접수되었습니다</SectionTitle>
+          <Body className="mb-8">빠른 시일 내에 답변 드리겠습니다.</Body>
+          <Button href="/">홈으로 돌아가기</Button>
         </div>
       </div>
     );
@@ -66,76 +64,62 @@ export default function ContactPage() {
   return (
     <div className="py-24 px-6">
       <div className="mx-auto max-w-lg">
-        <div className="text-center mb-10">
-          <p className="mb-4 text-base font-medium uppercase tracking-widest text-[var(--color-accent)]">
-            Contact
-          </p>
-          <h1 className="text-3xl font-semibold tracking-tight text-[var(--color-foreground)] md:text-4xl">
-            문의하기
-          </h1>
-          <p className="mt-4 text-[var(--color-muted)]">
-            궁금한 점이 있으시면 언제든 문의해 주세요
-          </p>
-        </div>
+        <PageHeader
+          badge="Contact"
+          title="문의하기"
+          description="궁금한 점이 있으시면 언제든 문의해 주세요"
+        />
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-[var(--color-foreground)] mb-2">
-              이름
-            </label>
-            <input
-              type="text"
+        <Card size="lg" className="p-8">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <Input
+              label="이름"
               id="name"
+              type="text"
               required
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] px-4 py-3 text-[var(--color-foreground)] placeholder:text-[var(--color-muted)] focus:border-[var(--color-accent)] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)] transition-colors"
               placeholder="홍길동"
             />
-          </div>
 
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-[var(--color-foreground)] mb-2">
-              이메일
-            </label>
-            <input
-              type="email"
+            <Input
+              label="이메일"
               id="email"
+              type="email"
               required
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] px-4 py-3 text-[var(--color-foreground)] placeholder:text-[var(--color-muted)] focus:border-[var(--color-accent)] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)] transition-colors"
               placeholder="example@company.com"
             />
-          </div>
 
-          <div>
-            <label htmlFor="message" className="block text-sm font-medium text-[var(--color-foreground)] mb-2">
-              문의 내용
-            </label>
-            <textarea
-              id="message"
-              required
-              rows={5}
-              value={formData.message}
-              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-              className="w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] px-4 py-3 text-[var(--color-foreground)] placeholder:text-[var(--color-muted)] focus:border-[var(--color-accent)] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)] transition-colors resize-none"
-              placeholder="문의하실 내용을 입력해 주세요"
-            />
-          </div>
+            <div>
+              <label htmlFor="message" className="block text-sm font-medium text-[var(--color-foreground)] mb-2">
+                문의 내용
+              </label>
+              <textarea
+                id="message"
+                required
+                rows={5}
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                className="w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] px-4 py-3 text-[var(--color-foreground)] placeholder:text-[var(--color-muted)] focus:border-[var(--color-accent)] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)] transition-colors resize-none"
+                placeholder="문의하실 내용을 입력해 주세요"
+              />
+            </div>
 
-          {status === "error" && (
-            <p className="text-sm text-red-500">{errorMessage}</p>
-          )}
+            {status === "error" && (
+              <p className="text-sm text-red-500">{errorMessage}</p>
+            )}
 
-          <button
-            type="submit"
-            disabled={status === "loading"}
-            className="w-full rounded-xl bg-gradient-to-r from-[var(--color-brand-blue)] to-[var(--color-brand-cyan)] px-6 py-3.5 text-sm font-semibold text-[var(--color-background)] transition-opacity hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {status === "loading" ? "접수 중..." : "문의 접수"}
-          </button>
-        </form>
+            <button
+              type="submit"
+              disabled={status === "loading"}
+              className="w-full rounded-full bg-gradient-to-r from-[var(--color-brand-blue)] to-[var(--color-brand-cyan)] px-6 py-3.5 text-sm font-semibold text-[var(--color-background)] transition-opacity hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {status === "loading" ? "접수 중..." : "문의 접수"}
+            </button>
+          </form>
+        </Card>
       </div>
     </div>
   );
